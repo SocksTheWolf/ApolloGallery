@@ -1,7 +1,23 @@
-# Pineapple Gallery
+# Pineapple Gallery 🍍
 
 ## Description
-Pineapple Gallery is a web application for managing and displaying galleries of images. It is built using React and leverages Cloudflare Workers and D1 for backend services.
+Pineapple Gallery is a web application for managing and displaying galleries of images. 📸 It is built using **Hono** and leverages **Cloudflare Workers**, **D1**, and **R2** for backend services. 🚀
+
+### Features
+- **User-Friendly Interface**: Easy to navigate and manage galleries. 🌟
+- **Cloudflare Integration**: Utilizes Cloudflare Workers, D1, and R2 for efficient and scalable backend operations. 🌐
+- **Multi-Language Support**: Supports multiple languages for a global audience. 🌍
+- **Admin Panel**: Comprehensive admin panel for managing galleries, images, and translations. 🛠️
+
+### Tech Stack
+- **Frontend**: Hono (with server-side rendering)
+- **Backend**: Hono, Cloudflare Workers
+- **Database**: Cloudflare D1
+- **Storage**: Cloudflare R2
+
+### Server-Side Rendering (SSR)
+- **Main Route**: The main route (`/`) is server-side rendered, generating HTML on the server for dynamic content.
+- **Admin Routes**: The admin routes (`/admin/*`) are also server-side rendered, providing a dynamic and responsive admin panel.
 
 ## Table of Contents
 - [Quick Start](#quick-start)
@@ -85,8 +101,5 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contributing
 
-Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+Contributions are welcome!
 
-## Support
-
-If you encounter any issues or have questions, please open an issue on the [GitHub Issues](https://github.com/yourusername/pineappleGallery/issues) page.
