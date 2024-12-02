@@ -27,7 +27,6 @@ Pineapple Gallery is a web application for managing and displaying galleries of 
 - [Deployment](#deployment)
 - [License](#license)
 - [Contributing](#contributing)
-- [Support](#support)
 
 ## Quick Start
 
@@ -97,4 +96,3 @@ This project is licensed under the [MIT License](LICENSE).
 ## Contributing
 
 Contributions are welcome!
-
