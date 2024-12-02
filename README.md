@@ -47,8 +47,8 @@ Before you start, you need the following:
 ### Setup
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/pineappleGallery.git
-   cd pineappleGallery
+   git clone https://github.com/yourusername/PineappleGallery.git
+   cd PineappleGallery
    ```
 
 2. Install dependencies:
