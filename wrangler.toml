@@ -1,0 +1,14 @@
+name = "pineapplegallery"
+compatibility_date = "2024-11-27"
+pages_build_output_dir = "./dist"
+compatibility_flags = [ "nodejs_compat" ]
+
+
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "pineapplegallery-bucket"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "pineapplegallery-database"
+database_id = "7b063da3-9099-44c1-ade3-b1bc0e91389a"

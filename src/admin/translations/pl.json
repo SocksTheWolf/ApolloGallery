@@ -1,0 +1,20 @@
+{
+  "title": "Nowa Galeria",
+  "breadcrumb_admin": "admin",
+  "breadcrumb_new_gallery": "Nowa Galeria",
+  "card_header": "Utwórz nową galerię",
+  "gallery_name_label": "Nazwa galerii",
+  "gallery_name_placeholder": "Wprowadź nazwę galerii",
+  "gallery_table_name_label": "Nazwa tabeli galerii",
+  "gallery_table_name_placeholder": "Wprowadź unikalną nazwę tabeli",
+  "description_label": "Opis",
+  "description_placeholder": "Dodatkowy opis galerii",
+  "cover_image_label": "Zdjęcie okładkowe",
+  "cover_image_placeholder": "URL zdjęcia okładkowego",
+  "party_date_label": "Data imprezy",
+  "publication_date_label": "Data publikacji",
+  "gallery_visibility_label": "Widoczność galerii",
+  "gallery_visibility_public": "Publiczna",
+  "gallery_visibility_private": "Prywatna",
+  "save_gallery_button": "Zapisz galerię"
+}

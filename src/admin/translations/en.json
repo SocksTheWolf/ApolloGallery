@@ -1,0 +1,20 @@
+{
+  "title": "New Gallery",
+  "breadcrumb_admin": "admin",
+  "breadcrumb_new_gallery": "New Gallery",
+  "card_header": "Create a new gallery",
+  "gallery_name_label": "Gallery Name",
+  "gallery_name_placeholder": "Enter gallery name",
+  "gallery_table_name_label": "Gallery Table Name",
+  "gallery_table_name_placeholder": "Enter unique table name",
+  "description_label": "Description",
+  "description_placeholder": "Additional gallery description",
+  "cover_image_label": "Cover Image",
+  "cover_image_placeholder": "URL of cover image",
+  "party_date_label": "Event Date",
+  "publication_date_label": "Publication Date",
+  "gallery_visibility_label": "Gallery Visibility",
+  "gallery_visibility_public": "Public",
+  "gallery_visibility_private": "Private",
+  "save_gallery_button": "Save gallery"
+}
