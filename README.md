@@ -7,7 +7,7 @@ Pineapple Gallery is a web application for managing and displaying galleries of 
 - **User-Friendly Interface**: Easy to navigate and manage galleries. 🌟
 - **Cloudflare Integration**: Utilizes Cloudflare Workers, D1, and R2 for efficient and scalable backend operations. 🌐
 - **Multi-Language Support**: Supports multiple languages for a global audience. 🌍
-- **Admin Panel**: Comprehensive admin panel for managing galleries, images, and translations. 🛠️
+- **Admin Panel**: Comprehensive admin panel for managing galleries and images 🛠️
 
 ### Tech Stack
 - **Frontend**: Hono (with server-side rendering)
