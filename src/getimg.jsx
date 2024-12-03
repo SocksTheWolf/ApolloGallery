@@ -7,7 +7,7 @@ export async function handleGetImage(c) {
       return c.text("Invalid Image Path", 400);
     }
 
-    const object = await c.env.TROPICANA_IMAGES_BUCKET.get(imgPath);
+    const object = await c.env.R2.get(imgPath);
 
     if (object === null) {
       return c.text("Image Not Found", 404);

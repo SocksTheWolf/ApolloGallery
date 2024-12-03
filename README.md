@@ -46,7 +46,7 @@ Before you start, you need the following:
 ### Setup
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/PineappleGallery.git
+   git clone https://github.com/Endriur24/PineappleGallery.git
    cd PineappleGallery
    ```
 
