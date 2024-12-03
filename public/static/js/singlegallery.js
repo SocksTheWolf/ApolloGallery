@@ -1,160 +1,223 @@
 import { sha256 } from "/static/js/crypto-hash/browser.js";
 
-const fileInput = document.getElementById('fileInput');
-const submitButton = document.getElementById('submit');
-const progressBar = document.getElementById('progress-bar');
-const uploadErrorBox = document.getElementById('upload-error');
-const uploadCurrentFile = document.getElementById('curent-counter');
-const uploadMaxFile = document.getElementById('max-counter');
+const CONCURRENT_UPLOAD_LIMIT = 5;
 
-// Configurable concurrency limit
-const CONCURRENT_UPLOAD_LIMIT = 3;
+class FileUploader {
+    constructor(config) {
+        this.fileInput = config.fileInput;
+        this.submitButton = config.submitButton;
+        this.progressBar = config.progressBar;
+        this.uploadErrorBox = config.uploadErrorBox;
+        this.currentFileCounter = config.currentFileCounter;
+        this.maxFileCounter = config.maxFileCounter;
 
-let fileList = [];
+        this.fileList = [];
+        this.setupEventListeners();
+    }
 
-fileInput.addEventListener('change', () => {
-    fileList = Array.from(fileInput.files);
-    console.log(fileList);
-});
-
-const sendFile = async (file) => {
-    const { width, height } = await imageSize(file);
-    const hash = await imageHash(file);
-    console.log(`width: ${width} height: ${height}`);
-    console.log(hash);
-    return await makeRequest(file, width, height, hash);
-};
-
-const makeRequest = async (file, width, height, hash) => {
-    const formData = new FormData();
-    formData.append('file', file, file.name);
-    formData.append('width', width);
-    formData.append('height', height);
-    formData.append('hash', hash);
-    const currentPath = window.location.pathname;
-    
-    try {
-        const response = await fetch(`${currentPath}/upload`, {
-            method: 'POST',
-            body: formData
+    setupEventListeners() {
+        this.fileInput.addEventListener('change', () => {
+            this.fileList = Array.from(this.fileInput.files);
         });
-        const responseData = await response.json();
-        console.log("Backend response: " + JSON.stringify(responseData));
-        
-        if (!responseData.DB.success) {
-            throw new Error(`Upload failed: ${responseData.DB.error}`);
+
+        this.submitButton.addEventListener('click', this.handleSubmit.bind(this));
+    }
+
+    async handleSubmit(event) {
+        event.preventDefault();
+        this.resetUploadState();
+
+        try {
+            const results = await this.uploadFiles(
+                this.fileList, 
+                CONCURRENT_UPLOAD_LIMIT, 
+                this.createCompletionCallback()
+            );
+        } catch (error) {
+            console.error("Batch upload failed:", error);
         }
+    }
 
-        return {
-            'success': true,
-            'message': 'Your upload is successful'
-        };
-    } catch (error) {
-        return {
-            'success': false,
-            'message': error.message
+    resetUploadState() {
+        this.progressBar.setAttribute("aria-valuemax", this.fileList.length);
+        this.maxFileCounter.innerText = this.fileList.length;
+        this.uploadErrorBox.innerHTML = '';
+    }
+
+    createCompletionCallback() {
+        return (results) => {
+            const successfulUploads = results.filter(r => r.success);
+            const failedUploads = results.filter(r => !r.success);
+
+            this.logUploadSummary(results);
+            this.displayUploadNotification(successfulUploads, results);
         };
     }
-};
 
-// Async upload with concurrency control
-const uploadFilesWithConcurrency = async (files, concurrencyLimit) => {
-    const results = [];
-    const uploadQueue = [...files];
-    const activeUploads = new Set();
+    logUploadSummary(results) {
+        console.log(`Upload complete: 
+            Total files: ${results.length}
+            Successful uploads: ${results.filter(r => r.success).length}
+            Failed uploads: ${results.filter(r => !r.success).length}
+        `);
+    }
 
-    const updateProgress = (currentUpload, totalFiles) => {
-        progressBar.setAttribute("aria-valuenow", currentUpload);
-        progressBar.setAttribute("style", `width:${(currentUpload / totalFiles) * 100}%`);
-        progressBar.innerText = currentUpload;
-        uploadCurrentFile.innerText = currentUpload;
-    };
+    displayUploadNotification(successfulUploads, results) {
+        if (successfulUploads.length === results.length) {
+            alert('All files uploaded successfully!');
+        } else if (successfulUploads.length > 0) {
+            alert(`${successfulUploads.length} out of ${results.length} files uploaded successfully`);
+        } else {
+            alert('No files were uploaded successfully');
+        }
+    }
 
-    return new Promise((resolve, reject) => {
-        const uploadNext = async () => {
-            // If no more files to upload, resolve when all active uploads complete
-            if (uploadQueue.length === 0 && activeUploads.size === 0) {
-                resolve(results);
-                return;
+    async uploadFiles(files, concurrencyLimit, onCompletedCallback = null) {
+        const results = [];
+        const uploadQueue = [...files];
+        const activeUploads = new Set();
+
+        return new Promise((resolve) => {
+            const uploadNext = async () => {
+                if (uploadQueue.length === 0 && activeUploads.size === 0) {
+                    this.finalizeUpload(results, onCompletedCallback);
+                    resolve(results);
+                    return;
+                }
+
+                if (activeUploads.size >= concurrencyLimit) return;
+
+                if (uploadQueue.length > 0) {
+                    const file = uploadQueue.shift();
+                    const uploadPromise = this.processFile(file, results)
+                        .finally(() => {
+                            activeUploads.delete(uploadPromise);
+                            this.updateProgress(results.length, files.length);
+                            uploadNext();
+                        });
+
+                    activeUploads.add(uploadPromise);
+                }
+
+                while (activeUploads.size < concurrencyLimit && uploadQueue.length > 0) {
+                    uploadNext();
+                }
+            };
+
+            uploadNext();
+        });
+    }
+
+    async processFile(file, results) {
+        try {
+            const { width, height } = await this.getImageSize(file);
+            const hash = await this.generateImageHash(file);
+            const result = await this.uploadFile(file, width, height, hash);
+            results.push(result);
+
+            if (!result.success) {
+                this.uploadErrorBox.innerHTML += 
+                    `<li>Failed to upload: ${file.name} | ${result.message}</li>`;
+            }
+        } catch (error) {
+            console.error("Upload error:", error);
+            results.push({
+                success: false,
+                message: error.message,
+                filename: file.name
+            });
+        }
+    }
+
+    finalizeUpload(results, onCompletedCallback) {
+        if (typeof onCompletedCallback === 'function') {
+            try {
+                onCompletedCallback(results);
+            } catch (callbackError) {
+                console.error("Upload completion callback error:", callbackError);
+            }
+        }
+    }
+
+    updateProgress(currentUpload, totalFiles) {
+        this.progressBar.setAttribute("aria-valuenow", currentUpload);
+        this.progressBar.setAttribute("style", `width:${(currentUpload / totalFiles) * 100}%`);
+        this.progressBar.innerText = currentUpload;
+        this.currentFileCounter.innerText = currentUpload;
+    }
+
+    async uploadFile(file, width, height, hash) {
+        const formData = new FormData();
+        formData.append('file', file, file.name);
+        formData.append('width', width);
+        formData.append('height', height);
+        formData.append('hash', hash);
+        const currentPath = window.location.pathname;
+        
+        try {
+            const response = await fetch(`${currentPath}/upload`, {
+                method: 'POST',
+                body: formData
+            });
+            const responseData = await response.json();
+            
+            if (!responseData.DB.success) {
+                throw new Error(`Upload failed: ${responseData.DB.error}`);
             }
 
-            // If we've hit concurrency limit, wait
-            if (activeUploads.size >= concurrencyLimit) {
-                return;
-            }
+            return {
+                success: true,
+                message: 'Upload successful',
+                filename: file.name
+            };
+        } catch (error) {
+            return {
+                success: false,
+                message: error.message,
+                filename: file.name
+            };
+        }
+    }
 
-            // If files remain in queue
-            if (uploadQueue.length > 0) {
-                const file = uploadQueue.shift();
-                const uploadPromise = sendFile(file)
-                    .then(result => {
-                        results.push(result);
-                        updateProgress(results.length, files.length);
+    async getImageSize(image) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => resolve({ width: img.width, height: img.height });
+                img.onerror = reject;
+                img.src = event.target.result;
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(image);
+        });
+    }
 
-                        if (!result.success) {
-                            uploadErrorBox.innerHTML += `<li>Failed to upload: ${file.name} | ${result.message}</li>`;
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Upload error:", error);
-                        uploadErrorBox.innerHTML += `<li>Failed to upload: ${file.name} | ${error.message}</li>`;
-                    })
-                    .finally(() => {
-                        activeUploads.delete(uploadPromise);
-                        uploadNext(); // Trigger next upload
-                    });
+    async generateImageHash(image) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = async (event) => {
+                try {
+                    const hash = await sha256(event.target.result);
+                    resolve(hash);
+                } catch (error) {
+                    reject(error);
+                }
+            };
+            reader.onerror = reject;
+            reader.readAsArrayBuffer(image);
+        });
+    }
+}
 
-                activeUploads.add(uploadPromise);
-            }
-
-            // Start more uploads if possible
-            while (activeUploads.size < concurrencyLimit && uploadQueue.length > 0) {
-                uploadNext();
-            }
-        };
-
-        // Initial trigger
-        uploadNext();
+// Usage
+document.addEventListener('DOMContentLoaded', () => {
+    const uploader = new FileUploader({
+        fileInput: document.getElementById('fileInput'),
+        submitButton: document.getElementById('submit'),
+        progressBar: document.getElementById('progress-bar'),
+        uploadErrorBox: document.getElementById('upload-error'),
+        currentFileCounter: document.getElementById('curent-counter'),
+        maxFileCounter: document.getElementById('max-counter')
     });
-};
-
-submitButton.addEventListener('click', async function (event) {
-    event.preventDefault();
-    
-    // Reset progress and error states
-    progressBar.setAttribute("aria-valuemax", fileList.length);
-    uploadMaxFile.innerText = fileList.length;
-    uploadErrorBox.innerHTML = ''; // Clear previous errors
-    
-    try {
-        await uploadFilesWithConcurrency(fileList, CONCURRENT_UPLOAD_LIMIT);
-    } catch (error) {
-        console.error("Batch upload failed:", error);
-    }
 });
-
-async function imageHash(image) {
-    const fileReader = new FileReader();
-    const bufferArray = await new Promise((resolve, reject) => {
-        fileReader.onload = () => resolve(fileReader.result);
-        fileReader.onerror = reject;
-        fileReader.readAsArrayBuffer(image);
-    });
-    return await sha256(bufferArray);
-}
-
-async function imageSize(image) {
-    const fileResult = await new Promise((resolve, reject) => {
-        const fileReader = new FileReader();
-        fileReader.onload = () => resolve(fileReader.result);
-        fileReader.onerror = reject;
-        fileReader.readAsDataURL(image);
-    });
-
-    return await new Promise((resolve, reject) => {
-        const img = new Image();
-        img.onload = () => resolve({ width: img.width, height: img.height });
-        img.onerror = reject;
-        img.src = fileResult;
-    });
-}
