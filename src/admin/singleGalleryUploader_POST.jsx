@@ -1,5 +1,3 @@
-import { addImageToIndywidualGallery } from "./db"
-
 export const imageUploader = async (c) => {
     const galleryName = c.req.param("galeryTableName");
     const formData = await c.req.parseBody();
@@ -12,6 +10,16 @@ export const imageUploader = async (c) => {
         return c.text('Invalid file', 400);
     }
 
+    // Check file size first
+    if (file.size > 100 * 1024 * 1024) { // 100MB limit
+        return c.json({
+            'DB': {
+                'success': false,
+                'error': 'File too large. Maximum 100MB allowed.'
+            }
+        });
+    }
+
     const fileBuffer = await file.arrayBuffer();
     const fullName = file.name;
     const ext = fullName.split('.').pop();
@@ -20,12 +28,26 @@ export const imageUploader = async (c) => {
     const path = `galleries/${galleryName}/${newName}.${ext}`;
 
     try {
-        const { success } = await addImageToIndywidualGallery(c, galleryName, orgName, width, height, hash, path);
+        // First, upload to R2
+        const r2Response = await c.env.R2.put(path, fileBuffer);
+
+        // Only if R2 upload succeeds, add to database
+        const { success } = await addImageToIndywidualGallery(
+            c, 
+            galleryName, 
+            orgName, 
+            width, 
+            height, 
+            hash, 
+            path
+        );
+
         if (!success) {
-            throw new Error("Błąd podczas zapisu do bazy danych");
+            // Rollback R2 upload if database insert fails
+            await c.env.R2.delete(path);
+            throw new Error("Database insert failed");
         }
 
-        const r2Response = await c.env.R2.put(path, fileBuffer);
         return c.json({
             'image': {
                 'url': r2Response.key
@@ -36,6 +58,9 @@ export const imageUploader = async (c) => {
             }
         });
     } catch (error) {
+        // Additional logging for debugging
+        console.error('Upload error:', error);
+
         return c.json({
             'image': {
                 'url': null

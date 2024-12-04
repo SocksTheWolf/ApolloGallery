@@ -187,6 +187,7 @@ const SingleGalery = (props) => {
                     src={`../getimg/${image.path}`} 
                     className="card-img-top" 
                     alt={image.name}
+                    loading="lazy"
                   />
                   <div className="card-body">
                     <h5 className="card-title">{image.name}</h5>
@@ -202,7 +203,6 @@ const SingleGalery = (props) => {
     </Layout>
   );
 };
-
 
 export const handleSingleGallery = async (c) => {
   const galeryTableName = c.req.param("galeryTableName");

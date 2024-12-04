@@ -26,6 +26,7 @@ export const Gallery = ({ gallery, images }) => (
                   src={`/getimg/${image.path}`}
                   alt={image.name}
                   className="gallery-image img-fluid"
+                  loading="lazy"
                 />
               </div>
             </div>
