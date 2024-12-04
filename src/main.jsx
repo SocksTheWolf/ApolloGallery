@@ -1,8 +1,8 @@
 import { Layout } from "./layout";
-import { getGalleriesFromD1 } from "./admin/db";
+import { getGalleriesFromD1wGalleryIsPublic } from "./admin/db";
 
 export const main = async (c) => {
-  const galleriesResponse = await getGalleriesFromD1(c);
+  const galleriesResponse = await getGalleriesFromD1wGalleryIsPublic(c);
 
   // in case of error or while initial run
   if (typeof galleriesResponse === 'string') {

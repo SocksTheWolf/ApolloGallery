@@ -1,7 +1,11 @@
 export const getGalleriesFromD1 = async (c) => {
+    return await c.env.DB.prepare("SELECT * FROM Galleries").all();
+};
+
+export const getGalleriesFromD1wGalleryIsPublic = async (c) => {
   try {
     // Attempt to fetch data from the Galleries table
-    const galleries = await c.env.DB.prepare("SELECT * FROM Galleries").all();
+    const galleries = await c.env.DB.prepare('SELECT * FROM Galleries WHERE GalleryIsPublic = "TRUE"').all();
     return galleries;
   } catch (error) {
     console.error("Error fetching galleries:", error.message);
@@ -83,6 +87,10 @@ export const addImageToIndywidualGallery = async (
 
 export const getIndywidualGalleryFromD1 = async (c, gallery) => {
   return await c.env.DB.prepare(`SELECT * FROM ${gallery}`).all();
+};
+
+export const getIndywidualGalleryFromD1wApproved = async (c, gallery) => {
+  return await c.env.DB.prepare(`SELECT * FROM ${gallery} where approved = TRUE`).all();
 };
 
 export const deleteGalleryInBothPlaces = async (c, GalleryTableName) => {

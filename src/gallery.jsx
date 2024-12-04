@@ -1,5 +1,5 @@
 import { Layout } from "./layout";
-import { getGalleriesFromD1, getIndywidualGalleryFromD1 } from "./admin/db";
+import { getGalleriesFromD1, getIndywidualGalleryFromD1wApproved } from "./admin/db";
 
 export const Gallery = ({ gallery, images }) => (
   <Layout title={gallery.GalleryName}>
@@ -46,7 +46,7 @@ export async function handleGalleryRoute(c) {
 
   if (!gallery) return c.notFound();
 
-  const { results: images } = await getIndywidualGalleryFromD1(
+  const { results: images } = await getIndywidualGalleryFromD1wApproved(
     c,
     galleryTableName
   );

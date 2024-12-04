@@ -14,7 +14,8 @@ const autoupdateFields = (e) => {
     .latinise()
     .replace(/[*#%&{}\\<>?\/\s$!'"':@+`|=*]+/g, '_')
     .replace(/[^\w-]/g, '')  // Remove any remaining non-word characters
-    .replace(/_+/g, '_');    // Replace multiple consecutive underscores with a single underscore
+    .replace(/_+/g, '_')     // Replace multiple consecutive underscores with a single underscore
+    .replace(/_+$/g, '');    // Trim trailing underscores
 
   galeryTableNameInput.value = simpleName;
 };
