@@ -7,6 +7,7 @@ export const Layout = (props) => {
         <title>{props.title}</title>
         {/* Bootstrap CSS */}
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"></link>
         <link rel="stylesheet" href="/static/style.css" />
         <script src="https://unpkg.com/htmx.org@1.9.12"></script>
       </head>

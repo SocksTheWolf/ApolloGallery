@@ -8,14 +8,14 @@ export const toggleApproval = async (c) => {
 
     return c.html(`
       <button 
-        className="btn btn-secondary btn-sm"
+        class="btn btn-secondary btn-sm"
         hx-post="/admin/api/toggleApproval?imagePath=${encodeURIComponent(imagePath)}&galleryTableName=${galleryTableName}"
         hx-target="this"
       >
         ${newApproval ? (
-          '<i className="bi bi-check-circle me-2"></i>Zatwierdzone'
+          '<i class="bi bi-check-circle me-2"></i>Zatwierdzone'
         ) : (
-          '<i className="bi bi-x-circle me-2"></i>Nie zatwierdzone'
+          '<i class="bi bi-x-circle me-2"></i>Nie zatwierdzone'
         )}
       </button>
     `);
