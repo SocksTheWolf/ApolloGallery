@@ -25,4 +25,3 @@ admin.post("/:galeryTableName", editSingleGallery);
 admin.post("/:galeryTableName/upload", imageUploader);
   
 admin.delete("/:galeryTableName/delete",deleteSingleGallery);
-

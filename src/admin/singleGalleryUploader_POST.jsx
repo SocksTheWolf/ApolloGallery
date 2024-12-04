@@ -1,3 +1,5 @@
+import { addImageToIndywidualGallery } from './db.js';
+
 export const imageUploader = async (c) => {
     const galleryName = c.req.param("galeryTableName");
     const formData = await c.req.parseBody();
@@ -71,4 +73,4 @@ export const imageUploader = async (c) => {
             }
         });
     }
-}
+};
