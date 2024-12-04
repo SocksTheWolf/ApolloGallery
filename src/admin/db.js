@@ -1,13 +1,13 @@
 export const getGalleriesFromD1 = async (c) => {
-    try {
-      // Attempt to fetch data from the Galleries table
-      const galleries = await c.env.DB.prepare("SELECT * FROM Galleries").all();
-      return galleries;
-    } catch (error) {
-      console.error("Error fetching galleries:", error.message);
-  
-      // Define SQL to create the Galleries table if it doesn't exist
-      const createTableSQL = `
+  try {
+    // Attempt to fetch data from the Galleries table
+    const galleries = await c.env.DB.prepare("SELECT * FROM Galleries").all();
+    return galleries;
+  } catch (error) {
+    console.error("Error fetching galleries:", error.message);
+
+    // Define SQL to create the Galleries table if it doesn't exist
+    const createTableSQL = `
         CREATE TABLE IF NOT EXISTS Galleries (
           GalleryName TEXT,
           GalleryTableName TEXT PRIMARY KEY,
@@ -18,19 +18,17 @@ export const getGalleriesFromD1 = async (c) => {
           GalleryIsPublic BOOLEAN
         );
       `;
-  
-      try {
-        // Attempt to create the Galleries table
-        await c.env.DB.prepare(createTableSQL).run();
-        return "The Galleries table in database did not exist and has been created. Please reload the page";
-      } catch (createError) {
-        console.error("Error creating the Galleries table:", createError.message);
-        return "An error occurred while creating the Galleries table.";
-      }
-    }
 
-  };
-  
+    try {
+      // Attempt to create the Galleries table
+      await c.env.DB.prepare(createTableSQL).run();
+      return "The Galleries table in database did not exist and has been created. Please reload the page";
+    } catch (createError) {
+      console.error("Error creating the Galleries table:", createError.message);
+      return "An error occurred while creating the Galleries table.";
+    }
+  }
+};
 
 export const updateGalleryOnD1 = async (c, formObject) => {
   return await c.env.DB.prepare(
@@ -102,4 +100,46 @@ export const checkIfExistGalleryOnD1 = async (c, GalleryTableName) => {
   )
     .bind(GalleryTableName)
     .all();
+};
+
+
+export const toggleImageApproval = async (c, GalleryTableName, imagePath) => {
+  try {
+    const response = await c.env.DB.prepare(
+      `SELECT approved FROM ${GalleryTableName} WHERE path = ?1`
+    )
+      .bind(imagePath)
+      .all();
+    const previousApproval = response.results[0].approved;
+
+    const newApprovedState = !previousApproval;
+
+    await c.env.DB.prepare(
+      `UPDATE ${GalleryTableName} SET approved = ?1 WHERE path = ?2`
+    )
+      .bind(newApprovedState, imagePath)
+      .all();
+
+    return newApprovedState;
+  } catch (error) {
+    console.error("Error toggling image approval:", error.message);
+    return false;
+  }
+};
+
+export const deleteImageFromGallery = async (
+  c,
+  GalleryTableName,
+  imagePath
+) => {
+  try {
+    await c.env.DB.prepare(`DELETE FROM ${GalleryTableName} WHERE path = ?1`)
+      .bind(imagePath)
+      .all();
+
+    return true;
+  } catch (error) {
+    console.error("Error deleting image:", error.message);
+    return false;
+  }
 };

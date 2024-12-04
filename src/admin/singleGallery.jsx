@@ -181,7 +181,7 @@ const SingleGalery = (props) => {
         <div className="card-body">
           <div className="row row-cols-1 row-cols-md-3 g-4">
             {props.images.map((image, index) => (
-              <div key={index} className="col">
+              <div key={index} className="col" hx-target="this" hx-swap="outerHTML">
                 <div className="card h-100">
                   <img 
                     src={`../getimg/${image.path}`} 
@@ -191,6 +191,26 @@ const SingleGalery = (props) => {
                   />
                   <div className="card-body">
                     <h5 className="card-title">{image.name}</h5>
+                    <div className="d-flex justify-content-between">
+                      <button 
+                        className="btn btn-danger btn-sm"
+                        hx-confirm={`Czy na pewno chcesz usunąć zdjęcie ${image.name}?`}
+                        hx-delete={`/admin/api/deleteImage?imagePath=${encodeURIComponent(image.path)}&galleryTableName=${props.gallery.GalleryTableName}`}
+                      >
+                        <i className="bi bi-trash me-2"></i>Usuń
+                      </button>
+                      <button 
+                        className="btn btn-secondary btn-sm"
+                        hx-post={`/admin/api/toggleApproval?imagePath=${encodeURIComponent(image.path)}&galleryTableName=${props.gallery.GalleryTableName}`}
+                        hx-target="this"
+                      >
+                        {image.approved ? (
+                          <><i className="bi bi-check-circle me-2"></i>Zatwierdzone</>
+                        ) : (
+                          <><i className="bi bi-x-circle me-2"></i>Nie zatwierdzone</>
+                        )}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
