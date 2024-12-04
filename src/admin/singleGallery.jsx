@@ -186,8 +186,8 @@ const SingleGalery = (props) => {
                   <img 
                     src={`../getimg/${image.path}`} 
                     className="card-img-top" 
-                    alt={image.name}
                     loading="lazy"
+                    alt={image.name}
                   />
                   <div className="card-body">
                     <h5 className="card-title">{image.name}</h5>
