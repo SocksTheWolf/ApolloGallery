@@ -1,11 +1,11 @@
 export const getGalleriesFromD1 = async (c) => {
-    return await c.env.DB.prepare("SELECT * FROM Galleries").all();
+    return await c.env.DB.prepare("SELECT * FROM Galleries ORDER BY PartyDate DESC").all();
 };
 
 export const getGalleriesFromD1wGalleryIsPublic = async (c) => {
   try {
     // Attempt to fetch data from the Galleries table
-    const galleries = await c.env.DB.prepare('SELECT * FROM Galleries WHERE GalleryIsPublic = "TRUE"').all();
+    const galleries = await c.env.DB.prepare('SELECT * FROM Galleries WHERE GalleryIsPublic = "TRUE" ORDER BY PartyDate DESC').all();
     return galleries;
   } catch (error) {
     console.error("Error fetching galleries:", error.message);
