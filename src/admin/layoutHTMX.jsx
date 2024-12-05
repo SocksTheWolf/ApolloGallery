@@ -1,4 +1,4 @@
-export const Layout = (props) => {
+ export const Layout = (props) => {
   return (
     <html lang="pl">
       <head>

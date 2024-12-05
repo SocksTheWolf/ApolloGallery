@@ -23,7 +23,7 @@ export const Gallery = ({ gallery, images }) => (
             <div className="col" key={image.path}>
               <div className="gallery-image-container">
                 <img
-                  src={`/getimg/${image.path}`}
+                  src={`/img/${image.path}`}
                   alt={image.name}
                   className="gallery-image img-fluid"
                   loading="lazy"

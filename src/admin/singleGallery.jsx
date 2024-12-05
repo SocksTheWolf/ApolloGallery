@@ -184,7 +184,7 @@ const SingleGalery = (props) => {
               <div key={index} className="col" hx-target="this" hx-swap="outerHTML">
                 <div className="card h-100">
                   <img 
-                    src={`../getimg/${image.path}`} 
+                    src={`../img/${image.path}`} 
                     className="card-img-top" 
                     loading="lazy"
                     alt={image.name}

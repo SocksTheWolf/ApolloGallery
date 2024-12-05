@@ -1,7 +1,7 @@
 export async function handleGetImage(c) {
   try {
     const path = c.req.path;
-    const imgPath = path.slice(8);
+    const imgPath = path.slice(5);
 
     if (!imgPath) {
       return c.text("Invalid Image Path", 400);
