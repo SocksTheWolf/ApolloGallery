@@ -1,4 +1,4 @@
-import { deleteImageFromGallery } from "./db";
+import { deleteImageFromGallery } from "../../utils/db";
 
 export const deleteImage = async (c) => {
   const { imagePath, galleryTableName } = c.req.query();

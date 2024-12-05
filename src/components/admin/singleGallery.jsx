@@ -1,16 +1,19 @@
-import { Layout } from "./layoutHTMX";
-import { 
-  getGalleriesFromD1,  
-  getIndywidualGalleryFromD1, 
-} from "./db"
+import { Layout } from "../layoutHTMX";
+import { getGalleriesFromD1, getIndywidualGalleryFromD1 } from "../../utils/db";
 
 const SingleGalery = (props) => {
+  const c = props.c; // Ensure the context is passed correctly
+
   return (
-    <Layout title={"Edycja: " + props.gallery.GalleryName} >
+    <Layout title={"Edycja: " + props.gallery.GalleryName} c={c}>
       <nav aria-label="breadcrumb" className="mb-4">
         <ol className="breadcrumb">
-          <li className="breadcrumb-item"><a href="../admin">admin</a></li>
-          <li className="breadcrumb-item active" aria-current="page">{props.gallery.GalleryName}</li>
+          <li className="breadcrumb-item">
+            <a href="../admin">{c.t("breadcrumb_admin")}</a>
+          </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            {props.gallery.GalleryName}
+          </li>
         </ol>
       </nav>
 
@@ -22,7 +25,9 @@ const SingleGalery = (props) => {
           <form hx-post="" hx-target="#update_result">
             <div className="row mb-3">
               <div className="col-md-6">
-                <label htmlFor="galleryName" className="form-label">Nazwa galerii</label>
+                <label htmlFor="galleryName" className="form-label">
+                  {c.t("gallery_name_label")}
+                </label>
                 <input
                   type="text"
                   className="form-control"
@@ -32,7 +37,9 @@ const SingleGalery = (props) => {
                 />
               </div>
               <div className="col-md-6">
-                <label htmlFor="galleryTableName" className="form-label">Nazwa tabeli galerii</label>
+                <label htmlFor="galleryTableName" className="form-label">
+                  {c.t("gallery_table_name_label")}
+                </label>
                 <input
                   type="text"
                   className="form-control"
@@ -46,7 +53,9 @@ const SingleGalery = (props) => {
 
             <div className="row mb-3">
               <div className="col-md-6">
-                <label htmlFor="textField" className="form-label">Opis</label>
+                <label htmlFor="textField" className="form-label">
+                  {c.t("description_label")}
+                </label>
                 <input
                   type="text"
                   className="form-control"
@@ -56,7 +65,9 @@ const SingleGalery = (props) => {
                 />
               </div>
               <div className="col-md-6">
-                <label htmlFor="coverImage" className="form-label">Zdjęcie okładkowe</label>
+                <label htmlFor="coverImage" className="form-label">
+                  {c.t("cover_image_label")}
+                </label>
                 <input
                   type="text"
                   className="form-control"
@@ -69,9 +80,11 @@ const SingleGalery = (props) => {
 
             <div className="row mb-3">
               <div className="col-md-6">
-                <label htmlFor="partyDate" className="form-label">Data imprezy</label>
+                <label htmlFor="partyDate" className="form-label">
+                  {c.t("party_date_label")}
+                </label>
                 <input
-                  required 
+                  required
                   type="date"
                   className="form-control"
                   name="PartyDate"
@@ -80,7 +93,9 @@ const SingleGalery = (props) => {
                 />
               </div>
               <div className="col-md-6">
-                <label htmlFor="publicationDate" className="form-label">Data publikacji</label>
+                <label htmlFor="publicationDate" className="form-label">
+                  {c.t("publication_date_label")}
+                </label>
                 <input
                   type="datetime-local"
                   className="form-control"
@@ -93,18 +108,21 @@ const SingleGalery = (props) => {
 
             <div className="row mb-3">
               <div className="col-md-6">
-                <label htmlFor="galleryIsPublic" className="form-label">Widoczność galerii</label>
+                <label htmlFor="galleryIsPublic" className="form-label">
+                  {c.t("gallery_visibility_label")}
+                </label>
                 <select
                   className="form-select"
                   name="GalleryIsPublic"
                   id="galleryIsPublic"
                   value={props.gallery.GalleryIsPublic}
                 >
-                  <option value={props.gallery.GalleryIsPublic}>
-                    {props.gallery.GalleryIsPublic === "TRUE" ? "Publiczna" : "Prywatna"}
+                  <option value="TRUE">
+                    {props.gallery.GalleryIsPublic === "TRUE" ? "Publiczna" : "Public"}
                   </option>
-                  <option value="TRUE">Publiczna</option>
-                  <option value="FALSE">Prywatna</option>
+                  <option value="FALSE">
+                    {props.gallery.GalleryIsPublic === "FALSE" ? "Prywatna" : "Private"}
+                  </option>
                 </select>
               </div>
             </div>
@@ -112,7 +130,8 @@ const SingleGalery = (props) => {
             <div className="row">
               <div className="col-md-6">
                 <button type="submit" className="btn btn-primary me-2">
-                  <i className="bi bi-save me-2"></i>Zapisz zmiany
+                  <i className="bi bi-save me-2"></i>
+                  {c.t("save_gallery_button")}
                 </button>
                 <button 
                   hx-confirm={`Czy na pewno chcesz usunąć galerię ${props.gallery.GalleryName}?`} 
@@ -120,7 +139,8 @@ const SingleGalery = (props) => {
                   hx-target="#update_result" 
                   hx-delete={props.gallery.GalleryTableName + "/delete"}
                 >
-                  <i className="bi bi-trash me-2"></i>Usuń galerię
+                  <i className="bi bi-trash me-2"></i>
+                  {c.t("delete_gallery_button")}
                 </button>
               </div>
             </div>
@@ -132,7 +152,7 @@ const SingleGalery = (props) => {
 
       <div className="card mb-4">
         <div className="card-header bg-secondary text-white">
-          <h3 className="mb-0">Dodaj zdjęcia</h3>
+          <h3 className="mb-0">{c.t("add_images_title")}</h3>
         </div>
         <div className="card-body">
           <form className="mb-3">
@@ -146,7 +166,8 @@ const SingleGalery = (props) => {
                 name="file"
               />
               <button id="submit" className="btn btn-primary">
-                <i className="bi bi-upload me-2"></i>Wyślij zdjęcia
+                <i className="bi bi-upload me-2"></i>
+                {c.t("upload_images_button")}
               </button>
             </div>
           </form>
@@ -166,8 +187,8 @@ const SingleGalery = (props) => {
           </div>
 
           <div className="mb-3">
-            <span>Postęp: </span>
-            <span id="curent-counter">0</span> z <span id="max-counter">0</span>
+            <span>{c.t("progress_label")}</span>
+            <span id="current-counter">0</span> z <span id="max-counter">0</span>
           </div>
 
           <ul id="upload-error" className="list-group"></ul>
@@ -176,7 +197,7 @@ const SingleGalery = (props) => {
 
       <div className="card">
         <div className="card-header bg-info text-white">
-          <h3 className="mb-0">Zdjęcia w galerii</h3>
+          <h3 className="mb-0">{c.t("images_in_gallery_title")}</h3>
         </div>
         <div className="card-body">
           <div className="row row-cols-1 row-cols-md-3 g-4">
@@ -197,7 +218,8 @@ const SingleGalery = (props) => {
                         hx-confirm={`Czy na pewno chcesz usunąć zdjęcie ${image.name}?`}
                         hx-delete={`/admin/api/deleteImage?imagePath=${encodeURIComponent(image.path)}&galleryTableName=${props.gallery.GalleryTableName}`}
                       >
-                        <i className="bi bi-trash me-2"></i>Usuń
+                        <i className="bi bi-trash me-2"></i>
+                        {c.t("delete_image_button")}
                       </button>
                       <button 
                         className="btn btn-secondary btn-sm"
@@ -205,9 +227,9 @@ const SingleGalery = (props) => {
                         hx-target="this"
                       >
                         {image.approved ? (
-                          <><i className="bi bi-check-circle me-2"></i>Zatwierdzone</>
+                          <><i className="bi bi-check-circle me-2"></i>{c.t("approved_label")}</>
                         ) : (
-                          <><i className="bi bi-x-circle me-2"></i>Nie zatwierdzone</>
+                          <><i className="bi bi-x-circle me-2"></i>{c.t("unapproved_label")}</>
                         )}
                       </button>
                     </div>
@@ -228,9 +250,9 @@ export const handleSingleGallery = async (c) => {
   const galeryTableName = c.req.param("galeryTableName");
   const { results } = await getGalleriesFromD1(c);
   const galery = results.find(
-      (elem) => elem.GalleryTableName === galeryTableName
+    (elem) => elem.GalleryTableName === galeryTableName
   ) || { id: 0, name: "string" };
 
   const indResponse = await getIndywidualGalleryFromD1(c, galeryTableName);
-  return c.html(<SingleGalery gallery={galery} images={indResponse.results} />);
+  return c.html(<SingleGalery gallery={galery} images={indResponse.results} c={c} />);
 }

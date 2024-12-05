@@ -1,6 +1,6 @@
 const translations = {
-  'en': require('./locale/en.json'),
-  'pl': require('./locale/pl.json')
+  'en': require('../locale/en.json'),
+  'pl': require('../locale/pl.json')
 };
 
 const translate = (c) => {
@@ -17,13 +17,13 @@ const translate = (c) => {
       if (translations[language] && translations[language][text]) {
         return translations[language][text];
       } else if (translations[defaultLanguage] && translations[defaultLanguage][text]) {
-        console.error('no "' + language + '" translation in for: ' + text);
+        console.error(`no "${language}" translation in for: ${text}`);
         return translations[defaultLanguage][text];
       } else {
-        throw new Error("no DEFAULT translation in for: " + text);
+        console.error(`no DEFAULT translation for: ${text}`);
       }
     } catch (error) {
-      console.error(`Translation error: ${error.message}`);
+      console.error(`Translation error for language "${language}" and text "${text}": ${error.message}`);
       return text;
     }
   };

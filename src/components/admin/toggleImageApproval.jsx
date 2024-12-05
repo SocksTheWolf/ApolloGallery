@@ -1,4 +1,4 @@
-import { toggleImageApproval } from "./db";
+import { toggleImageApproval } from "../../utils/db";
 
 export const toggleApproval = async (c) => {
   const { imagePath, galleryTableName } = c.req.query();
@@ -13,17 +13,17 @@ export const toggleApproval = async (c) => {
         hx-target="this"
       >
         ${newApproval ? (
-          '<i class="bi bi-check-circle me-2"></i>Zatwierdzone'
+          `<i class="bi bi-check-circle me-2"></i>${c.t('approved_label')}`
         ) : (
-          '<i class="bi bi-x-circle me-2"></i>Nie zatwierdzone'
+          `<i class="bi bi-x-circle me-2"></i>${c.t('unapproved_label')}`
         )}
       </button>
     `);
   } catch (error) {
     return c.html(
-      <div className="alert alert-danger">
-        {error.message}
-      </div>
+      `<div className="alert alert-danger">
+        ${error.message}
+      </div>`
     );
   }
 };

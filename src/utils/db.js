@@ -1,5 +1,5 @@
 export const getGalleriesFromD1 = async (c) => {
-    return await c.env.DB.prepare("SELECT * FROM Galleries ORDER BY PartyDate DESC").all();
+  return await c.env.DB.prepare("SELECT * FROM Galleries ORDER BY PartyDate DESC").all();
 };
 
 export const getGalleriesFromD1wGalleryIsPublic = async (c) => {
@@ -12,16 +12,16 @@ export const getGalleriesFromD1wGalleryIsPublic = async (c) => {
 
     // Define SQL to create the Galleries table if it doesn't exist
     const createTableSQL = `
-        CREATE TABLE IF NOT EXISTS Galleries (
-          GalleryName TEXT,
-          GalleryTableName TEXT PRIMARY KEY,
-          TextField TEXT,
-          CoverImage TEXT,
-          PartyDate DATE,
-          PublicationDate DATETIME,
-          GalleryIsPublic BOOLEAN
-        );
-      `;
+      CREATE TABLE IF NOT EXISTS Galleries (
+        GalleryName TEXT,
+        GalleryTableName TEXT PRIMARY KEY,
+        TextField TEXT,
+        CoverImage TEXT,
+        PartyDate DATE,
+        PublicationDate DATETIME,
+        GalleryIsPublic BOOLEAN
+      );
+    `;
 
     try {
       // Attempt to create the Galleries table
@@ -36,7 +36,7 @@ export const getGalleriesFromD1wGalleryIsPublic = async (c) => {
 
 export const updateGalleryOnD1 = async (c, formObject) => {
   return await c.env.DB.prepare(
-    "UPDATE Galleries SET GalleryName = ?1,TextField = ?3, CoverImage = ?4, PartyDate = ?5,PublicationDate = ?6,GalleryIsPublic = ?7 WHERE GalleryTableName = ?2;"
+    "UPDATE Galleries SET GalleryName = ?1, TextField = ?3, CoverImage = ?4, PartyDate = ?5, PublicationDate = ?6, GalleryIsPublic = ?7 WHERE GalleryTableName = ?2;"
   )
     .bind(
       formObject.GalleryName,
@@ -90,12 +90,12 @@ export const getIndywidualGalleryFromD1 = async (c, gallery) => {
 };
 
 export const getIndywidualGalleryFromD1wApproved = async (c, gallery) => {
-  return await c.env.DB.prepare(`SELECT * FROM ${gallery} where approved = TRUE`).all();
+  return await c.env.DB.prepare(`SELECT * FROM ${gallery} WHERE approved = TRUE`).all();
 };
 
 export const deleteGalleryInBothPlaces = async (c, GalleryTableName) => {
   return await c.env.DB.batch([
-    c.env.DB.prepare("DELETE FROM Galleries  WHERE GalleryTableName = ?1").bind(
+    c.env.DB.prepare("DELETE FROM Galleries WHERE GalleryTableName = ?1").bind(
       GalleryTableName
     ),
     c.env.DB.prepare(`DROP TABLE IF EXISTS ${GalleryTableName}`),
@@ -109,7 +109,6 @@ export const checkIfExistGalleryOnD1 = async (c, GalleryTableName) => {
     .bind(GalleryTableName)
     .all();
 };
-
 
 export const toggleImageApproval = async (c, GalleryTableName, imagePath) => {
   try {

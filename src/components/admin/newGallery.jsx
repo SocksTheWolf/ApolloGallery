@@ -1,8 +1,8 @@
-import { Layout } from "./layoutHTMX";
+import { Layout } from "../layoutHTMX";
 
 export const newGalery = (c) => {
   return c.html(
-    <Layout title={c.t("title")}>
+    <Layout title={c.t("title")} c={c}>
       <nav aria-label="breadcrumb" className="mb-4">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">

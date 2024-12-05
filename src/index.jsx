@@ -1,10 +1,10 @@
 import { Hono } from "hono";
 import { serveStatic } from 'hono/cloudflare-pages';
-import { main } from "./galleryListing";
-import { admin } from "./admin/admin";
-import { handleGalleryRoute } from "./gallery";
-import { handleGetImage } from "./getimg";
-import { translationMiddleware } from "./locale-middleware";
+import { main } from "./components/gallery/galleryListing";
+import { admin } from "./components/admin/admin";
+import { handleGalleryRoute } from "./components/gallery/gallery";
+import { handleGetImage } from "./utils/getImg";
+import { translationMiddleware } from "./utils/localeMiddleware";
 
 const app = new Hono({ strict: false });
 
@@ -15,6 +15,10 @@ app.use('*', translationMiddleware);
 app.use('/static/*', serveStatic({ root: './dist' }));
 
 app.get("/img/*", handleGetImage);
+
+app.get('/test', (c) => {                            //temporary endpoint
+    return c.text(JSON.stringify(c.env.IMGT))
+  })
 
 app.get("/", main);
 

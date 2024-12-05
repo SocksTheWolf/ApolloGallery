@@ -16,5 +16,19 @@
   "gallery_visibility_label": "Widoczność galerii",
   "gallery_visibility_public": "Publiczna",
   "gallery_visibility_private": "Prywatna",
-  "save_gallery_button": "Zapisz galerię"
+  "save_gallery_button": "Zapisz galerię",
+  "admin_panel_title": "Panel Administratora",
+  "admin_panel_breadcrumb": "Panel Administratora",
+  "galleries_list_title": "Lista Galerii",
+  "create_gallery_button": "Utwórz Galerię",
+  "delete_gallery_button": "Usuń Galerię",
+  "add_images_title": "Dodaj Obrazy",
+  "upload_images_button": "Prześlij Obrazy",
+  "progress_label": "Postęp",
+  "images_in_gallery_title": "Obrazy w Galerii",
+  "delete_image_button": "Usuń Obraz",
+  "approved_label": "Zatwierdzony",
+  "unapproved_label": "Nie zatwierdzony",
+  "back_link": "Powrót",
+  "gallery_list_title": "Lista Galerii"
 }

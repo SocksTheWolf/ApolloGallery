@@ -1,4 +1,6 @@
 export const Layout = (props) => {
+  const c = props.c; // Ensure the context is passed correctly
+
   return (
     <html lang="pl">
       <head>

@@ -16,5 +16,19 @@
   "gallery_visibility_label": "Gallery Visibility",
   "gallery_visibility_public": "Public",
   "gallery_visibility_private": "Private",
-  "save_gallery_button": "Save gallery"
+  "save_gallery_button": "Save gallery",
+  "admin_panel_title": "Admin Panel",
+  "admin_panel_breadcrumb": "Admin Panel",
+  "galleries_list_title": "Galleries List",
+  "create_gallery_button": "Create Gallery",
+  "delete_gallery_button": "Delete Gallery",
+  "add_images_title": "Add Images",
+  "upload_images_button": "Upload Images",
+  "progress_label": "Progress",
+  "images_in_gallery_title": "Images in Gallery",
+  "delete_image_button": "Delete Image",
+  "approved_label": "Approved",
+  "unapproved_label": "Not approved",
+  "back_link": "Back",
+  "gallery_list_title": "Gallery List"
 }

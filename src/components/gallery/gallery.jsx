@@ -1,11 +1,11 @@
-import { Layout } from "./layout";
-import { getGalleriesFromD1, getIndywidualGalleryFromD1wApproved } from "./admin/db";
+import { Layout } from "../layout";
+import { getGalleriesFromD1, getIndywidualGalleryFromD1wApproved } from "../../utils/db";
 
-export const Gallery = ({ gallery, images }) => (
+export const Gallery = ({ gallery, images, c }) => (
   <Layout title={gallery.GalleryName}>
     <div className="container py-4">
       <a href="/" className="back-link">
-        ← Powrót
+        ← {c.t("back_link")}
       </a>
       <h1 className="gallery-title">{gallery.GalleryName}</h1>
 
@@ -16,7 +16,7 @@ export const Gallery = ({ gallery, images }) => (
       <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
         {images.length === 0 ? (
           <div className="no-images-container text-center py-5">
-            <p className="text-muted">No images have been uploaded yet</p>
+            <p className="text-muted">{c.t("no_images_message")}</p>
           </div>
         ) : (
           images.map((image) => (
@@ -51,5 +51,5 @@ export async function handleGalleryRoute(c) {
     galleryTableName
   );
 
-  return c.html(<Gallery gallery = {gallery} images={images || []} />);
+  return c.html(<Gallery gallery={gallery} images={images || []} c={c} />);
 }

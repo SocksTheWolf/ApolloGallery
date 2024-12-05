@@ -12,3 +12,8 @@ bucket_name = "pineapplegallery-bucket"
 binding = "DB"
 database_name = "pineapplegallery-database"
 database_id = "7b063da3-9099-44c1-ade3-b1bc0e91389a"
+
+[vars]
+  IMGT = true
+
+

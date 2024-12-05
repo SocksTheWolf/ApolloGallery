@@ -1,5 +1,5 @@
-import { Layout } from "./layout";
-import { getGalleriesFromD1wGalleryIsPublic } from "./admin/db";
+import { Layout } from "../layout";
+import { getGalleriesFromD1wGalleryIsPublic } from "../../utils/db";
 
 export const main = async (c) => {
   const galleriesResponse = await getGalleriesFromD1wGalleryIsPublic(c);
@@ -13,12 +13,13 @@ export const main = async (c) => {
   const { results: galleries } = galleriesResponse;
 
   return c.html(
-    <Layout title="Pineapple Gallery">
+    <Layout title={c.t("gallery_list_title")}>
       {galleries.length == 0 ? (
         <div className="no-images-container text-center py-5">
           <p className="text-muted">
-            No galleries have been created yet. Go to{" "}
-            <a href="/admin">/admin</a> to create your first gallery
+            {c.t("no_galleries_message")}
+            <a href="/admin">{c.t("admin_link")}</a>
+            {c.t("create_gallery_message")}
           </p>
         </div>
       ) : (
