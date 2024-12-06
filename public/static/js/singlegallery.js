@@ -245,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
     submitButton: document.getElementById("submit"),
     progressBar: document.getElementById("progress-bar"),
     uploadErrorBox: document.getElementById("upload-error"),
-    currentFileCounter: document.getElementById("curent-counter"),
+    currentFileCounter: document.getElementById("current-counter"),
     maxFileCounter: document.getElementById("max-counter"),
   });
 });
