@@ -4,26 +4,35 @@ const translations = {
 };
 
 const translate = (c) => {
-  const defaultLanguage = 'en';
+  const fallbackLanguage = 'en';
   let language;
   const acceptLanguage = c.req.header('Accept-Language');
 
   if (acceptLanguage) {
-    language = acceptLanguage.split('-')[0].split(',')[0];
+    const languages = acceptLanguage.split(',').map(lang => lang.split(';')[0].split('-')[0].trim());
+    for (let lang of languages) {
+      if (translations[lang]) {
+        language = lang;
+        break;
+      }
+    }
+  } else {
+    language = fallbackLanguage;
   }
 
   return (text) => {
     try {
-      if (translations[language] && translations[language][text]) {
+      if (translations[language]?.[text]) {
         return translations[language][text];
-      } else if (translations[defaultLanguage] && translations[defaultLanguage][text]) {
-        console.error(`no "${language}" translation in for: ${text}`);
-        return translations[defaultLanguage][text];
+      } else if (translations[fallbackLanguage]?.[text]) {
+        console.error(`No "${language}" translation in for: ${text}`);
+        return translations[fallbackLanguage][text];
       } else {
-        console.error(`no DEFAULT translation for: ${text}`);
+        console.error(`No "${language}" & FALLBACK("${fallbackLanguage}") translation for: ${text}`);
+        return text;
       }
     } catch (error) {
-      console.error(`Translation error for language "${language}" and text "${text}": ${error.message}`);
+      console.error(`An unexpected translation error occurred for language "${language}" and text "${text}": ${error.message}`);
       return text;
     }
   };
