@@ -1,32 +1,23 @@
+import parser from 'accept-language-parser';
+
 const translations = {
-  'en': require('../locale/en.json'),
-  'pl': require('../locale/pl.json')
+  'en': () => require('../locale/en.json'),
+  'pl': () => require('../locale/pl.json')
 };
 
 const translate = (c) => {
   const fallbackLanguage = 'en';
-  let language;
   const acceptLanguage = c.req.header('Accept-Language');
-
-  if (acceptLanguage) {
-    const languages = acceptLanguage.split(',').map(lang => lang.split(';')[0].split('-')[0].trim());
-    for (let lang of languages) {
-      if (translations[lang]) {
-        language = lang;
-        break;
-      }
-    }
-  } else {
-    language = fallbackLanguage;
-  }
+  let language = parser.pick(Object.keys(translations), acceptLanguage, { loose: true });
 
   return (text) => {
     try {
-      if (translations[language]?.[text]) {
-        return translations[language][text];
-      } else if (translations[fallbackLanguage]?.[text]) {
+      const translation = translations[language]?.() || translations[fallbackLanguage]?.();
+      if (translation?.[text]) {
+        return translation[text];
+      } else if (translations[fallbackLanguage]?.()[text]) {
         console.error(`No "${language}" translation in for: ${text}`);
-        return translations[fallbackLanguage][text];
+        return translations[fallbackLanguage]()[text];
       } else {
         console.error(`No "${language}" & FALLBACK("${fallbackLanguage}") translation for: ${text}`);
         return text;
