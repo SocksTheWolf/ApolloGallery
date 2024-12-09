@@ -8,11 +8,11 @@ import { translationMiddleware } from "./utils/localeMiddleware";
 
 const app = new Hono({ strict: false });
 
-// Apply the translation middleware to all routes
-app.use('*', translationMiddleware);
-
 // Serve static files from dist directory -> put files into public/static
 app.use('/static/*', serveStatic({ root: './dist' }));
+
+// Apply the translation middleware to all routes
+app.use('*', translationMiddleware);
 
 app.get("/img/*", handleGetImage);
 

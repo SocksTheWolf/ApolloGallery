@@ -75,8 +75,8 @@ export const Gallery = ({ gallery, images, c }) => (
           el.setAttribute('rel', 'noopener');
 
           pswp.on('change', () => {
-            console.log('change');
-            el.href = pswp.currSlide.data.src.replace('/^(.*?\/img)/', '/img');
+            const specialUrl = pswp.currSlide.data.src
+            el.href = specialUrl.substring(specialUrl.indexOf('/img/'));
           });
         }
       });
