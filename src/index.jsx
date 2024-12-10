@@ -17,7 +17,7 @@ app.use('*', translationMiddleware);
 app.get("/img/*", handleGetImage);
 
 app.get('/test', (c) => {                            //temporary endpoint
-    return c.text(JSON.stringify(c.env.IMGT))
+    return c.text(c.env.IMGT)
   })
 
 app.get("/", main);

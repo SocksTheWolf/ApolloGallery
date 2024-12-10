@@ -1,4 +1,4 @@
- export const Layout = (props) => {
+export const Layout = (props) => {
   const c = props.c;
   return (
     <html lang="pl">
@@ -23,6 +23,9 @@
               <ul className="navbar-nav">
                 <li className="nav-item">
                   <a className="nav-link" href="../">Public view</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href={'http://logout@' + (c.req.header('Host') + '/admin')}>Logout</a>
                 </li>
               </ul>
             </div>
