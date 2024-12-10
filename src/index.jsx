@@ -17,12 +17,12 @@ app.use('*', translationMiddleware);
 app.get("/img/*", handleGetImage);
 
 app.get('/test', (c) => {                            //temporary endpoint
-    return c.text(c.env.IMGT)
+    return c.text(c.t())
   })
 
-app.get("/", main);
-
 app.route('/admin', admin);
+
+app.get("/", main);
 
 app.get("/:galleryTableName", handleGalleryRoute);
 
