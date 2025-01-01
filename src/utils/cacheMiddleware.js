@@ -18,12 +18,12 @@ export const cache = (options = {}) => {
     }
 
     // Generate cache key
-    let cacheKeyUrl = ignoreQueryParams ? 
-      `${url.origin}${url.pathname}` : 
+    let cacheKeyUrl = ignoreQueryParams ?
+      `${url.origin}${url.pathname}` :
       c.req.url;
 
     const acceptLanguage = c.t();
-    
+
     const cacheKey = new Request(
       `${cacheKeyUrl}${includeLang ? `-${acceptLanguage}` : ''}`
     );
@@ -31,9 +31,10 @@ export const cache = (options = {}) => {
     try {
       // Check for cached response
       const cachedResponse = await cache.match(cacheKey);
-      
+
       if (cachedResponse) {
         // Return cached response with additional headers
+        console.log("from cached")
         return new Response(cachedResponse.body, {
           status: cachedResponse.status,
           headers: {
@@ -46,38 +47,42 @@ export const cache = (options = {}) => {
 
       // Generate new response
       await next();
-      
-        // Create a new response with the desired headers
-        const response = new Response(c.res.body, {
-            status: c.res.status,
-            headers: {
-              ...Object.fromEntries(c.res.headers),
-              'Cache-Control': `public, max-age=${maxAge}`,
-              'X-Generated-Language': acceptLanguage,
-              'X-Cache-Status': 'MISS'
-            }
-          });
-    
-          // Store in cache
-          const bindings = env(c);
-          if (bindings.CACHE_DEBUG) {
-            console.log(`Caching response for: ${cacheKey.url}`);
-          }
-    
-          cctx.waitUntil(cache.put(cacheKey, response.clone()));
-    
-          return response;
-        } catch (error) {
-          return c.text(`Cache error: ${error.message}`, 500);
+
+      const responseText = await c.res.clone().text();
+
+      // Get the response from context
+      const response = new Response(responseText, {
+        status: c.res.status,
+        headers: {
+          ...Object.fromEntries(c.res.headers),
+          'Cache-Control': `public, max-age=${maxAge}`,
+          'X-Generated-Language': acceptLanguage
         }
-      };
-    };
+      });
+
+      // Use environment's waitUntil if available
+      const waitUntil = c.env ? c.env.waitUntil : undefined;
+      const cacheOperation = cache.put(cacheKey, response);
+      
+      if (waitUntil) {
+        waitUntil(cacheOperation);
+      } else {
+        await cacheOperation;
+      }
+
+      return responseText
+    } catch (error) {
+      return c.text(`Cache error: ${error.message}`, 500);
+    }
+  };
+};
+
 
 // Helper function to handle cache purge requests
 async function handleCachePurge(c) {
   const cache = caches.default;
   const url = new URL(c.req.url);
-  
+
   try {
     const targetUrl = url.searchParams.get('url');
     const language = url.searchParams.get('lang') || 'en-US';

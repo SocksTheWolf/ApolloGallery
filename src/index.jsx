@@ -26,7 +26,7 @@ app.use('/*', cache({
 }));
 
 app.get('/test', (c) => {                            //temporary endpoint
-  return c.text(c.t())
+  return c.text(c.t() +"  "+ new Date().toISOString())
 })
 
 app.get("/", main);
