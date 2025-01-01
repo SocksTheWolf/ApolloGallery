@@ -14,6 +14,14 @@ database_name = "pineapplegallery-database"
 database_id = "7b063da3-9099-44c1-ade3-b1bc0e91389a"
 
 [vars]
+
+# Image transformations
 IMGT = "true"
+
+# Cache settings
+MAX_AGE = 300
+LANG_VARY = true
+
+# Admin Panel Credentials
 USERNAME = "admin"
 PASSWORD = "superSecretPassword"

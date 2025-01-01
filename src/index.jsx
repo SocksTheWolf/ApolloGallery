@@ -6,6 +6,8 @@ import { handleGalleryRoute } from "./components/gallery/gallery";
 import { handleGetImage } from "./utils/getImg";
 import { translationMiddleware } from "./utils/localeMiddleware";
 import { cache } from './utils/cacheMiddleware';
+import { cachePurgeHome, cachePurgeSingle } from './utils/cachePurge';
+
 
 const app = new Hono({ strict: false });
 
@@ -19,11 +21,12 @@ app.get("/img/*", handleGetImage);
 
 app.route('/admin', admin);
 
-app.use('/*', cache({
-  maxAge: 180,
-  includeLang: true,
-  ignoreQueryParams: false
-}));
+app.get('/purge', (c) => {                         
+  cachePurgeSingle(c, "pierwsza_geleryjjka");
+  return c.text("home purged")
+})
+
+app.use('/*', cache());
 
 app.get('/test', (c) => {                            //temporary endpoint
   return c.text(c.t() +"  "+ new Date().toISOString())

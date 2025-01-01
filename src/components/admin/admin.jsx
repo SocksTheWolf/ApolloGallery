@@ -10,6 +10,8 @@ import { imageUploader } from "./singleGalleryUploaderPost";
 import { deleteSingleGallery } from "./singleGalleryDelete";
 import { deleteImage } from "./deleteImage";
 import { toggleApproval } from "./toggleImageApproval";
+import { manualPurge } from "./manualPurge";
+
 
 export const admin = new Hono({ strict: false });
 
@@ -48,3 +50,5 @@ admin.post("/:galeryTableName", editSingleGallery); //api
 admin.post("/:galeryTableName/upload", imageUploader); //api
 
 admin.delete("/:galeryTableName/delete", deleteSingleGallery); //api
+
+admin.post("/:galeryTableName/purge", manualPurge); //api

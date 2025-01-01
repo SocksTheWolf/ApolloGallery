@@ -1,9 +1,12 @@
 import { deleteGalleryInBothPlaces, getIndywidualGalleryFromD1 } from "../../utils/db";
+import { cachePurgeHome, cachePurgeSingle } from '../../utils/cachePurge';
+
 
 export const deleteSingleGallery = async (c) => {
   try {
-    const { results: images } = await getIndywidualGalleryFromD1(c, c.req.param("galeryTableName"));
-    const response = await deleteGalleryInBothPlaces(c, c.req.param("galeryTableName"));
+    const galeryTableName = c.req.param("galeryTableName")
+    const { results: images } = await getIndywidualGalleryFromD1(c, galeryTableName);
+    const response = await deleteGalleryInBothPlaces(c, galeryTableName);
 
     for (const resp of response) {
       if (!resp.success) {
@@ -16,6 +19,9 @@ export const deleteSingleGallery = async (c) => {
         await c.env.R2.delete(image.path);
       }
     }
+
+    cachePurgeHome(c);
+    cachePurgeSingle(c, galeryTableName);
 
     return c.html('<b>Galeria została pomyślnie usunięta <a href="./">POWRÓT</a></b>');
   } catch (error) {

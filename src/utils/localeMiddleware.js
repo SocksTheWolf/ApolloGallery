@@ -11,7 +11,7 @@ const translate = (c) => {
   let language = parser.pick(Object.keys(translations), acceptLanguage, { loose: true });
 
   return (text) => {
-    if(!text) return language;
+    if (!text) return language;
     try {
       const translation = translations[language]?.() || translations[fallbackLanguage]?.();
       if (translation?.[text]) {
@@ -29,6 +29,10 @@ const translate = (c) => {
     }
   };
 };
+
+export const getLangs = () => {
+  return Object.keys(translations)
+}
 
 export const translationMiddleware = async (c, next) => {
   c.t = translate(c);

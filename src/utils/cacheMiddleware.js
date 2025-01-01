@@ -1,101 +1,43 @@
-import { env } from 'hono/adapter';
-
-// Cache middleware factory function
-export const cache = (options = {}) => {
-  const {
-    maxAge = 180,
-    includeLang = true,
-    ignoreQueryParams = false
-  } = options;
-
+export const cache = () => {
   return async (c, next) => {
+    const maxAge = c.env.MAX_AGE
+    const includeLang = c.env.LANG_VARY
     const cache = caches.default;
     const url = new URL(c.req.url);
-
-    // Handle cache purge requests
-    if (url.pathname === '/purge-cache') {
-      return handleCachePurge(c);
-    }
-
-    // Generate cache key
-    let cacheKeyUrl = ignoreQueryParams ?
-      `${url.origin}${url.pathname}` :
-      c.req.url;
-
     const acceptLanguage = c.t();
+
+    let cacheKeyUrl = `${url.origin}${url.pathname}`
 
     const cacheKey = new Request(
       `${cacheKeyUrl}${includeLang ? `-${acceptLanguage}` : ''}`
     );
 
     try {
-      // Check for cached response
       const cachedResponse = await cache.match(cacheKey);
 
       if (cachedResponse) {
-        // Return cached response with additional headers
-        console.log("from cached")
         return new Response(cachedResponse.body, {
           status: cachedResponse.status,
           headers: {
-            ...Object.fromEntries(cachedResponse.headers),
-            'X-Cache-Language': acceptLanguage,
-            'X-Cache-Status': 'HIT'
+            ...Object.fromEntries(cachedResponse.headers)
           }
         });
       }
 
-      // Generate new response
       await next();
 
-      const responseText = await c.res.clone().text();
-
-      // Get the response from context
-      const response = new Response(responseText, {
-        status: c.res.status,
+      const response = new Response(c.res.clone().body, {
         headers: {
           ...Object.fromEntries(c.res.headers),
           'Cache-Control': `public, max-age=${maxAge}`,
-          'X-Generated-Language': acceptLanguage
+          'X-Cache-Language': acceptLanguage,
         }
       });
 
-      // Use environment's waitUntil if available
-      const waitUntil = c.env ? c.env.waitUntil : undefined;
-      const cacheOperation = cache.put(cacheKey, response);
-      
-      if (waitUntil) {
-        waitUntil(cacheOperation);
-      } else {
-        await cacheOperation;
-      }
+      c.env.waitUntil(cache.put(cacheKey, response));
 
-      return responseText
     } catch (error) {
       return c.text(`Cache error: ${error.message}`, 500);
     }
   };
 };
-
-
-// Helper function to handle cache purge requests
-async function handleCachePurge(c) {
-  const cache = caches.default;
-  const url = new URL(c.req.url);
-
-  try {
-    const targetUrl = url.searchParams.get('url');
-    const language = url.searchParams.get('lang') || 'en-US';
-
-    if (!targetUrl) {
-      return c.text('Missing URL parameter', 400);
-    }
-
-    const cacheKey = new Request(`${targetUrl}-${language}`);
-    await cache.delete(cacheKey);
-
-    return c.text(`Cache purged for ${targetUrl} (${language})`, 200);
-  } catch (error) {
-    return c.text(`Purge error: ${error.message}`, 500);
-  }
-}

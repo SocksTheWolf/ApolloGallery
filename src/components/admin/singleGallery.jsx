@@ -118,29 +118,42 @@ const SingleGalery = (props) => {
                   value={props.gallery.GalleryIsPublic}
                 >
                   <option value="TRUE">
-                    {props.gallery.GalleryIsPublic === "TRUE" ? "Publiczna" : "Public"}
+                    {props.gallery.GalleryIsPublic === "TRUE"
+                      ? "Publiczna"
+                      : "Public"}
                   </option>
                   <option value="FALSE">
-                    {props.gallery.GalleryIsPublic === "FALSE" ? "Prywatna" : "Private"}
+                    {props.gallery.GalleryIsPublic === "FALSE"
+                      ? "Prywatna"
+                      : "Private"}
                   </option>
                 </select>
               </div>
             </div>
 
             <div className="row">
-              <div className="col-md-6">
+              <div className="col-md-10">
                 <button type="submit" className="btn btn-primary me-2">
                   <i className="bi bi-save me-2"></i>
                   {c.t("save_gallery_button")}
                 </button>
-                <button 
-                  hx-confirm={`Czy na pewno chcesz usunąć galerię ${props.gallery.GalleryName}?`} 
-                  className="btn btn-danger" 
-                  hx-target="#update_result" 
+                <button
+                  hx-confirm={`Czy na pewno chcesz usunąć galerię ${props.gallery.GalleryName}?`}
+                  className="btn btn-danger"
+                  hx-target="#update_result"
                   hx-delete={props.gallery.GalleryTableName + "/delete"}
                 >
                   <i className="bi bi-trash me-2"></i>
                   {c.t("delete_gallery_button")}
+                </button>
+                <button
+                  className="btn btn-link"
+                  hx-post={props.gallery.GalleryTableName + "/purge"}
+                  hx-swap="outerHTML"
+                  hx-target="this"
+                >
+                  <i className="bi bi-arrow-clockwise me-2"></i>
+                  {c.t("purge-cache")}
                 </button>
               </div>
             </div>
@@ -157,12 +170,12 @@ const SingleGalery = (props) => {
         <div className="card-body">
           <form className="mb-3">
             <div className="input-group">
-              <input 
-                type="file" 
-                className="form-control" 
-                accept="image/png, image/jpeg" 
-                multiple 
-                id="fileInput" 
+              <input
+                type="file"
+                className="form-control"
+                accept="image/png, image/jpeg"
+                multiple
+                id="fileInput"
                 name="file"
               />
               <button id="submit" className="btn btn-primary">
@@ -173,13 +186,13 @@ const SingleGalery = (props) => {
           </form>
 
           <div className="progress mb-3">
-            <div 
-              id="progress-bar" 
-              className="progress-bar" 
-              role="progressbar" 
-              style={{width: "0%"}} 
-              aria-valuenow="0" 
-              aria-valuemin="0" 
+            <div
+              id="progress-bar"
+              className="progress-bar"
+              role="progressbar"
+              style={{ width: "0%" }}
+              aria-valuenow="0"
+              aria-valuemin="0"
               aria-valuemax="100"
             >
               0%
@@ -188,7 +201,8 @@ const SingleGalery = (props) => {
 
           <div className="mb-3">
             <span>{c.t("progress_label")}</span>
-            <span id="current-counter">0</span> z <span id="max-counter">0</span>
+            <span id="current-counter">0</span> z{" "}
+            <span id="max-counter">0</span>
           </div>
 
           <ul id="upload-error" className="list-group"></ul>
@@ -202,34 +216,49 @@ const SingleGalery = (props) => {
         <div className="card-body">
           <div className="row row-cols-1 row-cols-md-3 g-4">
             {props.images.map((image, index) => (
-              <div key={index} className="col" hx-target="this" hx-swap="outerHTML">
+              <div
+                key={index}
+                className="col"
+                hx-target="this"
+                hx-swap="outerHTML"
+              >
                 <div className="card h-100">
-                  <img 
-                    src={`../img/${image.path}`} 
-                    className="card-img-top" 
+                  <img
+                    src={`../img/${image.path}`}
+                    className="card-img-top"
                     loading="lazy"
                     alt={image.name}
                   />
                   <div className="card-body">
                     <h5 className="card-title">{image.name}</h5>
                     <div className="d-flex justify-content-between">
-                      <button 
+                      <button
                         className="btn btn-danger btn-sm"
                         hx-confirm={`Czy na pewno chcesz usunąć zdjęcie ${image.name}?`}
-                        hx-delete={`/admin/api/deleteImage?imagePath=${encodeURIComponent(image.path)}&galleryTableName=${props.gallery.GalleryTableName}`}
+                        hx-delete={`/admin/api/deleteImage?imagePath=${encodeURIComponent(
+                          image.path
+                        )}&galleryTableName=${props.gallery.GalleryTableName}`}
                       >
                         <i className="bi bi-trash me-2"></i>
                         {c.t("delete_image_button")}
                       </button>
-                      <button 
+                      <button
                         className="btn btn-secondary btn-sm"
-                        hx-post={`/admin/api/toggleApproval?imagePath=${encodeURIComponent(image.path)}&galleryTableName=${props.gallery.GalleryTableName}`}
+                        hx-post={`/admin/api/toggleApproval?imagePath=${encodeURIComponent(
+                          image.path
+                        )}&galleryTableName=${props.gallery.GalleryTableName}`}
                         hx-target="this"
                       >
                         {image.approved ? (
-                          <><i className="bi bi-check-circle me-2"></i>{c.t("approved_label")}</>
+                          <>
+                            <i className="bi bi-check-circle me-2"></i>
+                            {c.t("approved_label")}
+                          </>
                         ) : (
-                          <><i className="bi bi-x-circle me-2"></i>{c.t("unapproved_label")}</>
+                          <>
+                            <i className="bi bi-x-circle me-2"></i>
+                            {c.t("unapproved_label")}
+                          </>
                         )}
                       </button>
                     </div>
@@ -254,5 +283,7 @@ export const handleSingleGallery = async (c) => {
   ) || { id: 0, name: "string" };
 
   const indResponse = await getIndywidualGalleryFromD1(c, galeryTableName);
-  return c.html(<SingleGalery gallery={galery} images={indResponse.results} c={c} />);
-}
+  return c.html(
+    <SingleGalery gallery={galery} images={indResponse.results} c={c} />
+  );
+};

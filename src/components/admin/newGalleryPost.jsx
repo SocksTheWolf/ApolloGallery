@@ -1,4 +1,6 @@
 import { createGallery, checkIfExistGalleryOnD1 } from "../../utils/db";
+import { cachePurgeHome } from '../../utils/cachePurge';
+
 
 export const handlePostNewGallery = async (c) => {
   const payload = await c.req.formData();
@@ -19,7 +21,7 @@ export const handlePostNewGallery = async (c) => {
         throw new Error("Błąd podczas zapisu: " + JSON.stringify(singleCreated));
       }
     }
-
+    cachePurgeHome(c);
     c.header('hx-redirect', `/admin/${formObject.GalleryTableName}`);
     return c.text("Zapisano w bazie danych");
   } catch (error) {
