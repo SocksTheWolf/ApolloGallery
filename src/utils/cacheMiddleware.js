@@ -19,7 +19,8 @@ export const cache = () => {
         return new Response(cachedResponse.body, {
           status: cachedResponse.status,
           headers: {
-            ...Object.fromEntries(cachedResponse.headers)
+            ...Object.fromEntries(cachedResponse.headers),
+            'X-Cache-Status': 'HIT'
           }
         });
       }
@@ -28,9 +29,10 @@ export const cache = () => {
 
       const response = new Response(c.res.clone().body, {
         headers: {
-          ...Object.fromEntries(c.res.headers),
-          'Cache-Control': `public, max-age=${maxAge}`,
-          'X-Cache-Language': acceptLanguage,
+          'Content-Type': 'text/html',
+          'Cache-Control': 'public, max-age=' + maxAge,
+          'X-Generated-Language': acceptLanguage,
+          'X-Cache-Status': 'MISS'
         }
       });
 
