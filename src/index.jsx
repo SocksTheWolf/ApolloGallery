@@ -5,6 +5,7 @@ import { admin } from "./components/admin/admin";
 import { handleGalleryRoute } from "./components/gallery/gallery";
 import { handleGetImage } from "./utils/getImg";
 import { translationMiddleware } from "./utils/localeMiddleware";
+import { cache } from './utils/cacheMiddleware';
 
 const app = new Hono({ strict: false });
 
@@ -16,11 +17,17 @@ app.use('*', translationMiddleware);
 
 app.get("/img/*", handleGetImage);
 
-app.get('/test', (c) => {                            //temporary endpoint
-    return c.text(c.t())
-  })
-
 app.route('/admin', admin);
+
+app.use('/*', cache({
+  maxAge: 180,
+  includeLang: true,
+  ignoreQueryParams: false
+}));
+
+app.get('/test', (c) => {                            //temporary endpoint
+  return c.text(c.t())
+})
 
 app.get("/", main);
 
