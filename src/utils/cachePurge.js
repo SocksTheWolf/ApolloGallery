@@ -7,7 +7,7 @@ export const cachePurgeSingle = async (c, galleryTableName) => {
     const promises = langs.map(async (lang) => {
       const cacheKey = `page:/${galleryTableName}@${lang}`;
       // console.log("rmoved: " + cacheKey)
-      return c.env.CACHE_KV.delete(cacheKey);
+      return await c.env.CACHE_KV.delete(cacheKey);
     });
 
     await Promise.all(promises);
@@ -21,7 +21,7 @@ export const cachePurgeHome = async (c) => {
     const promises = langs.map(async (lang) => {
       const cacheKey = `page:/@${lang}`;
       // console.log("rmoved home: " + cacheKey)
-      return c.env.CACHE_KV.delete(cacheKey);
+      return await c.env.CACHE_KV.delete(cacheKey);
     });
 
     await Promise.all(promises);
