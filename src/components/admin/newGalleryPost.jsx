@@ -21,7 +21,7 @@ export const handlePostNewGallery = async (c) => {
         throw new Error("Błąd podczas zapisu: " + JSON.stringify(singleCreated));
       }
     }
-    cachePurgeHome(c);
+    await cachePurgeHome(c);
     c.header('hx-redirect', `/admin/${formObject.GalleryTableName}`);
     return c.text("Zapisano w bazie danych");
   } catch (error) {

@@ -16,8 +16,8 @@ export const editSingleGallery = async (c) => {
       throw new Error(messages.message);
     }
 
-    cachePurgeSingle(c, galeryTableName);
-    cachePurgeHome(c);
+    await cachePurgeSingle(c, galeryTableName);
+    await cachePurgeHome(c);
     
     return c.html(
       <b>Galeria została pomyślnie uaktualniona <a href={`./${galeryTableName}`}>Odśwież</a></b>

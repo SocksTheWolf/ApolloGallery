@@ -20,8 +20,8 @@ export const deleteSingleGallery = async (c) => {
       }
     }
 
-    cachePurgeHome(c);
-    cachePurgeSingle(c, galeryTableName);
+    await cachePurgeHome(c);
+    await cachePurgeSingle(c, galeryTableName);
 
     return c.html('<b>Galeria została pomyślnie usunięta <a href="./">POWRÓT</a></b>');
   } catch (error) {

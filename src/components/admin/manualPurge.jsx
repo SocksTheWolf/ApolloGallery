@@ -2,8 +2,8 @@ import { cachePurgeHome, cachePurgeSingle } from "../../utils/cachePurge";
 
 export const manualPurge = async (c) => {
   const galeryTableName = c.req.param("galeryTableName");
-  cachePurgeHome(c);
-  cachePurgeSingle(c, galeryTableName);
+  await cachePurgeHome(c);
+  await cachePurgeSingle(c, galeryTableName);
 
   return c.html(`
       <button
