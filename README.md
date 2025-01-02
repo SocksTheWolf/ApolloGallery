@@ -78,6 +78,19 @@ Before you start, you need the following:
    bucket_name = "pineapplegallery-bucket"
    ```
 
+5. Create KV namespace for cache functionality
+   ```sh
+   wrangler kv namespace create CACHE_KV
+   ```
+   Update `wrangler.toml` according to the response, but keep the binding name the same as below:
+
+   ```toml
+   [[kv_namespaces]]
+   binding = "CACHE_KV"
+   id = "42ee21cd50bf44adb285c6c3d02727cd"   #paste your own id
+   ```
+
+
 ### Development
 Start the development server:
 ```sh

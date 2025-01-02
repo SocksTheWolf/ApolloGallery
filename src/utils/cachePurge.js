@@ -1,22 +1,29 @@
 import { getLangs } from "./localeMiddleware";
-const cache = caches.default;
+
 const langs = getLangs();
 
 export const cachePurgeSingle = async (c, galleryTableName) => {
-    const url = new URL(c.req.url);
-    const homepage = url.origin;
-    for (let lang of langs){
-        const response = await cache.delete(`${homepage}/${galleryTableName}-${lang}`);
-        // console.log("Purge_lang: " + lang + " Purged: " + response)
-    }
-  }
+  try {
+    const promises = langs.map(async (lang) => {
+      const cacheKey = `page:/${galleryTableName}@${lang}`;
+      return c.env.CACHE_KV.delete(cacheKey);
+    });
 
-  export const cachePurgeHome = async (c) => {
-    const url = new URL(c.req.url);
-    const homepage = url.origin;
-
-    for (let lang of langs){
-        const response = await cache.delete(`${homepage}/-${lang}`);
-        // console.log("Purge_lang: " + lang + " Purged: " + response)
-    }
+    await Promise.all(promises);
+  } catch (error) {
+    console.error('Cache purge error:', error);
   }
+};
+
+export const cachePurgeHome = async (c) => {
+  try {
+    const promises = langs.map(async (lang) => {
+      const cacheKey = `page:/@${lang}`;
+      return c.env.CACHE_KV.delete(cacheKey);
+    });
+
+    await Promise.all(promises);
+  } catch (error) {
+    console.error('Cache purge error:', error);
+  }
+};

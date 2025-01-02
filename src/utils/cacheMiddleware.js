@@ -1,45 +1,57 @@
 export const cache = () => {
   return async (c, next) => {
-    const maxAge = c.env.MAX_AGE
-    const includeLang = c.env.LANG_VARY
-    const cache = caches.default;
     const url = new URL(c.req.url);
-    const acceptLanguage = c.t();
+    const acceptLanguage = await c.t();
 
-    let cacheKeyUrl = `${url.origin}${url.pathname}`
-
-    const cacheKey = new Request(
-      `${cacheKeyUrl}${includeLang ? `-${acceptLanguage}` : ''}`
-    );
-
+    // Generate cache key
+    const cacheKey = `page:${url.pathname}@${acceptLanguage}`;
+    console.log("ck: " + cacheKey)
     try {
-      const cachedResponse = await cache.match(cacheKey);
+      // Try to get cached content from KV
+      const cachedContent = await c.env.CACHE_KV.get(cacheKey);
 
-      if (cachedResponse) {
-        return new Response(cachedResponse.body, {
-          status: cachedResponse.status,
+      if (cachedContent) {
+        return new Response(cachedContent, {
           headers: {
-            ...Object.fromEntries(cachedResponse.headers),
-            'X-Cache-Status': 'HIT'
+            'Content-Type': 'text/html',
+            'X-KV-Cache-Status': 'HIT',
+            'X-KV-Cache-Key': cacheKey,
+            'X-Selected-Language': acceptLanguage
           }
         });
       }
 
+      // If no cache, generate response
       await next();
 
-      const response = new Response(c.res.clone().body, {
+      // Clone the response to read its body
+      const originalResponse = c.res.clone();
+      
+      // Don't cache error responses
+      if (!originalResponse.ok || originalResponse.status !== 200) {
+        return originalResponse;
+      }
+
+      const content = await originalResponse.text();
+
+      // Store in KV
+      c.executionCtx.waitUntil(
+        c.env.CACHE_KV.put(cacheKey, content)
+      );
+
+      // Return the response
+      return new Response(content, {
         headers: {
           'Content-Type': 'text/html',
-          'Cache-Control': 'public, max-age=' + maxAge,
-          'X-Generated-Language': acceptLanguage,
-          'X-Cache-Status': 'MISS'
+          'X-KV-Cache-Status': 'MISS',
+          'X-Generated-Language': acceptLanguage
         }
       });
 
-      c.env.waitUntil(cache.put(cacheKey, response));
-
     } catch (error) {
-      return c.text(`Cache error: ${error.message}`, 500);
+      console.error('Cache error:', error);
+      await next();
+      return c.res;
     }
   };
 };
