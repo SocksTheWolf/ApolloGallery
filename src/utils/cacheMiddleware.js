@@ -10,14 +10,17 @@ export const cache = () => {
       const cachedContent = await c.env.CACHE_KV.get(cacheKey);
 
       if (cachedContent) {
-        return new Response(cachedContent, {
-          headers: {
-            'Content-Type': 'text/html',
-            'X-KV-Cache-Status': 'HIT',
-            'X-KV-Cache-Key': cacheKey,
-            'X-Selected-Language': acceptLanguage
-          }
-        });
+return new Response(cachedContent, {
+  headers: {
+    'Content-Type': 'text/html',
+    'X-KV-Cache-Status': 'HIT',
+    'X-KV-Cache-Key': cacheKey,
+    'X-Selected-Language': acceptLanguage,
+    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': '0'
+  }
+});
       }
 
       // If no cache, generate response
@@ -39,13 +42,16 @@ export const cache = () => {
       );
 
       // Return the response
-      return new Response(content, {
-        headers: {
-          'Content-Type': 'text/html',
-          'X-KV-Cache-Status': 'MISS',
-          'X-Generated-Language': acceptLanguage
-        }
-      });
+return new Response(content, {
+  headers: {
+    'Content-Type': 'text/html',
+    'X-KV-Cache-Status': 'MISS',
+    'X-Generated-Language': acceptLanguage,
+    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': '0'
+  }
+});
 
     } catch (error) {
       console.error('Cache error:', error);
