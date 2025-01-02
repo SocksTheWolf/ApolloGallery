@@ -5,7 +5,6 @@ export const cache = () => {
 
     // Generate cache key
     const cacheKey = `page:${url.pathname}@${acceptLanguage}`;
-    console.log("ck: " + cacheKey)
     try {
       // Try to get cached content from KV
       const cachedContent = await c.env.CACHE_KV.get(cacheKey);
