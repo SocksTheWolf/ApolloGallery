@@ -13,7 +13,7 @@ export const manualPurge = async (c) => {
          hx-swap="outerHTML"
          >
         <i className="bi bi-arrow-clockwise me-2"></i>
-        ${c.t("purged")}
+        ${c.t("purged")} ${galeryTableName}
        </button>
       `);
 };
