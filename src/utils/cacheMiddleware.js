@@ -1,4 +1,13 @@
-export const cache = () => {
+import { env } from 'hono/adapter';
+
+// Cache middleware factory function
+export const cache = (options = {}) => {
+  const {
+    maxAge = 180,
+    includeLang = true,
+    ignoreQueryParams = false
+  } = options;
+
   return async (c, next) => {
     const url = new URL(c.req.url);
     const acceptLanguage = await c.t();
@@ -53,6 +62,7 @@ return new Response(content, {
   }
 });
 
+      return responseText
     } catch (error) {
       console.error('Cache error:', error);
       await next();

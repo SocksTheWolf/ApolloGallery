@@ -22,6 +22,13 @@ id = "42ee21cd50bf44adb285c6c3d02727cd"
 # Image transformations
 IMGT = "true"
 
+<<<<<<< HEAD
+=======
+# Cache settings
+MAX_AGE = 180
+LANG_VARY = true
+
+>>>>>>> 8bfdade (test to working)
 # Admin Panel Credentials
 USERNAME = "admin"
 PASSWORD = "superSecretPassword"
