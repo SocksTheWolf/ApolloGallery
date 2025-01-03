@@ -1,6 +1,3 @@
-import { env } from 'hono/adapter';
-
-// Cache middleware factory function
 export const cache = (options = {}) => {
   const {
     maxAge = 180,
@@ -19,17 +16,17 @@ export const cache = (options = {}) => {
       const cachedContent = await c.env.CACHE_KV.get(cacheKey);
 
       if (cachedContent) {
-return new Response(cachedContent, {
-  headers: {
-    'Content-Type': 'text/html',
-    'X-KV-Cache-Status': 'HIT',
-    'X-KV-Cache-Key': cacheKey,
-    'X-Selected-Language': acceptLanguage,
-    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-    'Pragma': 'no-cache',
-    'Expires': '0'
-  }
-});
+        return new Response(cachedContent, {
+          headers: {
+            'Content-Type': 'text/html',
+            'X-KV-Cache-Status': 'HIT',
+            'X-KV-Cache-Key': cacheKey,
+            'X-Selected-Language': acceptLanguage,
+            'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }
+        });
       }
 
       // If no cache, generate response
@@ -37,7 +34,7 @@ return new Response(cachedContent, {
 
       // Clone the response to read its body
       const originalResponse = c.res.clone();
-      
+
       // Don't cache error responses
       if (!originalResponse.ok || originalResponse.status !== 200) {
         return originalResponse;
@@ -51,18 +48,17 @@ return new Response(cachedContent, {
       );
 
       // Return the response
-return new Response(content, {
-  headers: {
-    'Content-Type': 'text/html',
-    'X-KV-Cache-Status': 'MISS',
-    'X-Generated-Language': acceptLanguage,
-    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-    'Pragma': 'no-cache',
-    'Expires': '0'
-  }
-});
+      return new Response(content, {
+        headers: {
+          'Content-Type': 'text/html',
+          'X-KV-Cache-Status': 'MISS',
+          'X-Generated-Language': acceptLanguage,
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }
+      });
 
-      return responseText
     } catch (error) {
       console.error('Cache error:', error);
       await next();

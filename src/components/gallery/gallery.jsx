@@ -6,7 +6,7 @@ import {
 import { html } from 'hono/html'
 
 export const Gallery = ({ gallery, images, c }) => (
-  <Layout title={gallery.GalleryName}>
+  <Layout title={gallery.GalleryName} c={c}>
     <div className="container py-4">
       <a href="/" className="back-link">
         ← {c.t("back_link")}

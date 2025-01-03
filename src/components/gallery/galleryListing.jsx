@@ -13,7 +13,7 @@ export const main = async (c) => {
   const { results: galleries } = galleriesResponse;
 
   return c.html(
-    <Layout title={c.t("gallery_list_title")}>
+    <Layout title={c.t("gallery_list_title")} c={c}>
       {galleries.length == 0 ? (
         <div className="no-images-container text-center py-5">
           <p className="text-muted">
