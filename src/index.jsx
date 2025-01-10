@@ -23,7 +23,6 @@ app.route('/admin', admin);
 
 app.get('/purge', (c) => {   
   cachePurgeHome(c);                      
-  cachePurgeSingle(c, "pierwsza_geleryjjka");
   return c.text("home purged")
 })
 

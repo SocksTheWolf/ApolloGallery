@@ -9,7 +9,13 @@ export const Layout = (props) => {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>${props.title}</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <!-- Preload CSS files -->
+        <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style" />
+        <link rel="preload" href="/static/style.css" as="style" />
+        <link rel="preload" href="/static/photoswipe.css" as="style" />
+        
+        <!-- Actually load the CSS files -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/static/style.css" />
         <link rel="stylesheet" href="/static/photoswipe.css" />
       </head>
