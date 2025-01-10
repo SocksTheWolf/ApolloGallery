@@ -1,4 +1,4 @@
-import { Layout } from "../layout";
+import { Layout } from "./layout";
 import {
   getGalleriesFromD1,
   getIndywidualGalleryFromD1wApproved,
@@ -8,7 +8,7 @@ import { html } from 'hono/html'
 export const Gallery = ({ gallery, images, c }) => (
   <Layout title={gallery.GalleryName} c={c}>
     <div className="container py-4">
-      <a href="/" className="back-link">
+      <a href="./" className="back-link">
         ← {c.t("back_link")}
       </a>
       <h1 className="gallery-title">{gallery.GalleryName}</h1>
@@ -30,13 +30,13 @@ export const Gallery = ({ gallery, images, c }) => (
             <div className="col" key={image.path}>
               <div className="gallery-image-container">
                 <a
-                  href={(c.env.IMGT == "true")?(`/cdn-cgi/image/f=auto,q=80/img/${image.path}`):(`/img/${image.path}`)}
+                  href={(c.env.IMGT == "true")?(`/cdn-cgi/image/f=auto,q=80/img/${image.path}`):(`img/${image.path}`)}
                   data-pswp-width={image.width}
                   data-pswp-height={image.height}
                   target="_blank"
                 >
                   <img
-                    src={(c.env.IMGT == "true")?(`/cdn-cgi/image/f=auto,q=75,w=433/img/${image.path}`):(`/img/${image.path}`)}
+                    src={(c.env.IMGT == "true")?(`/cdn-cgi/image/f=auto,q=75,w=433/img/${image.path}`):(`img/${image.path}`)}
                     alt={image.name}
                     className="gallery-image img-fluid"
                     loading="lazy"

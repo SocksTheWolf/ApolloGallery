@@ -1,16 +1,16 @@
 import { Hono } from "hono";
 import { basicAuth } from "hono/basic-auth";
-import { galleriesList } from "./galleries";
-import { handleSingleGallery } from "./singleGallery";
-import { newGalery } from "./newGallery";
-import { removeAllFilesFromR2 } from "../../utils/clearR2Bucket"; //tool endpoint to clear r2 bucket
-import { handlePostNewGallery } from "./newGalleryPost";
-import { editSingleGallery } from "./singleGalleryEditPost";
-import { imageUploader } from "./singleGalleryUploaderPost";
-import { deleteSingleGallery } from "./singleGalleryDelete";
-import { deleteImage } from "./deleteImage";
-import { toggleApproval } from "./toggleImageApproval";
-import { manualPurge } from "./manualPurge";
+import { galleriesList } from "./admin/galleries";
+import { handleSingleGallery } from "./admin/singleGallery";
+import { newGalery } from "./admin/newGallery";
+import { removeAllFilesFromR2 } from "../utils/clearR2Bucket"; //tool endpoint to clear r2 bucket
+import { handlePostNewGallery } from "./admin/newGalleryPost";
+import { editSingleGallery } from "./admin/singleGalleryEditPost";
+import { imageUploader } from "./admin/singleGalleryUploaderPost";
+import { deleteSingleGallery } from "./admin/singleGalleryDelete";
+import { deleteImage } from "./admin/deleteImage";
+import { toggleApproval } from "./admin/toggleImageApproval";
+import { manualPurge } from "./admin/manualPurge";
 
 
 export const admin = new Hono({ strict: false });

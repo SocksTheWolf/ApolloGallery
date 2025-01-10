@@ -1,4 +1,4 @@
-import { Layout } from "../layoutHTMX";
+import { Layout } from "./layoutHTMX";
 import { getGalleriesFromD1 } from "../../utils/db";
 
 const GalleriesLayout = ({ galleries, c }) => {
@@ -19,7 +19,7 @@ const GalleriesLayout = ({ galleries, c }) => {
             <div className="list-group">
               {galleries.map((gallery, index) => (
                 <a 
-                  href={"/admin/" + String(gallery.GalleryTableName)} 
+                  href={"admin/" + String(gallery.GalleryTableName)} 
                   className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
                   key={index}
                 >
@@ -37,7 +37,7 @@ const GalleriesLayout = ({ galleries, c }) => {
           )}
         </div>
         <div className="card-footer">
-          <a href="/admin/new-gallery" className="btn btn-success">
+          <a href="admin/new-gallery" className="btn btn-success">
             <i className="bi bi-plus-circle me-2"></i>{c.t("create_gallery_button")}
           </a>
         </div>

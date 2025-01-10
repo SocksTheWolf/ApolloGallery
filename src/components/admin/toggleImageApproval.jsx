@@ -9,7 +9,7 @@ export const toggleApproval = async (c) => {
     return c.html(`
       <button 
         class="btn btn-secondary btn-sm"
-        hx-post="/admin/api/toggleApproval?imagePath=${encodeURIComponent(imagePath)}&galleryTableName=${galleryTableName}"
+        hx-post="../admin/api/toggleApproval?imagePath=${encodeURIComponent(imagePath)}&galleryTableName=${galleryTableName}"
         hx-target="this"
       >
         ${newApproval ? (

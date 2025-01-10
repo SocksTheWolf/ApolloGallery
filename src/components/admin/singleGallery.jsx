@@ -1,4 +1,4 @@
-import { Layout } from "../layoutHTMX";
+import { Layout } from "./layoutHTMX";
 import { getGalleriesFromD1, getIndywidualGalleryFromD1 } from "../../utils/db";
 
 const SingleGalery = (props) => {
@@ -235,7 +235,7 @@ const SingleGalery = (props) => {
                       <button
                         className="btn btn-danger btn-sm"
                         hx-confirm={`Czy na pewno chcesz usunąć zdjęcie ${image.name}?`}
-                        hx-delete={`/admin/api/deleteImage?imagePath=${encodeURIComponent(
+                        hx-delete={`../admin/api/deleteImage?imagePath=${encodeURIComponent(
                           image.path
                         )}&galleryTableName=${props.gallery.GalleryTableName}`}
                       >
@@ -244,7 +244,7 @@ const SingleGalery = (props) => {
                       </button>
                       <button
                         className="btn btn-secondary btn-sm"
-                        hx-post={`/admin/api/toggleApproval?imagePath=${encodeURIComponent(
+                        hx-post={`../admin/api/toggleApproval?imagePath=${encodeURIComponent(
                           image.path
                         )}&galleryTableName=${props.gallery.GalleryTableName}`}
                         hx-target="this"

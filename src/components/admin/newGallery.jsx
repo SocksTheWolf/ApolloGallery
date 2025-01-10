@@ -1,4 +1,4 @@
-import { Layout } from "../layoutHTMX";
+import { Layout } from "./layoutHTMX";
 
 export const newGalery = (c) => {
   return c.html(
@@ -132,7 +132,7 @@ export const newGalery = (c) => {
           </form>
         </div>
       </div>
-      <script type="module" src="../static/js/newgallery.js"></script>
+      <script type="module" src="/static/js/newgallery.js"></script>
     </Layout>
   );
 };

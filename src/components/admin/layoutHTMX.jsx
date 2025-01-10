@@ -17,7 +17,7 @@ export const Layout = (props) => {
       <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
           <div class="container">
-            <a class="navbar-brand" href="../admin">Admin Panel</a>
+            <a class="navbar-brand" href="admin">Admin Panel</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
               <span class="navbar-toggler-icon"></span>
             </button>

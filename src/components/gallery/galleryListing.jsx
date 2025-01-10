@@ -1,4 +1,4 @@
-import { Layout } from "../layout";
+import { Layout } from "./layout";
 import { getGalleriesFromD1wGalleryIsPublic } from "../../utils/db";
 
 export const main = async (c) => {
