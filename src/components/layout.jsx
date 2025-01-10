@@ -9,12 +9,6 @@ export const Layout = (props) => {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>${props.title}</title>
-        <!-- Preload CSS files -->
-        <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style" />
-        <link rel="preload" href="/static/style.css" as="style" />
-        <link rel="preload" href="/static/photoswipe.css" as="style" />
-        
-        <!-- Actually load the CSS files -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/static/style.css" />
         <link rel="stylesheet" href="/static/photoswipe.css" />
@@ -22,7 +16,7 @@ export const Layout = (props) => {
       <body>
         <header>
           <div class="container">
-            <h1>Pineapple Gallery</h1>
+            <h1>${c.env.PAGE_TITLE}</h1>
           </div>
         </header>
         <main class="container">${props.children}</main>

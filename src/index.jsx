@@ -21,9 +21,9 @@ app.get("/img/*", handleGetImage);
 
 app.route('/admin', admin);
 
-app.get('/purge', (c) => {   
-  cachePurgeHome(c);                      
-  return c.text("home purged")
+app.get('/purge', async (c) => {   
+  await cachePurgeHome(c);                      
+  return c.html(`<h3>Home purged</h3><a href="./">Go to home</a>`)
 })
 
 app.use('/*', cache());

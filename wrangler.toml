@@ -17,7 +17,13 @@ database_id = "7b063da3-9099-44c1-ade3-b1bc0e91389a"
 binding = "CACHE_KV"
 id = "42ee21cd50bf44adb285c6c3d02727cd"
 
+#----------------------------------------------------------- CONFIG
+
 [vars]
+
+# Page title
+PAGE_TITLE = "Pineapple Gallery"
+
 
 # Image transformations
 IMGT = "true"
