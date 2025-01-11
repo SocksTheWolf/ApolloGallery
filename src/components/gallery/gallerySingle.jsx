@@ -30,7 +30,7 @@ export const Gallery = ({ gallery, images, c }) => (
               <a
                 href={
                   c.env.IMGT == "true"
-                    ? `/cdn-cgi/image/f=auto,q=80/img/${image.path}`
+                    ? `/cdn-cgi/image/f=auto,q=80/gallery/img/${image.path}`
                     : `img/${image.path}`
                 }
                 data-pswp-width={image.width}
@@ -40,7 +40,7 @@ export const Gallery = ({ gallery, images, c }) => (
                 <img
                   src={
                     c.env.IMGT == "true"
-                      ? `/cdn-cgi/image/f=auto,q=75,w=433/img/${image.path}`
+                      ? `/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/${image.path}`
                       : `img/${image.path}`
                   }
                   alt={image.name}
