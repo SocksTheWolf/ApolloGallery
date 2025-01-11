@@ -1,6 +1,7 @@
 import { Layout } from "./layout";
 import { getGalleriesFromD1wGalleryIsPublic } from "../../utils/db";
 
+
 export const main = async (c) => {
   const galleriesResponse = await getGalleriesFromD1wGalleryIsPublic(c);
 
@@ -18,7 +19,7 @@ export const main = async (c) => {
         <div className="no-images-container text-center py-5">
           <p className="text-muted">
             {c.t("no_galleries_message")}
-            <a href="/admin">{c.t("admin_link")}</a>
+            <a href="./admin">{c.t("admin_link")}</a>
             {c.t("create_gallery_message")}
           </p>
         </div>
