@@ -15,6 +15,8 @@ export const main = async (c) => {
 
   return c.html(
     <Layout title={c.t("gallery_list_title")} c={c}>
+      <section>
+      <div className="container">
       {galleries.length == 0 ? (
         <div className="no-images-container text-center py-5">
           <p className="text-muted">
@@ -56,6 +58,8 @@ export const main = async (c) => {
           ))}
         </div>
       )}
+     </div>
+     </section>
     </Layout>
   );
 };

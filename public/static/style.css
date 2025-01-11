@@ -3,6 +3,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 header {
   background: linear-gradient(135deg, #2c3e50, #3498db);
@@ -20,6 +21,20 @@ header h1 {
   text-transform: uppercase;
   letter-spacing: 2px;
 }
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  flex-direction: column;
+}
 
 /* Gallery grid styles */
 .galleries-grid {
@@ -27,6 +42,7 @@ header h1 {
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2rem;
   padding: 2rem;
+  box-sizing: border-box;
 }
 
 .gallery-card {
@@ -101,74 +117,70 @@ header h1 {
   line-height: 1.6;
 }
 
-.gallery-image-container {
-  position: relative;
+/* start of new css */
+
+.gallery-grid {
   width: 100%;
-  height: 0;
-  padding-bottom: 66.67%; /* 3:2 aspect ratio */
-  overflow: hidden;
-  border-radius: 8px;
-  background-color: #f8f9fa;
-}
-
-.gallery-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.15s ease;
-}
-
-.gallery-image:hover {
-  transform: scale(1.02);
-}
-
-/* Bootstrap grid adjustments */
-.container {
+  margin-left: auto;
+  margin-right: auto;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
-.row {
-  margin-left: -15px;
-  margin-right: -15px;
+
+.gallery-grid:after {
+  content: '';
+  display: block;
+  clear: both;
 }
 
-.col-12 {
-  padding: 15px;
+/* ---- .gallery-grid-item ---- */
+
+.gallery-grid-sizer, .gallery-grid-item {
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  header h1 {
-    font-size: 2rem;
-  }
-
-  .galleries-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    padding: 1rem;
-    gap: 1rem;
-  }
-
-  .gallery-card-image {
-    height: 180px;
-  }
-
-  .gallery-content {
-    padding: 1rem;
+@media (min-width: 576px) {
+  .gallery-grid-sizer, .gallery-grid-item {
+    width: 50%;
   }
 }
 
-@media (max-width: 576px) {
-  .gallery-image-container {
-    margin-bottom: 1rem;
+@media (min-width: 992px) {
+  .gallery-grid-sizer, .gallery-grid-item {
+    width: 33.3333%;
   }
 }
 
-/* Efekt falowania tła */
+@media (min-width: 1200px) {
+  .gallery-grid-sizer, .gallery-grid-item {
+    width: 25%;
+  }
+}
+
+.gallery-grid-item {
+  float: left;
+}
+
+.gallery-grid-item img {
+  display: block;
+  max-width: 100%;
+}
+
+.gallery-grid-item link {
+  display: block;
+  width: 100%;
+}
+
+/* end of new css */
+
+
+
+
+
+/* backend css */
 .btn.htmx-request {
   position: relative;
   overflow: hidden; /* Zapobiega wychodzeniu animacji poza przycisk */

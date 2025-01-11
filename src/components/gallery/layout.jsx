@@ -21,7 +21,7 @@ export const Layout = (props) => {
             <h1>${c.env.PAGE_TITLE}</h1>
           </div>
         </header>
-        <main class="container">${props.children}</main>
+        <main>${props.children}</main>
       </body>
     </html>`
   );
