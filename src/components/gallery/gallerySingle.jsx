@@ -8,7 +8,7 @@ import { html } from "hono/html";
 export const Gallery = ({ gallery, images, c }) => (
   <Layout title={gallery.GalleryName} c={c}>
     <section>
-      <div style="width: 100%; padding: 0 15px; max-width: 1200px;">
+      <div style="width: 100%; margin: 10px; padding: 0px; max-width: 1200px;">
         <a href="./" className="back-link">
           ← {c.t("back_link")}
         </a>
@@ -21,7 +21,7 @@ export const Gallery = ({ gallery, images, c }) => (
       <div id="gallery-pswp" className="gallery-grid">
         <div class="gallery-grid-sizer"></div>
         {images.length === 0 ? (
-          <div className="no-images-container text-center py-5">
+          <div>
             <p className="text-muted">{c.t("no_images_message")}</p>
           </div>
         ) : (
@@ -45,6 +45,7 @@ export const Gallery = ({ gallery, images, c }) => (
                   }
                   alt={image.name}
                   style="width: 100%"
+                  loading="lazy"
                 />
               </a>
             </div>

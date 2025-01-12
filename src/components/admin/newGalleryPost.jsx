@@ -22,7 +22,7 @@ export const handlePostNewGallery = async (c) => {
       }
     }
     await cachePurgeHome(c);
-    c.header('hx-redirect', `/admin/${formObject.GalleryTableName}`);
+    c.header('hx-redirect', `${formObject.GalleryTableName}`);
     return c.text("Zapisano w bazie danych");
   } catch (error) {
     return c.html(
