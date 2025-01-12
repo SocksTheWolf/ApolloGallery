@@ -135,7 +135,9 @@ class FileUploader {
     try {
       const { width, height } = await this.getImageSize(file);
       const hash = await this.generateImageHash(file);
-      const result = await this.uploadFile(file, width, height, hash);
+      const { dateCreated, dateModified } = await this.readFileCreatedDate(file);
+      console.log("File info:", file.name, width, height, hash, dateCreated, dateModified);
+      const result = await this.uploadFile(file, width, height, hash, dateCreated, dateModified);
       results.push(result);
 
       if (!result.success) {
@@ -174,12 +176,14 @@ class FileUploader {
     this.currentFileCounter.innerText = currentUpload;
   }
 
-  async uploadFile(file, width, height, hash) {
+  async uploadFile(file, width, height, hash, dateCreated, dateModified) {
     const formData = new FormData();
     formData.append("file", file, file.name);
     formData.append("width", width);
     formData.append("height", height);
     formData.append("hash", hash);
+    formData.append("dateCreated", dateCreated);
+    formData.append("dateModified", dateModified);
     const currentPath = window.location.pathname;
 
     try {
@@ -236,6 +240,25 @@ class FileUploader {
       reader.readAsArrayBuffer(image);
     });
   }
+
+  async readFileCreatedDate(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const view = new DataView(event.target.result);
+        const offset = 0;
+        const length = 8;
+        const dateCreated = view.getUint32(offset, true);
+        const dateModified = view.getUint32(offset + 4, true);
+        resolve({ dateCreated, dateModified });
+      };
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
+
+
 }
 
 // Usage

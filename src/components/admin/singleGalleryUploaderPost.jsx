@@ -7,6 +7,8 @@ export const imageUploader = async (c) => {
   const width = formData['width'];
   const height = formData['height'];
   const hash = formData['hash'];
+  const dateCreated = formData['dateCreated'];
+  const dateModified = formData['dateModified'];
 
   if (!(file instanceof File)) {
     return c.text('Invalid file', 400);
@@ -41,7 +43,9 @@ export const imageUploader = async (c) => {
       width,
       height,
       hash,
-      path
+      path,
+      dateCreated,
+      dateModified
     );
 
     if (!success) {

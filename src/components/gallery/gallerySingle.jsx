@@ -50,23 +50,6 @@ export const Gallery = ({ gallery, images, c }) => (
               </a>
             </div>
 
-            // <div className="col" key={image.path}>
-            //   <div className="gallery-image-container">
-            //     <a
-            //       href={(c.env.IMGT == "true")?(`/cdn-cgi/image/f=auto,q=80/img/${image.path}`):(`img/${image.path}`)}
-            //       data-pswp-width={image.width}
-            //       data-pswp-height={image.height}
-            //       target="_blank"
-            //     >
-            //       <img
-            //         src={(c.env.IMGT == "true")?(`/cdn-cgi/image/f=auto,q=75,w=433/img/${image.path}`):(`img/${image.path}`)}
-            //         alt={image.name}
-            //         className="gallery-image img-fluid"
-            //         loading="lazy"
-            //       />
-            //     </a>
-            //   </div>
-            // </div>
           ))
         )}
       </div>
@@ -99,8 +82,7 @@ export const Gallery = ({ gallery, images, c }) => (
               el.setAttribute("rel", "noopener");
 
               pswp.on("change", () => {
-                const specialUrl = pswp.currSlide.data.src;
-                el.href = specialUrl.substring(specialUrl.indexOf("/img/"));
+                el.href = pswp.currSlide.data.src;
               });
             },
           });

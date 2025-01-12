@@ -64,7 +64,7 @@ export const createGallery = async (c, formObject) => {
       formObject.GalleryIsPublic
     ),
     c.env.DB.prepare(
-      `CREATE TABLE IF NOT EXISTS ${formObject.GalleryTableName} (approved BOOLEAN, width INTEGER, height INTEGER, name TEXT, hash TEXT, path TEXT PRIMARY KEY)`
+      `CREATE TABLE IF NOT EXISTS ${formObject.GalleryTableName} (approved BOOLEAN, width INTEGER, height INTEGER, name TEXT, hash TEXT, path TEXT PRIMARY KEY, dateCreated INTEGER, dateModified INTEGER)`
     ),
   ]);
 };
@@ -76,12 +76,14 @@ export const addImageToIndywidualGallery = async (
   width,
   height,
   hash,
-  path
+  path,
+  dateCreated,
+  dateModified
 ) => {
   return c.env.DB.prepare(
-    `INSERT INTO ${GalleryTableName} (approved, name, width, height, hash, path) VALUES (TRUE, ?1, ?2, ?3, ?4, ?5)`
+    `INSERT INTO ${GalleryTableName} (approved, name, width, height, hash, path, dateCreated, dateModified) VALUES (TRUE, ?1, ?2, ?3, ?4, ?5, ?6, ?7)`
   )
-    .bind(name, width, height, hash, path)
+    .bind(name, width, height, hash, path, dateCreated, dateModified)
     .all();
 };
 

@@ -3,8 +3,6 @@ export async function handleGetImage(c) {
     const { p1, p2, p3 } = c.req.param()
     const imgPath = `${p1}/${p2}/${p3}`;
 
-    console.log(imgPath);
-
     if (!imgPath) {
       return c.text("Invalid Image Path", 400);
     }
