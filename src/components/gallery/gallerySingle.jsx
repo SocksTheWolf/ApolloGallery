@@ -82,9 +82,10 @@ export const Gallery = ({ gallery, images, c }) => (
               el.setAttribute("rel", "noopener");
 
               pswp.on("change", () => {
-                const specialUrl = pswp.currSlide.data.src;
-                const regexPattern = "/\/cdn-cgi\/image\/.*\/(gallery\/img\/.*)/";
-                el.href = specialUrl.replace(regexPattern, "$1");
+                const specialUrl = pswp.currSlide.data.src;;
+                const regex = /(?<=cdn-cgi\/image\/[^/]+\/).*/;
+                el.href = specialUrl.match(regex) ? specialUrl.match(regex)[0] : specialUrl;
+
               });
             },
           });
