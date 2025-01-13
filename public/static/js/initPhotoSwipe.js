@@ -1,6 +1,6 @@
 import PhotoSwipeLightbox from "/static/js/photoswipe-lightbox.esm.min.js";
 const lightbox = new PhotoSwipeLightbox({
-  gallery: "#gallery-pswp",
+  gallery: "#masonry-container",
   children: "a",
   pswpModule: () => import("/static/js/photoswipe.esm.min.js"),
 });
@@ -26,9 +26,7 @@ lightbox.on("uiRegister", function () {
 
       pswp.on("change", () => {
         const specialUrl = pswp.currSlide.data.src;
-        const regex = /cdn-cgi\/image\/[^/]+\/(.*)/;
-        const match = specialUrl.match(regex);
-        el.href = match ? match[1] : specialUrl;
+        el.href = specialUrl.substring(specialUrl.indexOf("img/"));
       });
     },
   });

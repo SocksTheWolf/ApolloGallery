@@ -1,13 +1,110 @@
-var grid = document.querySelector('.gallery-grid');
-var iso = new Isotope(grid, {
-    itemSelector: '.gallery-grid-item',
-    percentPosition: true,
-    masonry: {
-        columnWidth: '.gallery-grid-sizer'
-    }
-});
+class MasonryLayout {
+  constructor(containerSelector, options = {}) {
+      this.container = document.querySelector(containerSelector);
+      if (!this.container) {
+          throw new Error(`Container not found: ${containerSelector}`);
+      }
 
-imagesLoaded(grid).on('progress', function () {
-    // layout Isotope after each image loads
-    iso.layout();
+      this.options = {
+          gap: options.gap || 16,
+          minColumnWidth: options.minColumnWidth || 300,
+          ...options
+      };
+
+      this.init();
+  }
+
+  init() {
+      this.container.style.position = 'relative';
+      this.items = Array.from(this.container.querySelectorAll('.masonry-item')).map(element => {
+          const link = element.querySelector('a');
+          const width = parseInt(link.dataset.pswpWidth, 10);
+          const height = parseInt(link.dataset.pswpHeight, 10);
+          const aspectRatio = width / height;
+
+          // Set initial aspect ratio
+          const content = element.querySelector('.masonry-item-content');
+          content.style.paddingBottom = `${(height / width) * 100}%`;
+          content.style.maxHeight = `${(height / width) * 100}%`;
+
+          // Handle image load
+          const img = element.querySelector('img');
+          if (img.complete) {
+              this.handleImageLoad(img, element);
+          } else {
+              img.onload = () => this.handleImageLoad(img, element);
+          }
+
+          return { element, aspectRatio };
+      });
+
+      this.handleResize = this.handleResize.bind(this);
+      window.addEventListener('resize', this.handleResize);
+      this.layout();
+  }
+
+  handleImageLoad(img, element) {
+      img.classList.add('loaded');
+      // const content = element.querySelector('.masonry-item-content');
+      const placeholder = element.querySelector('.placeholder');
+      if (placeholder) {
+          placeholder.style.display = 'none';
+          // content.style.paddingBottom = ``;
+      }
+  }
+
+  calculateColumns() {
+      const containerWidth = this.container.offsetWidth;
+      const columnCount = Math.max(1, Math.floor(containerWidth / this.options.minColumnWidth));
+      const columnWidth = (containerWidth - (this.options.gap * (columnCount - 1))) / columnCount;
+      return { count: columnCount, width: columnWidth };
+  }
+
+  layout() {
+      const { count: columnCount, width: columnWidth } = this.calculateColumns();
+      const columns = Array(columnCount).fill().map(() => ({
+          height: 0,
+          items: []
+      }));
+
+      this.items.forEach((item) => {
+          const shortestColumn = columns.reduce((minCol, col, index) => 
+              col.height < columns[minCol].height ? index : minCol
+          , 0);
+
+          const itemHeight = columnWidth / item.aspectRatio;
+          columns[shortestColumn].items.push({
+              element: item.element,
+              height: itemHeight
+          });
+          columns[shortestColumn].height += itemHeight + this.options.gap;
+      });
+
+      columns.forEach((column, columnIndex) => {
+          let yOffset = 0;
+          column.items.forEach((item) => {
+              const xOffset = columnIndex * (columnWidth + this.options.gap);
+              item.element.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+              item.element.style.width = `${columnWidth}px`;
+              yOffset += item.height + this.options.gap;
+          });
+      });
+
+      const maxHeight = Math.max(...columns.map(col => col.height)) - this.options.gap;
+      this.container.style.height = `${maxHeight}px`;
+  }
+
+  handleResize() {
+      requestAnimationFrame(() => this.layout());
+  }
+
+  destroy() {
+      window.removeEventListener('resize', this.handleResize);
+  }
+}
+
+// Initialize the masonry layout
+const masonry = new MasonryLayout('#masonry-container', {
+  gap: 16,
+  minColumnWidth: 250
 });
