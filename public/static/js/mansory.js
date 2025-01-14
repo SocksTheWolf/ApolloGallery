@@ -45,11 +45,10 @@ class MasonryLayout {
 
   handleImageLoad(img, element) {
       img.classList.add('loaded');
-      // const content = element.querySelector('.masonry-item-content');
       const placeholder = element.querySelector('.placeholder');
       if (placeholder) {
           placeholder.style.display = 'none';
-          // content.style.paddingBottom = ``;
+        
       }
   }
 
@@ -86,6 +85,7 @@ class MasonryLayout {
               const xOffset = columnIndex * (columnWidth + this.options.gap);
               item.element.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
               item.element.style.width = `${columnWidth}px`;
+              item.element.classList.add('after-layout');
               yOffset += item.height + this.options.gap;
           });
       });

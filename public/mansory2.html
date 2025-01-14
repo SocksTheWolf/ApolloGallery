@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masonry Layout with Lightbox Support</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        #masonry-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        #masonry-container.js-layout {
+            display: block;
+        }
+
+        .masonry-item {
+            position: relative;
+            width: 100%;
+            padding-bottom: 100vh;
+        }
+
+        #masonry-container.js-layout .masonry-item {
+            position: absolute;
+            padding-bottom: 0;
+        }
+
+        #masonry-container.js-layout .masonry-item::before {
+            display: none;
+            
+        }
+
+        .masonry-item-content {
+            position: relative;
+            width: 100%;
+            border-radius: 8px;
+            min-height: var(--initial-height);
+        }
+
+        .masonry-item a {
+            display: block;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+        }
+
+        .masonry-item img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .masonry-item img.loaded {
+            opacity: 1;
+        }
+
+        .placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Example of server-rendered content -->
+    <div id="masonry-container">
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_012_7388cc0c29.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_012_7388cc0c29.jpg"
+                        alt="20240529_tropicana_boJutroWolne_012" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_020_4306dcfa32.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_020_4306dcfa32.jpg"
+                        alt="20240529_tropicana_boJutroWolne_020" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_021_d232c407bb.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_021_d232c407bb.jpg"
+                        alt="20240529_tropicana_boJutroWolne_021" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_022_8b8c93b85c.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_022_8b8c93b85c.jpg"
+                        alt="20240529_tropicana_boJutroWolne_022" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_023_76653ed547.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_023_76653ed547.jpg"
+                        alt="20240529_tropicana_boJutroWolne_023" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_024_358caecf35.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_024_358caecf35.jpg"
+                        alt="20240529_tropicana_boJutroWolne_024" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_025_24c7a11441.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_025_24c7a11441.jpg"
+                        alt="20240529_tropicana_boJutroWolne_025" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_026_9817b66d51.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_026_9817b66d51.jpg"
+                        alt="20240529_tropicana_boJutroWolne_026" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_027_81f3765cba.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_027_81f3765cba.jpg"
+                        alt="20240529_tropicana_boJutroWolne_027" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_028_25acddda4b.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_028_25acddda4b.jpg"
+                        alt="20240529_tropicana_boJutroWolne_028" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_029_b06a26ceb1.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_029_b06a26ceb1.jpg"
+                        alt="20240529_tropicana_boJutroWolne_029" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_030_ef115fc96c.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_030_ef115fc96c.jpg"
+                        alt="20240529_tropicana_boJutroWolne_030" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_031_1a7c5c2cc9.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_031_1a7c5c2cc9.jpg"
+                        alt="20240529_tropicana_boJutroWolne_031" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_032_331e3d96c0.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_032_331e3d96c0.jpg"
+                        alt="20240529_tropicana_boJutroWolne_032" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_033_4f25a8f7ba.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_033_4f25a8f7ba.jpg"
+                        alt="20240529_tropicana_boJutroWolne_033" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_034_75216cafad.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_034_75216cafad.jpg"
+                        alt="20240529_tropicana_boJutroWolne_034" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_036_cf7280c989.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_036_cf7280c989.jpg"
+                        alt="20240529_tropicana_boJutroWolne_036" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_035_31275b3959.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_035_31275b3959.jpg"
+                        alt="20240529_tropicana_boJutroWolne_035" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_037_7eb32969dd.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_037_7eb32969dd.jpg"
+                        alt="20240529_tropicana_boJutroWolne_037" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_038_d5eb6e5515.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_038_d5eb6e5515.jpg"
+                        alt="20240529_tropicana_boJutroWolne_038" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_039_ba6b368dd4.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_039_ba6b368dd4.jpg"
+                        alt="20240529_tropicana_boJutroWolne_039" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_040_ada8168901.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_040_ada8168901.jpg"
+                        alt="20240529_tropicana_boJutroWolne_040" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_041_e7fdf7f94e.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_041_e7fdf7f94e.jpg"
+                        alt="20240529_tropicana_boJutroWolne_041" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_042_289ba092e9.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_042_289ba092e9.jpg"
+                        alt="20240529_tropicana_boJutroWolne_042" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_043_d1faae61d0.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_043_d1faae61d0.jpg"
+                        alt="20240529_tropicana_boJutroWolne_043" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_044_b76d77bcc5.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_044_b76d77bcc5.jpg"
+                        alt="20240529_tropicana_boJutroWolne_044" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_045_858e27bc7d.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_045_858e27bc7d.jpg"
+                        alt="20240529_tropicana_boJutroWolne_045" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_046_5ee523a9fa.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_046_5ee523a9fa.jpg"
+                        alt="20240529_tropicana_boJutroWolne_046" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_047_6a0bce40a8.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_047_6a0bce40a8.jpg"
+                        alt="20240529_tropicana_boJutroWolne_047" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_048_851e350955.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_048_851e350955.jpg"
+                        alt="20240529_tropicana_boJutroWolne_048" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_050_3014ef0e9e.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_050_3014ef0e9e.jpg"
+                        alt="20240529_tropicana_boJutroWolne_050" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_049_4ae48f376d.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_049_4ae48f376d.jpg"
+                        alt="20240529_tropicana_boJutroWolne_049" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_051_bedbe52e60.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_051_bedbe52e60.jpg"
+                        alt="20240529_tropicana_boJutroWolne_051" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_053_d3150cffe9.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_053_d3150cffe9.jpg"
+                        alt="20240529_tropicana_boJutroWolne_053" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_052_67631fd61f.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_052_67631fd61f.jpg"
+                        alt="20240529_tropicana_boJutroWolne_052" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_054_02fd4a064f.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_054_02fd4a064f.jpg"
+                        alt="20240529_tropicana_boJutroWolne_054" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_055_f351e7183a.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_055_f351e7183a.jpg"
+                        alt="20240529_tropicana_boJutroWolne_055" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_056_572539d483.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_056_572539d483.jpg"
+                        alt="20240529_tropicana_boJutroWolne_056" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_057_e0e4aa1f41.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_057_e0e4aa1f41.jpg"
+                        alt="20240529_tropicana_boJutroWolne_057" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_058_855bbad301.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_058_855bbad301.jpg"
+                        alt="20240529_tropicana_boJutroWolne_058" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_059_d5562faba0.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_059_d5562faba0.jpg"
+                        alt="20240529_tropicana_boJutroWolne_059" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_060_521eae639e.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_060_521eae639e.jpg"
+                        alt="20240529_tropicana_boJutroWolne_060" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_061_1ebec2d406.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_061_1ebec2d406.jpg"
+                        alt="20240529_tropicana_boJutroWolne_061" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_062_f962d493a5.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_062_f962d493a5.jpg"
+                        alt="20240529_tropicana_boJutroWolne_062" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_063_85ba4bde13.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_063_85ba4bde13.jpg"
+                        alt="20240529_tropicana_boJutroWolne_063" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_064_b9cfb9ebff.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_064_b9cfb9ebff.jpg"
+                        alt="20240529_tropicana_boJutroWolne_064" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_065_39b713ffb3.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_065_39b713ffb3.jpg"
+                        alt="20240529_tropicana_boJutroWolne_065" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_066_ed4cca408e.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_066_ed4cca408e.jpg"
+                        alt="20240529_tropicana_boJutroWolne_066" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_067_b555e96736.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_067_b555e96736.jpg"
+                        alt="20240529_tropicana_boJutroWolne_067" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_068_018dcc5794.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_068_018dcc5794.jpg"
+                        alt="20240529_tropicana_boJutroWolne_068" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_070_4256493a6a.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_070_4256493a6a.jpg"
+                        alt="20240529_tropicana_boJutroWolne_070" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_071_a80ccd446f.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_071_a80ccd446f.jpg"
+                        alt="20240529_tropicana_boJutroWolne_071" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_069_7f50697573.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_069_7f50697573.jpg"
+                        alt="20240529_tropicana_boJutroWolne_069" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_072_2902c7b40a.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_072_2902c7b40a.jpg"
+                        alt="20240529_tropicana_boJutroWolne_072" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_073_dbfc478ed0.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_073_dbfc478ed0.jpg"
+                        alt="20240529_tropicana_boJutroWolne_073" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_074_1e4c7e356e.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_074_1e4c7e356e.jpg"
+                        alt="20240529_tropicana_boJutroWolne_074" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_075_2d7754bb2b.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_075_2d7754bb2b.jpg"
+                        alt="20240529_tropicana_boJutroWolne_075" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_076_ccb5e5d41b.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_076_ccb5e5d41b.jpg"
+                        alt="20240529_tropicana_boJutroWolne_076" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_077_415a754178.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_077_415a754178.jpg"
+                        alt="20240529_tropicana_boJutroWolne_077" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_078_c9a4731bf7.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_078_c9a4731bf7.jpg"
+                        alt="20240529_tropicana_boJutroWolne_078" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_079_d72ab53889.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_079_d72ab53889.jpg"
+                        alt="20240529_tropicana_boJutroWolne_079" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_081_5cf89e662c.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_081_5cf89e662c.jpg"
+                        alt="20240529_tropicana_boJutroWolne_081" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_080_d2ddda5446.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_080_d2ddda5446.jpg"
+                        alt="20240529_tropicana_boJutroWolne_080" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_083_319227c710.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_083_319227c710.jpg"
+                        alt="20240529_tropicana_boJutroWolne_083" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_082_4a534f5eee.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_082_4a534f5eee.jpg"
+                        alt="20240529_tropicana_boJutroWolne_082" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_084_b829ed8977.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_084_b829ed8977.jpg"
+                        alt="20240529_tropicana_boJutroWolne_084" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_087_0f7ea50891.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_087_0f7ea50891.jpg"
+                        alt="20240529_tropicana_boJutroWolne_087" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_086_f95033f109.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_086_f95033f109.jpg"
+                        alt="20240529_tropicana_boJutroWolne_086" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_085_7928f91c9d.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_085_7928f91c9d.jpg"
+                        alt="20240529_tropicana_boJutroWolne_085" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_088_c8e6f8d05a.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_088_c8e6f8d05a.jpg"
+                        alt="20240529_tropicana_boJutroWolne_088" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_089_0a280749aa.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_089_0a280749aa.jpg"
+                        alt="20240529_tropicana_boJutroWolne_089" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_091_f62d65173a.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_091_f62d65173a.jpg"
+                        alt="20240529_tropicana_boJutroWolne_091" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_090_c152aec58e.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_090_c152aec58e.jpg"
+                        alt="20240529_tropicana_boJutroWolne_090" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_092_8d70b42f6c.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_092_8d70b42f6c.jpg"
+                        alt="20240529_tropicana_boJutroWolne_092" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_093_a61ab64ccc.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_093_a61ab64ccc.jpg"
+                        alt="20240529_tropicana_boJutroWolne_093" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_094_d1d20faa52.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_094_d1d20faa52.jpg"
+                        alt="20240529_tropicana_boJutroWolne_094" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_095_09c9357676.jpg"
+                    data-pswp-width="2048" data-pswp-height="1152" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_095_09c9357676.jpg"
+                        alt="20240529_tropicana_boJutroWolne_095" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_096_13b9ad8348.jpg"
+                    data-pswp-width="2048" data-pswp-height="1152" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_096_13b9ad8348.jpg"
+                        alt="20240529_tropicana_boJutroWolne_096" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_097_504fac9af7.jpg"
+                    data-pswp-width="2048" data-pswp-height="1152" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_097_504fac9af7.jpg"
+                        alt="20240529_tropicana_boJutroWolne_097" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_098_4cc9e645fd.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_098_4cc9e645fd.jpg"
+                        alt="20240529_tropicana_boJutroWolne_098" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_099_0878e915be.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_099_0878e915be.jpg"
+                        alt="20240529_tropicana_boJutroWolne_099" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_100_315ed23b5e.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_100_315ed23b5e.jpg"
+                        alt="20240529_tropicana_boJutroWolne_100" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_101_2754c9b075.jpg"
+                    data-pswp-width="2048" data-pswp-height="1152" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_101_2754c9b075.jpg"
+                        alt="20240529_tropicana_boJutroWolne_101" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_102_e2199adc97.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_102_e2199adc97.jpg"
+                        alt="20240529_tropicana_boJutroWolne_102" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_103_678eacc7aa.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_103_678eacc7aa.jpg"
+                        alt="20240529_tropicana_boJutroWolne_103" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_104_f278aa69ce.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_104_f278aa69ce.jpg"
+                        alt="20240529_tropicana_boJutroWolne_104" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_105_ac32d1f9b3.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_105_ac32d1f9b3.jpg"
+                        alt="20240529_tropicana_boJutroWolne_105" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_106_fac796ed37.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_106_fac796ed37.jpg"
+                        alt="20240529_tropicana_boJutroWolne_106" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_107_881ddda115.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_107_881ddda115.jpg"
+                        alt="20240529_tropicana_boJutroWolne_107" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_108_c14dd4add7.jpg"
+                    data-pswp-width="2048" data-pswp-height="1152" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_108_c14dd4add7.jpg"
+                        alt="20240529_tropicana_boJutroWolne_108" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_109_e140db8ad7.jpg"
+                    data-pswp-width="2048" data-pswp-height="1152" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_109_e140db8ad7.jpg"
+                        alt="20240529_tropicana_boJutroWolne_109" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_110_69760fc5e4.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_110_69760fc5e4.jpg"
+                        alt="20240529_tropicana_boJutroWolne_110" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_111_240263b397.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_111_240263b397.jpg"
+                        alt="20240529_tropicana_boJutroWolne_111" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_112_01112b4fd3.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_112_01112b4fd3.jpg"
+                        alt="20240529_tropicana_boJutroWolne_112" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_113_80f7483624.jpg"
+                    data-pswp-width="1368" data-pswp-height="2048" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_113_80f7483624.jpg"
+                        alt="20240529_tropicana_boJutroWolne_113" loading="lazy" /></a>
+            </div>
+        </div>
+        <div class="masonry-item">
+            <div class="masonry-item-content">
+                <div class="placeholder"></div><a
+                    href="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=80/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_114_aff1df60b2.jpg"
+                    data-pswp-width="2048" data-pswp-height="1368" target="_blank"><img
+                        src="https://gallery.andrzejrusinowski.pl/cdn-cgi/image/f=auto,q=75,w=433/gallery/img/galleries/speedtest/20240529_tropicana_boJutroWolne_114_aff1df60b2.jpg"
+                        alt="20240529_tropicana_boJutroWolne_114" loading="lazy" /></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class MasonryLayout {
+            constructor(containerSelector, options = {}) {
+                this.container = document.querySelector(containerSelector);
+                if (!this.container) {
+                    throw new Error(`Container not found: ${containerSelector}`);
+                }
+
+                this.options = {
+                    gap: options.gap || 16,
+                    minColumnWidth: options.minColumnWidth || 300,
+                    ...options
+                };
+
+                this.init();
+            }
+
+            init() {
+                // Set initial dimensions for each item
+                this.items = Array.from(this.container.querySelectorAll('.masonry-item')).map(element => {
+                    const link = element.querySelector('a');
+                    const width = parseInt(link.dataset.pswpWidth, 10);
+                    const height = parseInt(link.dataset.pswpHeight, 10);
+                    const aspectRatio = width / height;
+
+                    // Set aspect ratio as CSS variable for the ::before pseudo-element
+                    element.style.setProperty('--aspect-ratio', `${(height / width) * 100}%`);
+
+                    // Handle image load separately
+                    const img = element.querySelector('img');
+                    if (img.complete) {
+                        this.handleImageLoad(img, element);
+                    } else {
+                        img.onload = () => this.handleImageLoad(img, element);
+                    }
+
+                    return { element, aspectRatio };
+                });
+
+                // Short delay to ensure dimensions are applied before switching layout
+                setTimeout(() => {
+                    this.container.classList.add('js-layout');
+                    this.layout();
+                }, 1);
+
+                this.handleResize = this.handleResize.bind(this);
+                window.addEventListener('resize', this.handleResize);
+            }
+
+            handleImageLoad(img, element) {
+                img.classList.add('loaded');
+                const placeholder = element.querySelector('.placeholder');
+                if (placeholder) {
+                    placeholder.style.display = 'none';
+                }
+            }
+
+            calculateColumns() {
+                const containerWidth = this.container.offsetWidth;
+                const columnCount = Math.max(1, Math.floor(containerWidth / this.options.minColumnWidth));
+                const columnWidth = (containerWidth - (this.options.gap * (columnCount - 1))) / columnCount;
+                return { count: columnCount, width: columnWidth };
+            }
+
+            layout() {
+                const { count: columnCount, width: columnWidth } = this.calculateColumns();
+                const columns = Array(columnCount).fill().map(() => ({
+                    height: 0,
+                    items: []
+                }));
+
+                this.items.forEach((item) => {
+                    const shortestColumn = columns.reduce((minCol, col, index) =>
+                        col.height < columns[minCol].height ? index : minCol
+                        , 0);
+
+                    const itemHeight = columnWidth / item.aspectRatio;
+                    columns[shortestColumn].items.push({
+                        element: item.element,
+                        height: itemHeight
+                    });
+                    columns[shortestColumn].height += itemHeight + this.options.gap;
+                });
+
+                columns.forEach((column, columnIndex) => {
+                    let yOffset = 0;
+                    column.items.forEach((item) => {
+                        const xOffset = columnIndex * (columnWidth + this.options.gap);
+                        item.element.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+                        item.element.style.width = `${columnWidth}px`;
+                        yOffset += item.height + this.options.gap;
+                    });
+                });
+
+                const maxHeight = Math.max(...columns.map(col => col.height)) - this.options.gap;
+                this.container.style.height = `${maxHeight}px`;
+            }
+
+            handleResize() {
+                requestAnimationFrame(() => this.layout());
+            }
+
+            destroy() {
+                window.removeEventListener('resize', this.handleResize);
+            }
+        }
+
+        // Initialize the masonry layout
+        const masonry = new MasonryLayout('#masonry-container', {
+            gap: 16,
+            minColumnWidth: 250
+        });
+    </script>
+</body>
+
+</html>

@@ -123,9 +123,14 @@ header h1 {
   margin: 0;
   box-sizing: border-box;
 }
-.masonry-item {
+.masonry-item {                                 
+  position: relative;                     /* IMPORTANT FOR LAZY LOADING XDD */
+}
+
+.masonry-item.after-layout {        
   position: absolute;
 }
+
 .masonry-item-content {
   position: relative;
   width: 100%;
@@ -133,25 +138,37 @@ header h1 {
   overflow: hidden;
 }
 .masonry-item a {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;       
+  height: 0px;       
   display: block;
+  margin-bottom: 100%;                        /* IMPORTANT FOR LAZY LOADING XDD */
 }
+
+.masonry-item.after-layout div a {
+  margin-bottom: 0;                            /* IMPORTANT FOR LAZY LOADING XDD */
+} 
+
+.masonry-item a:has(img.loaded) {
+  height: 100%;                                /* IMPORTANT FOR LAZY LOADING XDD */ 
+}
+
 .masonry-item img {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  border-radius: 8px;
   display: block;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 .masonry-item img.loaded {
   opacity: 1;
+
 }
 .placeholder {
   position: absolute;
