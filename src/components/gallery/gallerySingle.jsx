@@ -9,7 +9,7 @@ export const Gallery = ({ gallery, images, c }) => (
   <Layout title={gallery.GalleryName} c={c}>
     <section>
       <div className="container">
-      <div style="width: 100%; margin: 10px; padding: 0px; max-width: 1200px;">
+      <div style="width: 100%; padding: 0px; max-width: 1200px;">
         <a href="./" className="back-link">
           ← {c.t("back_link")}
         </a>

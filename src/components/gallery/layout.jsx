@@ -8,7 +8,7 @@ export const Layout = (props) => {
     <html lang=${c.t()}>
       <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
         <title>${props.title}</title>
         <link rel="stylesheet" href="/static/style.css" />
         <link rel="stylesheet" href="/static/photoswipe.css" />

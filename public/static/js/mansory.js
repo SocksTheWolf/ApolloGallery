@@ -98,9 +98,6 @@ class MasonryLayout {
       requestAnimationFrame(() => this.layout());
   }
 
-  destroy() {
-      window.removeEventListener('resize', this.handleResize);
-  }
 }
 
 // Initialize the masonry layout
