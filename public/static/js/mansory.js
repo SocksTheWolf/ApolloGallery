@@ -103,5 +103,5 @@ class MasonryLayout {
 // Initialize the masonry layout
 const masonry = new MasonryLayout('#masonry-container', {
   gap: 16,
-  minColumnWidth: 250
+  minColumnWidth: 200
 });
