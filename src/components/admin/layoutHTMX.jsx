@@ -15,24 +15,23 @@ export const Layout = (props) => {
         <script src="https://unpkg.com/htmx.org@1.9.12"></script>
       </head>
       <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-          <div class="container">
-            <a class="navbar-brand" href="admin">Admin Panel</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="../">Public view</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href=${'http://logout@' + (c.req.header('Host') + '/admin')}>Logout</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+      <div
+        class="nav nav-pills mb-4 container"
+        style="justify-content: space-between;"
+      >
+        <h1>${c.t("admin_panel_title")}</h1>
+        <div class="nav">
+          <a class="nav-link" href=${"http://" + (c.req.header("Host") + "/gallery/")}>
+            ${c.t("public_view")}
+          </a>
+          <a
+            class="nav-link"
+            href=${"http://logout@" + (c.req.header("Host") + "/gallery/admin")}
+          >
+            ${c.t("logout")}
+          </a>
+        </div>
+      </div>
         
         <main class="container">
           <div class="row">

@@ -6,16 +6,14 @@ const SingleGalery = (props) => {
 
   return (
     <Layout title={"Edycja: " + props.gallery.GalleryName} c={c}>
-      <nav aria-label="breadcrumb" className="mb-4">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
-            <a href="../admin">{c.t("breadcrumb_admin")}</a>
+            <a href="../admin">{c.t("admin_panel_breadcrumb")}</a>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
             {props.gallery.GalleryName}
           </li>
         </ol>
-      </nav>
 
       <div className="card mb-4">
         <div className="card-header bg-primary text-white">

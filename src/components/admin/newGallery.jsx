@@ -6,7 +6,7 @@ export const newGalery = (c) => {
       <nav aria-label="breadcrumb" className="mb-4">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
-            <a href="../admin">{c.t("breadcrumb_admin")}</a>
+            <a href="../admin">{c.t("admin_panel_breadcrumb")}</a>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
             {c.t("breadcrumb_new_gallery")}

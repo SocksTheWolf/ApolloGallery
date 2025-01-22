@@ -4,11 +4,12 @@ import { getGalleriesFromD1 } from "../../utils/db";
 const GalleriesLayout = ({ galleries, c }) => {
   return (
     <Layout title={c.t("admin_panel_title")} c={c}>
-      <nav aria-label="breadcrumb" className="mb-4">
-        <ol className="breadcrumb">
-          <li className="breadcrumb-item active" aria-current="page">{c.t("admin_panel_breadcrumb")}</li>
-        </ol>
-      </nav>
+
+      <ol className="breadcrumb">
+        <li className="breadcrumb-item active" aria-current="page">
+          {c.t("admin_panel_breadcrumb")}
+        </li>
+      </ol>
 
       <div className="card">
         <div className="card-header bg-primary text-white">
@@ -18,14 +19,16 @@ const GalleriesLayout = ({ galleries, c }) => {
           {galleries.length > 0 ? (
             <div className="list-group">
               {galleries.map((gallery, index) => (
-                <a 
-                  href={"admin/" + String(gallery.GalleryTableName)} 
+                <a
+                  href={"admin/" + String(gallery.GalleryTableName)}
                   className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
                   key={index}
                 >
                   {gallery.GalleryName}
                   {gallery.PartyDate && (
-                    <span className="badge bg-primary rounded-pill">{gallery.PartyDate}</span>
+                    <span className="badge bg-primary rounded-pill">
+                      {gallery.PartyDate}
+                    </span>
                   )}
                 </a>
               ))}
@@ -38,7 +41,8 @@ const GalleriesLayout = ({ galleries, c }) => {
         </div>
         <div className="card-footer">
           <a href="admin/new-gallery" className="btn btn-success">
-            <i className="bi bi-plus-circle me-2"></i>{c.t("create_gallery_button")}
+            <i className="bi bi-plus-circle me-2"></i>
+            {c.t("create_gallery_button")}
           </a>
         </div>
       </div>
@@ -50,7 +54,9 @@ export const galleriesList = async (c) => {
   const { success, results } = await getGalleriesFromD1(c);
 
   if (!success) {
-    throw new Error("Error while connecting to database, check your connection and try again");
+    throw new Error(
+      "Error while connecting to database, check your connection and try again"
+    );
   }
 
   try {

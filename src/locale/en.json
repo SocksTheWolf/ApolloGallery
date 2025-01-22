@@ -1,6 +1,5 @@
 {
   "title": "New Gallery",
-  "breadcrumb_admin": "admin",
   "breadcrumb_new_gallery": "New Gallery",
   "card_header": "Create a new gallery",
   "gallery_name_label": "Gallery Name",
@@ -30,5 +29,7 @@
   "approved_label": "Approved",
   "unapproved_label": "Not approved",
   "back_link": "Back",
-  "gallery_list_title": "Gallery List"
+  "gallery_list_title": "Gallery List",
+  "logout": "Logout",
+  "public_view": "Public View"
 }

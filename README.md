@@ -102,6 +102,9 @@ Deploy the application:
 ```sh
 npm run deploy
 ```
+## Notes
+Adjusting root path:
+ - path in cachePurge.js need to be adjusted
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
