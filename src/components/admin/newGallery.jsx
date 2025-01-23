@@ -21,47 +21,56 @@ export const newGalery = (c) => {
         <div className="card-body">
           <form hx-post="" hx-target="#update_result">
             <div className="row mb-3">
-              <div className="col-md-6">
+              <div className="col-12">
                 <label htmlFor="galleryName" className="form-label">
                   {c.t("gallery_name_label")}
                 </label>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control form-control-lg"
                   name="GalleryName"
                   id="galleryName"
                   placeholder={c.t("gallery_name_placeholder")}
                 />
               </div>
-              <div className="col-md-6">
-                <label htmlFor="galleryTableName" className="form-label">
+            </div>
+
+            <div className="row mb-3">
+              <div className="col-12">
+                <label htmlFor="galleryTableName" className="form-label text-muted">
                   {c.t("gallery_table_name_label")}
                 </label>
                 <input
                   required
                   type="text"
-                  className="form-control"
+                  className="form-control form-control-sm bg-light"
                   name="GalleryTableName"
                   id="galleryTableName"
                   placeholder={c.t("gallery_table_name_placeholder")}
+                />
+                <div className="form-text text-muted">
+                  {c.t("gallery_table_name_placeholder")}
+                </div>
+              </div>
+            </div>
+
+            <div className="row mb-3">
+              <div className="col-12">
+                <label htmlFor="textField" className="form-label">
+                  {c.t("description_label")}
+                </label>
+                <textarea
+                  className="form-control"
+                  name="TextField"
+                  id="textField"
+                  rows="3"
+                  placeholder={c.t("description_placeholder")}
                 />
               </div>
             </div>
 
             <div className="row mb-3">
-              <div className="col-md-6">
-                <label htmlFor="textField" className="form-label">
-                  {c.t("description_label")}
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="TextField"
-                  id="textField"
-                  placeholder={c.t("description_placeholder")}
-                />
-              </div>
-              <div className="col-md-6">
+              <div className="col-12">
                 <label htmlFor="coverImage" className="form-label">
                   {c.t("cover_image_label")}
                 </label>
@@ -116,6 +125,72 @@ export const newGalery = (c) => {
                     {c.t("gallery_visibility_private")}
                   </option>
                 </select>
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="password" className="form-label">
+                  {c.t("password_label")}
+                </label>
+                <input
+                  type="password"
+                  className="form-control"
+                  name="Password"
+                  id="password"
+                  placeholder={c.t("password_placeholder")}
+                />
+              </div>
+            </div>
+
+            <div className="row mb-3">
+              <div className="col-md-6">
+                <label htmlFor="location" className="form-label">
+                  {c.t("location_label")}
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="Location"
+                  id="location"
+                  placeholder={c.t("location_placeholder")}
+                />
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="reviewers" className="form-label">
+                  {c.t("reviewers_label")}
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="Reviewers"
+                  id="reviewers"
+                  placeholder={c.t("reviewers_placeholder")}
+                />
+              </div>
+            </div>
+
+            <div className="row mb-3">
+              <div className="col-md-6">
+                <label htmlFor="tags" className="form-label">
+                  {c.t("tags_label")}
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="Tags"
+                  id="tags"
+                  placeholder={c.t("tags_placeholder")}
+                />
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="imagesOrder" className="form-label">
+                  {c.t("images_order_label")}
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="ImagesOrder"
+                  id="imagesOrder"
+                  placeholder={c.t("images_order_placeholder")}
+                />
               </div>
             </div>
 

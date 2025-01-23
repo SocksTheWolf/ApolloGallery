@@ -11,7 +11,7 @@ bucket_name = "pineapplegallery-bucket"
 [[d1_databases]]
 binding = "DB"
 database_name = "pineapplegallery-database"
-database_id = "7b063da3-9099-44c1-ade3-b1bc0e91389a"
+database_id = "30cffc37-e133-49db-8534-6524c89de2bb"
 
 [[kv_namespaces]]
 binding = "CACHE_KV"

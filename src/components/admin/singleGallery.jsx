@@ -22,47 +22,71 @@ const SingleGalery = (props) => {
         <div className="card-body">
           <form hx-post="" hx-target="#update_result">
             <div className="row mb-3">
-              <div className="col-md-6">
+              <div className="col-12">
                 <label htmlFor="galleryName" className="form-label">
                   {c.t("gallery_name_label")}
                 </label>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control form-control-lg"
                   name="GalleryName"
                   id="galleryName"
                   value={props.gallery.GalleryName}
+                  placeholder={c.t("gallery_name_placeholder")}
                 />
+                <div className="form-text text-muted">
+                  {c.t("gallery_table_name_label")}: {props.gallery.GalleryTableName}
+                </div>
               </div>
-              <div className="col-md-6">
-                <label htmlFor="galleryTableName" className="form-label">
-                  {c.t("gallery_table_name_label")}
+            </div>
+
+            <div className="row mb-3">
+              <div className="col-12">
+                <label htmlFor="textField" className="form-label">
+                  {c.t("description_label")}
                 </label>
-                <input
-                  type="text"
+                <textarea
                   className="form-control"
-                  readOnly
-                  name="GalleryTableName"
-                  id="galleryTableName"
-                  value={props.gallery.GalleryTableName}
+                  name="TextField"
+                  id="textField"
+                  rows="3"
+                  value={props.gallery.TextField}
+                  placeholder={c.t("description_placeholder")}
                 />
               </div>
             </div>
 
             <div className="row mb-3">
               <div className="col-md-6">
-                <label htmlFor="textField" className="form-label">
-                  {c.t("description_label")}
+                <label htmlFor="location" className="form-label">
+                  {c.t("location_label")}
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  name="TextField"
-                  id="textField"
-                  value={props.gallery.TextField}
+                  name="Location"
+                  id="location"
+                  value={props.gallery.Location}
+                  placeholder={c.t("location_placeholder")}
                 />
               </div>
               <div className="col-md-6">
+                <label htmlFor="tags" className="form-label">
+                  {c.t("tags_label")}
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="Tags"
+                  id="tags"
+                  value={props.gallery.Tags}
+                  placeholder={c.t("tags_placeholder")}
+                />
+              </div>
+            </div>
+
+            <div className="row mb-3">
+              <div className="col-md-12">
                 <label htmlFor="coverImage" className="form-label">
                   {c.t("cover_image_label")}
                 </label>
@@ -72,6 +96,7 @@ const SingleGalery = (props) => {
                   name="CoverImage"
                   id="coverImage"
                   value={props.gallery.CoverImage}
+                  placeholder={c.t("cover_image_placeholder")}
                 />
               </div>
             </div>
@@ -113,18 +138,60 @@ const SingleGalery = (props) => {
                   className="form-select"
                   name="GalleryIsPublic"
                   id="galleryIsPublic"
-                  value={props.gallery.GalleryIsPublic}
+                  defaultValue={props.gallery.GalleryIsPublic}
+                  key={props.gallery.GalleryIsPublic}
                 >
-                  <option value="TRUE">
-                    {props.gallery.GalleryIsPublic === "TRUE"
-                      ? "Publiczna"
-                      : "Public"}
-                  </option>
-                  <option value="FALSE">
-                    {props.gallery.GalleryIsPublic === "FALSE"
-                      ? "Prywatna"
-                      : "Private"}
-                  </option>
+                  <option value="TRUE" selected={props.gallery.GalleryIsPublic === "TRUE"}>{c.t("gallery_visibility_public")}</option>
+                  <option value="FALSE" selected={props.gallery.GalleryIsPublic === "FALSE"}>{c.t("gallery_visibility_private")}</option>
+                </select>
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="password" className="form-label">
+                  {c.t("password_label")}
+                </label>
+                <input
+                  type="password"
+                  className="form-control"
+                  name="Password"
+                  id="password"
+                  value={props.gallery.Password}
+                  placeholder={c.t("password_placeholder")}
+                />
+              </div>
+            </div>
+
+            <div className="row mb-3">
+              <div className="col-md-6">
+                <label htmlFor="reviewers" className="form-label">
+                  {c.t("reviewers_label")}
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="Reviewers"
+                  id="reviewers"
+                  value={props.gallery.Reviewers}
+                  placeholder={c.t("reviewers_placeholder")}
+                />
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="imagesOrder" className="form-label">
+                  {c.t("images_order_label")}
+                </label>
+                <select
+                  className="form-select"
+                  name="ImagesOrder"
+                  id="imagesOrder"
+                  defaultValue={props.gallery.ImagesOrder || "original"}
+                  key={props.gallery.ImagesOrder || "original"}
+                >
+                  <option value="original" selected={props.gallery.ImagesOrder === "original"}>{c.t("images_order_original")}</option>
+                  <option value="name_asc" selected={props.gallery.ImagesOrder === "name_asc"}>{c.t("images_order_name_asc")}</option>
+                  <option value="name_desc" selected={props.gallery.ImagesOrder === "name_desc"}>{c.t("images_order_name_desc")}</option>
+                  <option value="created_asc" selected={props.gallery.ImagesOrder === "created_asc"}>{c.t("images_order_created_asc")}</option>
+                  <option value="created_desc" selected={props.gallery.ImagesOrder === "created_desc"}>{c.t("images_order_created_desc")}</option>
+                  <option value="modified_asc" selected={props.gallery.ImagesOrder === "modified_asc"}>{c.t("images_order_modified_asc")}</option>
+                  <option value="modified_desc" selected={props.gallery.ImagesOrder === "modified_desc"}>{c.t("images_order_modified_desc")}</option>
                 </select>
               </div>
             </div>

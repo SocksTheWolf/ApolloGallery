@@ -1,11 +1,12 @@
 import { updateGalleryOnD1 } from "../../utils/db";
 import { cachePurgeHome, cachePurgeSingle } from '../../utils/cachePurge';
 
-
 export const editSingleGallery = async (c) => {
   const galeryTableName = c.req.param("galeryTableName")
   const payload = await c.req.formData();
-  const formObject = {};
+  const formObject = {
+    GalleryTableName: galeryTableName
+  };
   payload.forEach((value, key) => {
     formObject[key] = value;
   });

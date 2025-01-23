@@ -19,7 +19,12 @@ export const getGalleriesFromD1wGalleryIsPublic = async (c) => {
         CoverImage TEXT,
         PartyDate DATE,
         PublicationDate DATETIME,
-        GalleryIsPublic BOOLEAN
+        GalleryIsPublic BOOLEAN,
+        ImagesOrder TEXT,
+        Reviewers TEXT,
+        Password TEXT,
+        Tags TEXT,
+        Location TEXT
       );
     `;
 
@@ -36,7 +41,7 @@ export const getGalleriesFromD1wGalleryIsPublic = async (c) => {
 
 export const updateGalleryOnD1 = async (c, formObject) => {
   return await c.env.DB.prepare(
-    "UPDATE Galleries SET GalleryName = ?1, TextField = ?3, CoverImage = ?4, PartyDate = ?5, PublicationDate = ?6, GalleryIsPublic = ?7 WHERE GalleryTableName = ?2;"
+    "UPDATE Galleries SET GalleryName = ?1, TextField = ?3, CoverImage = ?4, PartyDate = ?5, PublicationDate = ?6, GalleryIsPublic = ?7, ImagesOrder = ?8, Reviewers = ?9, Password = ?10, Tags = ?11, Location = ?12 WHERE GalleryTableName = ?2;"
   )
     .bind(
       formObject.GalleryName,
@@ -45,7 +50,12 @@ export const updateGalleryOnD1 = async (c, formObject) => {
       formObject.CoverImage,
       formObject.PartyDate,
       formObject.PublicationDate,
-      formObject.GalleryIsPublic
+      formObject.GalleryIsPublic,
+      formObject.ImagesOrder,
+      formObject.Reviewers,
+      formObject.Password,
+      formObject.Tags,
+      formObject.Location
     )
     .all();
 };
@@ -53,7 +63,7 @@ export const updateGalleryOnD1 = async (c, formObject) => {
 export const createGallery = async (c, formObject) => {
   return await c.env.DB.batch([
     c.env.DB.prepare(
-      "INSERT INTO Galleries (GalleryName, GalleryTableName, TextField, CoverImage, PartyDate, PublicationDate, GalleryIsPublic) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)"
+      "INSERT INTO Galleries (GalleryName, GalleryTableName, TextField, CoverImage, PartyDate, PublicationDate, GalleryIsPublic, ImagesOrder, Reviewers, Password, Tags, Location) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12)"
     ).bind(
       formObject.GalleryName,
       formObject.GalleryTableName,
@@ -61,7 +71,12 @@ export const createGallery = async (c, formObject) => {
       formObject.CoverImage,
       formObject.PartyDate,
       formObject.PublicationDate,
-      formObject.GalleryIsPublic
+      formObject.GalleryIsPublic,
+      formObject.ImagesOrder,
+      formObject.Reviewers,
+      formObject.Password,
+      formObject.Tags,
+      formObject.Location
     ),
     c.env.DB.prepare(
       `CREATE TABLE IF NOT EXISTS ${formObject.GalleryTableName} (approved BOOLEAN, width INTEGER, height INTEGER, name TEXT, hash TEXT, path TEXT PRIMARY KEY, dateCreated INTEGER, dateModified INTEGER)`
@@ -88,11 +103,73 @@ export const addImageToIndywidualGallery = async (
 };
 
 export const getIndywidualGalleryFromD1 = async (c, gallery) => {
-  return await c.env.DB.prepare(`SELECT * FROM ${gallery}`).all();
+  // Get gallery settings first to check sort order
+  const gallerySettings = await c.env.DB.prepare(
+    "SELECT ImagesOrder FROM Galleries WHERE GalleryTableName = ?"
+  ).bind(gallery).first();
+
+  let orderByClause = '';
+  if (gallerySettings?.ImagesOrder) {
+    switch (gallerySettings.ImagesOrder) {
+      case 'name_asc':
+        orderByClause = 'ORDER BY name ASC';
+        break;
+      case 'name_desc':
+        orderByClause = 'ORDER BY name DESC';
+        break;
+      case 'created_asc':
+        orderByClause = 'ORDER BY dateCreated ASC';
+        break;
+      case 'created_desc':
+        orderByClause = 'ORDER BY dateCreated DESC';
+        break;
+      case 'modified_asc':
+        orderByClause = 'ORDER BY dateModified ASC';
+        break;
+      case 'modified_desc':
+        orderByClause = 'ORDER BY dateModified DESC';
+        break;
+      default: // 'original' or any other value
+        orderByClause = ''; // No explicit ordering, uses original DB order
+    }
+  }
+
+  return await c.env.DB.prepare(`SELECT * FROM ${gallery} ${orderByClause}`).all();
 };
 
 export const getIndywidualGalleryFromD1wApproved = async (c, gallery) => {
-  return await c.env.DB.prepare(`SELECT * FROM ${gallery} WHERE approved = TRUE`).all();
+  // Get gallery settings first to check sort order
+  const gallerySettings = await c.env.DB.prepare(
+    "SELECT ImagesOrder FROM Galleries WHERE GalleryTableName = ?"
+  ).bind(gallery).first();
+
+  let orderByClause = '';
+  if (gallerySettings?.ImagesOrder) {
+    switch (gallerySettings.ImagesOrder) {
+      case 'name_asc':
+        orderByClause = 'ORDER BY name ASC';
+        break;
+      case 'name_desc':
+        orderByClause = 'ORDER BY name DESC';
+        break;
+      case 'created_asc':
+        orderByClause = 'ORDER BY dateCreated ASC';
+        break;
+      case 'created_desc':
+        orderByClause = 'ORDER BY dateCreated DESC';
+        break;
+      case 'modified_asc':
+        orderByClause = 'ORDER BY dateModified ASC';
+        break;
+      case 'modified_desc':
+        orderByClause = 'ORDER BY dateModified DESC';
+        break;
+      default: // 'original' or any other value
+        orderByClause = ''; // No explicit ordering, uses original DB order
+    }
+  }
+
+  return await c.env.DB.prepare(`SELECT * FROM ${gallery} WHERE approved = TRUE ${orderByClause}`).all();
 };
 
 export const deleteGalleryInBothPlaces = async (c, GalleryTableName) => {

@@ -16,7 +16,7 @@ export const Layout = (props) => {
       </head>
       <body>
       <div
-        class="nav nav-pills mb-4 container"
+        class="nav nav-pills mb-4 mt-4 container"
         style="justify-content: space-between;"
       >
         <h1>${c.t("admin_panel_title")}</h1>
