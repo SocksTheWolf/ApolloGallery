@@ -1,4 +1,7 @@
-# Pineapple Gallery 🍍
+<div align="center">
+  <img src="public/android-chrome-512x512.png" alt="Pineapple Gallery Logo" width="200" height="200">
+  <h1>Pineapple Gallery 🍍</h1>
+</div>
 
 ## Description
 Pineapple Gallery is a web application for managing and displaying galleries of images. 📸 It is built using **Hono** and leverages **Cloudflare Workers**, **D1**, and **R2** for backend services. 🚀
@@ -8,23 +11,34 @@ Pineapple Gallery is a web application for managing and displaying galleries of 
 - **Cloudflare Integration**: Utilizes Cloudflare Workers, D1, and R2 for efficient and scalable backend operations. 🌐
 - **Multi-Language Support**: Supports multiple languages for a global audience. 🌍
 - **Admin Panel**: Comprehensive admin panel for managing galleries and images 🛠️
+- **Basic Authentication**: Secure admin access with username/password protection 🔒
+- **Image Management**: Upload, delete, and toggle image approval status 📊
+- **Cache Control**: Manual cache purging and automated cache middleware 🔄
 
 ### Tech Stack
 - **Frontend**: Hono (with server-side rendering), HTMX
 - **Backend**: Hono, Cloudflare Workers
 - **Database**: Cloudflare D1
 - **Storage**: Cloudflare R2
+- **Cache**: Cloudflare KV
 
 ### Server-Side Rendering (SSR)
 - **Main Route**: The main route (`/`) is server-side rendered, generating HTML on the server for dynamic content.
 - **Admin Routes**: The admin routes (`/admin/*`) are also server-side rendered, providing a dynamic and responsive admin panel.
 
 ## Table of Contents
+- [Description](#description)
+  - [Features](#features)
+  - [Tech Stack](#tech-stack)
+  - [Server-Side Rendering (SSR)](#server-side-rendering-ssr)
 - [Quick Start](#quick-start)
 - [Prerequisites](#prerequisites)
 - [Setup](#setup)
 - [Development](#development)
 - [Deployment](#deployment)
+- [Notes](#notes)
+- [Known Issues](#known-issues)
+- [To Do](#to-do)
 - [License](#license)
 - [Contributing](#contributing)
 
@@ -102,9 +116,54 @@ Deploy the application:
 ```sh
 npm run deploy
 ```
-## Notes
-Adjusting root path:
- - path in cachePurge.js need to be adjusted
+## Configuration
+
+### Environment Variables
+The following environment variables need to be set:
+- `USERNAME` - Admin panel username
+- `PASSWORD` - Admin panel password
+
+### Routing Configuration
+The gallery can be mounted on any path by adjusting `index.jsx`:
+
+1. Default configuration (at `/gallery/`):
+```javascript
+app.use('/gallery', appendTrailingSlash())
+app.route('/gallery/', gallery);
+```
+
+2. Root path configuration (at `/`):
+```javascript
+app.route('/', gallery);
+```
+
+Remember to adjust `cachePurge.js` according to your chosen path.
+
+## API Endpoints
+
+### Admin API
+- `POST /api/toggleApproval` - Toggle image approval status
+- `DELETE /api/deleteImage` - Delete an image
+- `POST /:galleryTableName` - Edit gallery details
+- `POST /:galleryTableName/upload` - Upload images to gallery
+- `DELETE /:galleryTableName/delete` - Delete entire gallery
+- `POST /:galleryTableName/purge` - Manual cache purge for gallery
+
+### Admin Pages
+- `/admin/` - Gallery listing and management
+- `/admin/new-gallery` - Create new gallery
+- `/admin/:galleryTableName` - Single gallery management
+
+## Known issues 
+ - when photoswipe lightbox is opened - it crashes when chaning orientation from landscape to portrait
+
+## To do
+ - gallery password protection
+ - displaying tags
+ - displaying location
+ - automatic publication according to publication date
+ - images approval system
+ - client side js translations
 
 ## License
 This project is licensed under the [MIT License](LICENSE).

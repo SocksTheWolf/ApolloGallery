@@ -61,7 +61,7 @@ export const Gallery = ({ gallery, images, c }) => (
 
     {html`
       <script type="module" src="/static/js/initPhotoSwipe.js"></script>
-      <script type="module" src="/static/js/mansory.js"></script>
+      <script type="module" src="/static/js/masonry.js"></script>
     `}
   </Layout>
 );
