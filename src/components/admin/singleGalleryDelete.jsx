@@ -4,13 +4,13 @@ import { cachePurgeHome, cachePurgeSingle } from '../../utils/cachePurge';
 
 export const deleteSingleGallery = async (c) => {
   try {
-    const galeryTableName = c.req.param("galeryTableName")
-    const { results: images } = await getIndywidualGalleryFromD1(c, galeryTableName);
-    const response = await deleteGalleryInBothPlaces(c, galeryTableName);
+    const galleryTableName = c.req.param("galleryTableName")
+    const { results: images } = await getIndywidualGalleryFromD1(c, galleryTableName);
+    const response = await deleteGalleryInBothPlaces(c, galleryTableName);
 
     for (const resp of response) {
       if (!resp.success) {
-        throw new Error("Błąd podczas usuwania: " + JSON.stringify(resp));
+        throw new Error(c.t("delete_error") + JSON.stringify(resp));
       }
     }
 
@@ -21,9 +21,9 @@ export const deleteSingleGallery = async (c) => {
     }
 
     await cachePurgeHome(c);
-    await cachePurgeSingle(c, galeryTableName);
+    await cachePurgeSingle(c, galleryTableName);
 
-    return c.html('<b>Galeria została pomyślnie usunięta <a href="./">POWRÓT</a></b>');
+    return c.html(`<b>${c.t('gallery_deleted')} <a href="../admin">${c.t('return')}</a></b>`);
   } catch (error) {
     return c.html(
       <div className="alert alert-danger">

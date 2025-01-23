@@ -50,5 +50,20 @@
   "images_order_modified_asc": "Modified date (oldest first)",
   "images_order_modified_desc": "Modified date (newest first)",
   "purged": "Purged cache for",
-  "purge-cache": "Purge cache"
+  "purge-cache": "Purge cache",
+  "all_cache_purged": "All cache purged",
+  "go_home": "Go to home",
+  "delete_error": "Error while deleting: ",
+  "gallery_deleted": "Gallery successfully deleted",
+  "return": "Return",
+  "gallery_updated": "Gallery successfully updated",
+  "refresh": "Refresh",
+  "editing": "Editing: ",
+  "editing_gallery": "Editing gallery: ",
+  "confirm_gallery_delete": "Are you sure you want to delete gallery",
+  "no_images_message": "No images in this gallery yet",
+  "no_galleries_message": "No galleries available. ",
+  "admin_link": "Go to admin panel",
+  "create_gallery_message": " to create one.",
+  "date_locale": "en-US"
 }

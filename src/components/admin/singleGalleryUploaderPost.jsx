@@ -1,7 +1,7 @@
 import { addImageToIndywidualGallery } from '../../utils/db';
 
 export const imageUploader = async (c) => {
-  const galleryName = c.req.param("galeryTableName");
+  const galleryName = c.req.param("galleryTableName");
   const formData = await c.req.parseBody();
   const file = formData['file'];
   const width = formData['width'];

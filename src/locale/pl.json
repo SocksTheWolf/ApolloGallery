@@ -50,5 +50,20 @@
   "images_order_modified_asc": "Data modyfikacji (od najstarszych)",
   "images_order_modified_desc": "Data modyfikacji (od najnowszych)",
   "purged": "Wyczyszczono pamięć podręczną dla",
-  "purge-cache": "Wyczyść pamięć podręczną"
+  "purge-cache": "Wyczyść pamięć podręczną",
+  "all_cache_purged": "Cała pamięć podręczna została wyczyszczona",
+  "go_home": "Przejdź do strony głównej",
+  "delete_error": "Błąd podczas usuwania: ",
+  "gallery_deleted": "Galeria została pomyślnie usunięta",
+  "return": "POWRÓT",
+  "gallery_updated": "Galeria została pomyślnie uaktualniona",
+  "refresh": "Odśwież",
+  "editing": "Edycja: ",
+  "editing_gallery": "Edycja galerii: ",
+  "confirm_gallery_delete": "Czy na pewno chcesz usunąć galerię",
+  "no_images_message": "W tej galerii nie ma jeszcze zdjęć",
+  "no_galleries_message": "Brak dostępnych galerii. ",
+  "admin_link": "Przejdź do panelu administratora",
+  "create_gallery_message": " aby utworzyć galerię.",
+  "date_locale": "pl-PL"
 }

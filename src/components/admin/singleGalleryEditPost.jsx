@@ -2,10 +2,10 @@ import { updateGalleryOnD1 } from "../../utils/db";
 import { cachePurgeHome, cachePurgeSingle } from '../../utils/cachePurge';
 
 export const editSingleGallery = async (c) => {
-  const galeryTableName = c.req.param("galeryTableName")
+  const galleryTableName = c.req.param("galleryTableName")
   const payload = await c.req.formData();
   const formObject = {
-    GalleryTableName: galeryTableName
+    GalleryTableName: galleryTableName
   };
   payload.forEach((value, key) => {
     formObject[key] = value;
@@ -17,11 +17,11 @@ export const editSingleGallery = async (c) => {
       throw new Error(messages.message);
     }
 
-    await cachePurgeSingle(c, galeryTableName);
+    await cachePurgeSingle(c, galleryTableName);
     await cachePurgeHome(c);
     
     return c.html(
-      <b>Galeria została pomyślnie uaktualniona <a href={`./${galeryTableName}`}>Odśwież</a></b>
+      <b>{c.t('gallery_updated')} <a href={`./${galleryTableName}`}>{c.t('refresh')}</a></b>
     );
   } catch (error) {
     return c.html(

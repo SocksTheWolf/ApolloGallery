@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { basicAuth } from "hono/basic-auth";
 import { galleriesList } from "./admin/galleries";
 import { handleSingleGallery } from "./admin/singleGallery";
-import { newGalery } from "./admin/newGallery";
+import { newgallery } from "./admin/newGallery";
 import { removeAllFilesFromR2 } from "../utils/clearR2Bucket"; //tool endpoint to clear r2 bucket
 import { handlePostNewGallery } from "./admin/newGalleryPost";
 import { editSingleGallery } from "./admin/singleGalleryEditPost";
@@ -28,7 +28,7 @@ admin.use(
 
 admin.get("/", galleriesList);
 
-admin.get("/new-gallery", newGalery);
+admin.get("/new-gallery", newgallery);
 
 admin.get("/deleteallimageslonglinktonotenteraccidentally", (c) => {
   return c.text(
@@ -43,12 +43,12 @@ admin.delete("/api/deleteImage", deleteImage); //api
 
 admin.post("/api/toggleApproval", toggleApproval); //api
 
-admin.get("/:galeryTableName", handleSingleGallery);
+admin.get("/:galleryTableName", handleSingleGallery);
 
-admin.post("/:galeryTableName", editSingleGallery); //api
+admin.post("/:galleryTableName", editSingleGallery); //api
 
-admin.post("/:galeryTableName/upload", imageUploader); //api
+admin.post("/:galleryTableName/upload", imageUploader); //api
 
-admin.delete("/:galeryTableName/delete", deleteSingleGallery); //api
+admin.delete("/:galleryTableName/delete", deleteSingleGallery); //api
 
-admin.post("/:galeryTableName/purge", manualPurge); //api
+admin.post("/:galleryTableName/purge", manualPurge); //api

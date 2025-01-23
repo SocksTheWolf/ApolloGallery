@@ -12,8 +12,12 @@ const GalleriesLayout = ({ galleries, c }) => {
       </ol>
 
       <div className="card">
-        <div className="card-header bg-primary text-white">
+        <div className="card-header bg-light" style={{ display: "flex", justifyContent: "space-between" }}>
           <h2 className="mb-0">{c.t("galleries_list_title")}</h2>
+          <a href="admin/new-gallery" className="btn btn-success">
+            <i className="bi bi-plus-circle me-2"></i>
+            {c.t("create_gallery_button")}
+          </a>
         </div>
         <div className="card-body">
           {galleries.length > 0 ? (
@@ -38,12 +42,6 @@ const GalleriesLayout = ({ galleries, c }) => {
               {c.t("no_galleries_message")}
             </div>
           )}
-        </div>
-        <div className="card-footer">
-          <a href="admin/new-gallery" className="btn btn-success">
-            <i className="bi bi-plus-circle me-2"></i>
-            {c.t("create_gallery_button")}
-          </a>
         </div>
       </div>
     </Layout>

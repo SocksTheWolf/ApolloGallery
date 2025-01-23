@@ -23,7 +23,7 @@ gallery.route('/admin', admin);
 
 gallery.get('/purge', async (c) => {   
   const removedKeys = await cachePurgeAll(c);                      
-  return c.html(`<h3>All cache purged </h3><div>${removedKeys.join('<br>')}</div><a href="./">Go to home</a>`)
+  return c.html(`<h3>${c.t('all_cache_purged')} </h3><div>${removedKeys.join('<br>')}</div><a href="./">${c.t('go_home')}</a>`)
 })
 
 gallery.use('/*', cache());

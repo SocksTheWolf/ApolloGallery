@@ -1,7 +1,6 @@
 import { Layout } from "./layout";
 import { getGalleriesFromD1wGalleryIsPublic } from "../../utils/db";
 
-
 export const main = async (c) => {
   const galleriesResponse = await getGalleriesFromD1wGalleryIsPublic(c);
 
@@ -50,7 +49,7 @@ export const main = async (c) => {
                 <h2 className="gallery-name">{gallery.GalleryName}</h2>
                 {gallery.PartyDate && (
                   <div className="gallery-date">
-                    {new Date(gallery.PartyDate).toLocaleDateString("pl-PL")}
+                    {new Date(gallery.PartyDate).toLocaleDateString(c.t("date_locale"))}
                   </div>
                 )}
               </div>

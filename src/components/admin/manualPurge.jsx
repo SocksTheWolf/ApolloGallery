@@ -1,19 +1,19 @@
 import { cachePurgeHome, cachePurgeSingle } from "../../utils/cachePurge";
 
 export const manualPurge = async (c) => {
-  const galeryTableName = c.req.param("galeryTableName");
+  const galleryTableName = c.req.param("galleryTableName");
   await cachePurgeHome(c);
-  await cachePurgeSingle(c, galeryTableName);
+  await cachePurgeSingle(c, galleryTableName);
 
   return c.html(`
       <button
          class="btn btn-link"
-         hx-post=${galeryTableName + "/purge"}
+         hx-post=${galleryTableName + "/purge"}
          hx-target="this"
          hx-swap="outerHTML"
          >
         <i class="bi bi-arrow-clockwise me-2"></i>
-        ${c.t("purged")} ${galeryTableName}
+        ${c.t("purged")} ${galleryTableName}
        </button>
       `);
 };

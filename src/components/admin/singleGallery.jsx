@@ -1,11 +1,11 @@
 import { Layout } from "./layoutHTMX";
 import { getGalleriesFromD1, getIndywidualGalleryFromD1 } from "../../utils/db";
 
-const SingleGalery = (props) => {
+const Singlegallery = (props) => {
   const c = props.c; // Ensure the context is passed correctly
 
   return (
-    <Layout title={"Edycja: " + props.gallery.GalleryName} c={c}>
+    <Layout title={c.t("editing") + props.gallery.GalleryName} c={c}>
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
             <a href="../admin">{c.t("admin_panel_breadcrumb")}</a>
@@ -15,9 +15,9 @@ const SingleGalery = (props) => {
           </li>
         </ol>
 
-      <div className="card mb-4">
+      <div className="card mb-4 bg-light">
         <div className="card-header bg-primary text-white">
-          <h2 className="mb-0">Edycja galerii: {props.gallery.GalleryName}</h2>
+          <h2 className="mb-0">{c.t("editing_gallery")}{props.gallery.GalleryName}</h2>
         </div>
         <div className="card-body">
           <form hx-post="" hx-target="#update_result">
@@ -203,7 +203,7 @@ const SingleGalery = (props) => {
                   {c.t("save_gallery_button")}
                 </button>
                 <button
-                  hx-confirm={`Czy na pewno chcesz usunąć galerię ${props.gallery.GalleryName}?`}
+                  hx-confirm={`${c.t("confirm_gallery_delete")} ${props.gallery.GalleryName}?`}
                   className="btn btn-danger"
                   hx-target="#update_result"
                   hx-delete={props.gallery.GalleryTableName + "/delete"}
@@ -341,14 +341,14 @@ const SingleGalery = (props) => {
 };
 
 export const handleSingleGallery = async (c) => {
-  const galeryTableName = c.req.param("galeryTableName");
+  const galleryTableName = c.req.param("galleryTableName");
   const { results } = await getGalleriesFromD1(c);
-  const galery = results.find(
-    (elem) => elem.GalleryTableName === galeryTableName
+  const gallery = results.find(
+    (elem) => elem.GalleryTableName === galleryTableName
   ) || { id: 0, name: "string" };
 
-  const indResponse = await getIndywidualGalleryFromD1(c, galeryTableName);
+  const indResponse = await getIndywidualGalleryFromD1(c, galleryTableName);
   return c.html(
-    <SingleGalery gallery={galery} images={indResponse.results} c={c} />
+    <Singlegallery gallery={gallery} images={indResponse.results} c={c} />
   );
 };
