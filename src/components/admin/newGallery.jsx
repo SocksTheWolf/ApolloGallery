@@ -23,6 +23,7 @@ export const newgallery = (c) => {
             <div className="row mb-3">
               <div className="col-12">
                 <label htmlFor="galleryName" className="form-label">
+                  <i className="bi bi-folder me-2"></i>
                   {c.t("gallery_name_label")}
                 </label>
                 <input
@@ -41,6 +42,7 @@ export const newgallery = (c) => {
                   htmlFor="galleryTableName"
                   className="form-label text-muted"
                 >
+                  <i className="bi bi-database me-2"></i>
                   {c.t("gallery_table_name_label")}
                 </label>
                 <input
@@ -57,6 +59,7 @@ export const newgallery = (c) => {
             <div className="row mb-3">
               <div className="col-12">
                 <label htmlFor="textField" className="form-label">
+                  <i className="bi bi-text-paragraph me-2"></i>
                   {c.t("description_label")}
                 </label>
                 <textarea
@@ -72,6 +75,7 @@ export const newgallery = (c) => {
             <div className="row mb-3">
               <div className="col-md-6">
                 <label htmlFor="location" className="form-label">
+                  <i className="bi bi-geo-alt me-2"></i>
                   {c.t("location_label")}
                 </label>
                 <input
@@ -84,6 +88,7 @@ export const newgallery = (c) => {
               </div>
               <div className="col-md-6">
                 <label htmlFor="tags" className="form-label">
+                  <i className="bi bi-tags me-2"></i>
                   {c.t("tags_label")}
                 </label>
                 <input
@@ -99,6 +104,7 @@ export const newgallery = (c) => {
             <div className="row mb-3">
               <div className="col-12">
                 <label htmlFor="coverImage" className="form-label">
+                  <i className="bi bi-image me-2"></i>
                   {c.t("cover_image_label")}
                 </label>
                 <input
@@ -114,6 +120,7 @@ export const newgallery = (c) => {
             <div className="row mb-3">
               <div className="col-md-6">
                 <label htmlFor="partyDate" className="form-label">
+                  <i className="bi bi-calendar-event me-2"></i>
                   {c.t("party_date_label")}
                 </label>
                 <input
@@ -126,6 +133,7 @@ export const newgallery = (c) => {
               </div>
               <div className="col-md-6">
                 <label htmlFor="publicationDate" className="form-label">
+                  <i className="bi bi-calendar2-check me-2"></i>
                   {c.t("publication_date_label")}
                 </label>
                 <input
@@ -140,6 +148,7 @@ export const newgallery = (c) => {
             <div className="row mb-3">
               <div className="col-md-6">
                 <label htmlFor="galleryIsPublic" className="form-label">
+                  <i className="bi bi-eye me-2"></i>
                   {c.t("gallery_visibility_label")}
                 </label>
                 <select
@@ -157,6 +166,7 @@ export const newgallery = (c) => {
               </div>
               <div className="col-md-6">
                 <label htmlFor="password" className="form-label">
+                  <i className="bi bi-key me-2"></i>
                   {c.t("password_label")}
                 </label>
                 <input
@@ -169,11 +179,10 @@ export const newgallery = (c) => {
               </div>
             </div>
 
-
-
             <div className="row mb-3">
               <div className="col-md-6">
                 <label htmlFor="reviewers" className="form-label">
+                  <i className="bi bi-people me-2"></i>
                   {c.t("reviewers_label")}
                 </label>
                 <input
@@ -186,6 +195,7 @@ export const newgallery = (c) => {
               </div>
               <div className="col-md-6">
                 <label htmlFor="imagesOrder" className="form-label">
+                  <i className="bi bi-sort-alpha-down me-2"></i>
                   {c.t("images_order_label")}
                 </label>
                 <input

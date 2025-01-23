@@ -13,7 +13,7 @@ export const main = async (c) => {
   const { results: galleries } = galleriesResponse;
 
   return c.html(
-    <Layout title={c.t("gallery_list_title")} c={c}>
+    <Layout title={c.env.PAGE_TITLE} c={c}>
       <section>
       <div className="container">
       {galleries.length == 0 ? (
