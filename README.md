@@ -1,6 +1,6 @@
 <div align="center">
   <img src="public/android-chrome-512x512.png" alt="Pineapple Gallery Logo" width="200" height="200">
-  <h1>Pineapple Gallery 🍍</h1>
+  <h1>Pineapple Gallery</h1>
 </div>
 
 ## Description
@@ -103,6 +103,7 @@ Before you start, you need the following:
    binding = "CACHE_KV"
    id = "42ee21cd50bf44adb285c6c3d02727cd"   #paste your own id
    ```
+6. Create .dev.vars according to example (image transformations doesnt work locally)
 
 
 ### Development
@@ -116,6 +117,8 @@ Deploy the application:
 ```sh
 npm run deploy
 ```
+Turn on image transformations for your account in cloudflare dashboard.
+
 ## Configuration
 
 ### Environment Variables
