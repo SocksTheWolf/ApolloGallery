@@ -286,7 +286,7 @@ const Singlegallery = (props) => {
         </div>
       </div>
 
-      <div className="card">
+      <div className="card mb-4">
         <div className="card-header bg-info text-white">
           <h3 className="mb-0">{c.t("images_in_gallery_title")}</h3>
         </div>

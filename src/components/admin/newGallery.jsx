@@ -14,7 +14,7 @@ export const newgallery = (c) => {
         </ol>
       </nav>
 
-      <div className="card bg-light">
+      <div className="card bg-light mb-4">
         <div className="card-header bg-success text-white">
           <h2 className="mb-0">{c.t("card_header")}</h2>
         </div>
