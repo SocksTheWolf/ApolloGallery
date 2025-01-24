@@ -28,6 +28,6 @@ PAGE_TITLE = "Pineapple Gallery"
 # Image transformations
 IMGT = "true"
 
-# Admin Panel Credentials
-USERNAME = "admin"
-PASSWORD = "superSecretPassword"
+# Admin Panel Credentials unsoment to set here | commented to set using cf dashboard
+# USERNAME = "admin"
+# PASSWORD = "superSecretPassword"

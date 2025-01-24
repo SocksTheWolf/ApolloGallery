@@ -7,7 +7,7 @@ export const main = async (c) => {
   // in case of error or while initial run
   if (typeof galleriesResponse === 'string') {
     console.log(galleriesResponse);
-    return c.text(galleriesResponse);
+    return c.text(galleriesResponse, 202);
   }
 
   const { results: galleries } = galleriesResponse;
