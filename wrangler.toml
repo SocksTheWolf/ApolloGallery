@@ -1,4 +1,4 @@
-name = "pineapplegallery"
+name = "apollogallery"
 compatibility_date = "2024-11-27"
 pages_build_output_dir = "./dist"
 compatibility_flags = [ "nodejs_compat" ]
@@ -6,28 +6,26 @@ compatibility_flags = [ "nodejs_compat" ]
 
 [[r2_buckets]]
 binding = "R2"
-bucket_name = "pineapplegallery-bucket"
+bucket_name = "apollogallery-bucket"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "pineapplegallery-database"
-database_id = "30cffc37-e133-49db-8534-6524c89de2bb"
+database_name = "apollo-gallery"
+database_id = "4c573785-5d56-4154-9dd2-4517c2e00779"
 
 [[kv_namespaces]]
 binding = "CACHE_KV"
-id = "42ee21cd50bf44adb285c6c3d02727cd"
+id = "ec290df347654a639feecda9c0b077c4"
 
 #----------------------------------------------------------- CONFIG
 
 [vars]
 
 # Page title
-PAGE_TITLE = "Pineapple Gallery"
-
+PAGE_TITLE = "Apollo Gallery"
 
 # Image transformations
-IMGT = "true"
+IMGT = "false"
 
 # Admin Panel Credentials unsoment to set here | commented to set using cf dashboard
-# USERNAME = "admin"
-# PASSWORD = "superSecretPassword"
+USERNAME = "admin"
