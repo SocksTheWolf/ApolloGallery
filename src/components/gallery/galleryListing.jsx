@@ -15,7 +15,11 @@ export const main = async (c) => {
 
   return c.html(
     <Layout title={c.env.PAGE_TITLE} c={c}>
-      <Slider c={c} />
+      {galleries.length != 0 ? (
+        <Slider c={c} />
+      ) :
+        <br />
+      }
       <article>
       <header>
         <h3>Albums</h3>
