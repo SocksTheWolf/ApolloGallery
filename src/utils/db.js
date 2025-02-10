@@ -1,3 +1,5 @@
+import { getGalleryPath } from './galleryPath';
+
 export const getGalleriesFromD1 = async (c) => {
   return await c.env.DB.prepare("SELECT * FROM Galleries ORDER BY PartyDate DESC").all();
 };
@@ -235,13 +237,21 @@ export const getSliderImages = async (
   maxImages = 5,
   maxGalleries = 5
 ) => {
+  // Rand function
   const rand = (max, min=1) => {
     return Math.floor(Math.random() * (max - min) + min);
   };
+  function SliderItem(gallery_name, gallery_link, obj) {
+    this.link = `${getGalleryPath(c)}${gallery_link}`;
+    this.name = gallery_name;
+    this.url = `${getGalleryPath(c)}img/${obj.path}`;
+    this.w = obj.width;
+    this.h = obj.height;
+  }
   try {
     // Get random gallery table names, we'll use those for our next selects.
     const {results:image_galleries} = await c.env.DB.prepare(
-      `SELECT GalleryTableName FROM Galleries WHERE GalleryIsPublic = "TRUE" ORDER BY RANDOM() LIMIT ?`
+      `SELECT GalleryTableName,GalleryName FROM Galleries WHERE GalleryIsPublic = "TRUE" ORDER BY RANDOM() LIMIT ?`
     ).bind(maxGalleries).run();
 
     if (image_galleries == null || image_galleries.length == 0) {
@@ -256,6 +266,7 @@ export const getSliderImages = async (
       if (curImages.length >= maxImages)
         break;
 
+      const gallery_name = image_galleries[i].GalleryName;
       const table_name = image_galleries[i].GalleryTableName;
       const pickImages = maxImages - curImages.length;
       // Should not be possible
@@ -272,7 +283,7 @@ export const getSliderImages = async (
       if (results !== null && results.length > 0) {
         // Push each image to the back of the array
         results.forEach((item) => {
-          curImages.push(`/img/${item.path}`);
+          curImages.push(new SliderItem(gallery_name, table_name, item));
         });
       }
     }

@@ -1,4 +1,5 @@
 import { html, raw } from 'hono/html'
+import { getGalleryPath } from '../../utils/galleryPath';
 
 export const Layout = (props) => {
   const c = props.c;
@@ -16,13 +17,6 @@ export const Layout = (props) => {
     const {protocol, host} = new URL(c.req.url);
     return `${protocol}//${prefix}${host}${path}`;
   };
-
-  const getPath = () => {
-    if (c.env.GALLERY_PATH === "/")
-      return "/";
-    else
-      return `/${c.env.GALLERY_PATH}/`;
-  }
 
   const breadcrumb = renderBreadcrumb(props.breadcrumb);
   return (
@@ -46,21 +40,21 @@ export const Layout = (props) => {
         </ul>
         <ul>
         <li>
-          <a class="nav-link" href=${makeURL(getPath())}>
+          <a class="nav-link" href=${makeURL(getGalleryPath(c))}>
             ${c.t("public_view")}
           </a>
         </li>
         <li>
           <a
             class="nav-link"
-            href=${makeURL(`${getPath()}admin/purge`)}>
+            href=${makeURL(`${getGalleryPath(c)}admin/purge`)}>
               ${c.t("purge-cache")}
           </a>
         </li>
         <li>
           <a
             class="nav-link"
-            href=${makeURL(`${getPath()}admin`, "logout@")}>
+            href=${makeURL(`${getGalleryPath(c)}admin`, "logout@")}>
               ${c.t("logout")}
             </a>
         </li>

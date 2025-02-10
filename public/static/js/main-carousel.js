@@ -2,11 +2,10 @@ document.addEventListener( 'DOMContentLoaded', function () {
   var splide = new Splide( '#main-carousel', {
     pagination: false,
     rewind: true,
-
+    cover: true,
     width: "90%",
-    fixedHeight: "40%",
-    //padding: "40%"
-  } );
+    fixedHeight: "50em",
+  });
   
   
   var thumbnails = document.getElementsByClassName( 'thumbnail' );
