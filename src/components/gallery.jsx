@@ -30,10 +30,6 @@ gallery.get('/purge', async (c) => {
 
 gallery.use('/*', cache());
 
-gallery.get('/test', (c) => {                            //temporary endpoint
-  return c.text(c.t() +"  "+ new Date().toISOString())
-})
-
 gallery.get("/", main);
 
 gallery.get("/:galleryTableName", handleGalleryRoute);
