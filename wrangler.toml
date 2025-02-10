@@ -31,11 +31,11 @@ IMGT = "true"
 USERNAME = "admin"
 
 # Allow for not using the KV cache method
-USE_CACHE="true"
+USE_CACHE = "true"
 
 # Copyright attribution name
-COPYRIGHT="SocksTheWolf"
+COPYRIGHT = "SocksTheWolf"
 
 # Path to the gallery application 
 # (should contain no slashes, unless this serves on root, which then it should be a single slash)
-GALLERY_PATH="/"
+GALLERY_PATH = "/"

@@ -12,6 +12,7 @@ import { deleteImage } from "./admin/deleteImage";
 import { toggleApproval } from "./admin/toggleImageApproval";
 import { manualPurge } from "./admin/manualPurge";
 import { cachePurgeAll } from '../utils/cachePurge';
+import { secureHeaders } from 'hono/secure-headers'
 
 export const admin = new Hono({ strict: false });
 
@@ -25,6 +26,8 @@ admin.use(
     },
   })
 );
+
+admin.use(secureHeaders());
 
 admin.get("/", galleriesList);
 
