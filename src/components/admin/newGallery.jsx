@@ -1,19 +1,8 @@
-import { Layout } from "./layoutHTMX";
+import { Layout } from "./adminLayout";
 
 export const newgallery = (c) => {
   return c.html(
-    <Layout title={c.t("title")} c={c}>
-      <nav aria-label="breadcrumb" className="mb-4">
-        <ol className="breadcrumb">
-          <li className="breadcrumb-item">
-            <a href="../admin">{c.t("admin_panel_breadcrumb")}</a>
-          </li>
-          <li className="breadcrumb-item active" aria-current="page">
-            {c.t("breadcrumb_new_gallery")}
-          </li>
-        </ol>
-      </nav>
-
+    <Layout title={c.t("title")} c={c} breadcrumb="breadcrumb_new_gallery">
       <div className="card bg-light mb-4">
         <div className="card-header bg-success text-white">
           <h2 className="mb-0">{c.t("card_header")}</h2>

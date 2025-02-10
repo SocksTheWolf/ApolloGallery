@@ -7,6 +7,7 @@ import { handleGetImage } from "../utils/getImg";
 import { translationMiddleware } from "../utils/localeMiddleware";
 import { cache } from '../utils/cacheMiddleware';
 import { cachePurgeAll } from '../utils/cachePurge';
+import { trimTrailingSlash } from 'hono/trailing-slash'
 
 
 export const gallery = new Hono({ strict: true });
@@ -19,6 +20,7 @@ gallery.use('*', translationMiddleware);
 
 gallery.get("/img/:p1/:p2/:p3", handleGetImage);
 
+gallery.use('/admin/', trimTrailingSlash())
 gallery.route('/admin', admin);
 
 gallery.get('/purge', async (c) => {   

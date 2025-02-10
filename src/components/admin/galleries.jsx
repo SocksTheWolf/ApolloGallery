@@ -1,16 +1,9 @@
-import { Layout } from "./layoutHTMX";
+import { Layout } from "./adminLayout";
 import { getGalleriesFromD1 } from "../../utils/db";
 
 const GalleriesLayout = ({ galleries, c }) => {
   return (
-    <Layout title={c.t("admin_panel_title")} c={c}>
-
-      <ol className="breadcrumb">
-        <li className="breadcrumb-item active" aria-current="page">
-          {c.t("admin_panel_breadcrumb")}
-        </li>
-      </ol>
-
+    <Layout title={c.t("admin_panel_title")} c={c} breadcrumb="admin_panel_breadcrumb">
       <div className="card">
         <div className="card-header bg-light" style={{ display: "flex", justifyContent: "space-between" }}>
           <h2 className="mb-0">{c.t("galleries_list_title")}</h2>
