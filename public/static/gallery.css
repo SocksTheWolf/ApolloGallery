@@ -109,11 +109,24 @@
   opacity: 0.6;
 }
 
-
 .splide__slide.is-active {
   opacity: 1;
 }
 
+/* IDK why the text appears at the top, the splider docs aren't super clear, could be a pico conflict. */
+.splide__slide div {
+  padding: calc(var(--pico-spacing) * .5) 0;
+  color: var(--pico-muted-color);
+  position: relative;
+  z-index: 10;
+  top: 48em;
+  display: block;
+  background-color: var(--pico-dropdown-background-color);
+  opacity: 0.6;
+  height: 3em;
+}
+
+/* Hide the loading widget that pico adds because it conflicts with splider */
 #main-carousel-track[aria-busy=true]:before {
   display:none !important;
 }

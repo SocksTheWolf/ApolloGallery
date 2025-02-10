@@ -35,7 +35,7 @@ export const Slider = async (props) => {
           <ul id="thumbnails" class="thumbnails">
             ${thumbnails.map((image) => (
               <li class="thumbnail">
-                <img src={image.url} />
+                <img src={image.thumb} />
               </li>
             ))}
           </ul>

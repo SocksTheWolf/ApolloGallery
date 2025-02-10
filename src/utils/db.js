@@ -247,6 +247,7 @@ export const getSliderImages = async (
     this.url = `${getGalleryPath(c)}img/${obj.path}`;
     this.w = obj.width;
     this.h = obj.height;
+    this.thumb = this.url;
   }
   try {
     // Get random gallery table names, we'll use those for our next selects.
