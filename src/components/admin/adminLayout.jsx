@@ -12,6 +12,11 @@ export const Layout = (props) => {
     }
   };
 
+  const makeURL = (path,prefix="") => {
+    const {protocol, host} = new URL(c.req.url);
+    return `${protocol}//${prefix}${host}${path}`;
+  };
+
   const breadcrumb = renderBreadcrumb(props.breadcrumb);
   return (
     html`<!doctype html>
@@ -34,14 +39,21 @@ export const Layout = (props) => {
         </ul>
         <ul>
         <li>
-          <a class="nav-link" href=${"http://" + (c.req.header("Host") + "/gallery/")}>
+          <a class="nav-link" href=${makeURL("/gallery/")}>
             ${c.t("public_view")}
           </a>
         </li>
         <li>
           <a
             class="nav-link"
-            href=${"http://logout@" + (c.req.header("Host") + "/gallery/admin")}>
+            href=${makeURL("/gallery/admin/purge")}>
+              ${c.t("purge-cache")}
+          </a>
+        </li>
+        <li>
+          <a
+            class="nav-link"
+            href=${makeURL("/gallery/admin", "logout@")}>
               ${c.t("logout")}
             </a>
         </li>
