@@ -1,17 +1,13 @@
-import { html, raw } from 'hono/html'
+import { html } from 'hono/html'
+import { getSliderImages } from '../../utils/db';
 
 export const Slider = async (props) => {
     const c = props.c;
-    const images = [];
-
-    /*
-    const images = [
-        "/img/galleries/snow/91B4DC2E-852E-43A0-B635-599A058BF9EE_99f33e2ea4.jpg", 
-        "/img/galleries/snow/AE4002CA-4BA2-4AA3-92F4-910BD5816433_84ad92f92d.jpg",
-        "/img/galleries/snow/C9359454-0C33-4457-A552-9E78BF2C9B72_50249b8cfa.jpg"
-    ];
-    */
-    
+    const images = await getSliderImages(c, 5);
+    if (images === null) {
+        console.error("Could not get slider images, failed to poll");
+        return "";
+    }    
     const thumbnails = images;
     return html`
        <section role="article">

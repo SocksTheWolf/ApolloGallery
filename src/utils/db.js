@@ -229,3 +229,56 @@ export const deleteImageFromGallery = async (
     return false;
   }
 };
+
+export const getSliderImages = async (
+  c,
+  maxImages = 5,
+  maxGalleries = 5
+) => {
+  const rand = (max, min=1) => {
+    return Math.floor(Math.random() * (max - min) + min);
+  };
+  try {
+    // Get random gallery table names, we'll use those for our next selects.
+    const {results:image_galleries} = await c.env.DB.prepare(
+      `SELECT GalleryTableName FROM Galleries WHERE GalleryIsPublic = "TRUE" ORDER BY RANDOM() LIMIT ?`
+    ).bind(maxGalleries).run();
+
+    if (image_galleries == null || image_galleries.length == 0) {
+      console.warn("Could not generate any random galleries to pull images of the day from");
+      return null;
+    }
+
+    let curImages = [];
+    // Pull random images from here
+    for (var i = 0; i < image_galleries.length; ++i) {
+      // Break out if we're at too many.
+      if (curImages.length >= maxImages)
+        break;
+
+      const table_name = image_galleries[i].GalleryTableName;
+      const pickImages = maxImages - curImages.length;
+      // Should not be possible
+      if (pickImages <= 0) {
+        console.warn("We hit the max amount of images when trying to hit the slider.");
+        break;
+      }
+      // Picks a couple images from the given table_name table
+      const randomNum = rand(pickImages);
+      const {results} = await c.env.DB
+        .prepare(`SELECT path,width,height FROM ${table_name} WHERE approved = TRUE ORDER BY RANDOM() LIMIT ?`)
+        .bind(randomNum).all();
+
+      if (results !== null && results.length > 0) {
+        // Push each image to the back of the array
+        results.forEach((item) => {
+          curImages.push(`/img/${item.path}`);
+        });
+      }
+    }
+    return curImages;
+  } catch (error) {
+    console.error("Fetching slider images returned error:" + error.message);
+    return null;
+  }
+};
