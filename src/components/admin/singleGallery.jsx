@@ -1,20 +1,11 @@
-import { Layout } from "./layoutHTMX";
+import { Layout } from "./adminLayout";
 import { getGalleriesFromD1, getIndywidualGalleryFromD1 } from "../../utils/db";
 
 const Singlegallery = (props) => {
   const c = props.c; // Ensure the context is passed correctly
 
   return (
-    <Layout title={c.t("editing") + props.gallery.GalleryName} c={c}>
-        <ol className="breadcrumb">
-          <li className="breadcrumb-item">
-            <a href="../admin">{c.t("admin_panel_breadcrumb")}</a>
-          </li>
-          <li className="breadcrumb-item active" aria-current="page">
-            {props.gallery.GalleryName}
-          </li>
-        </ol>
-
+    <Layout title={c.t("editing") + props.gallery.GalleryName} c={c} breadcrumb={props.gallery.GalleryName}>
       <div className="card mb-4 bg-light">
         <div className="card-header bg-primary text-white">
           <h2 className="mb-0">{c.t("editing_gallery")}{props.gallery.GalleryName}</h2>
