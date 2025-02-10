@@ -167,12 +167,7 @@ class FileUploader {
 
   updateProgress(currentUpload, totalFiles) {
     const uploadPercentage = ((currentUpload / totalFiles) * 100).toFixed(1);
-    this.progressBar.setAttribute("aria-valuenow", currentUpload);
-    this.progressBar.setAttribute(
-      "style",
-      `width:${uploadPercentage}%`
-    );
-    this.progressBar.innerText = uploadPercentage + " %";
+    this.progressBar.setAttribute("value", uploadPercentage);
     this.currentFileCounter.innerText = currentUpload;
   }
 
