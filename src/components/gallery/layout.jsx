@@ -13,8 +13,8 @@ export const Layout = (props) => {
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yohns/picocss@2.2.10/css/pico.min.css" />
         <link rel="stylesheet" href="/static/photoswipe.css" />
       </head>
-      <body>
-        <header class="container">
+      <body class="container">
+        <header>
         <nav>
           <ul>
           <li><h2>${c.env.PAGE_TITLE}</h2></li>
@@ -28,10 +28,14 @@ export const Layout = (props) => {
           </ul>
         </nav>
         </header>
-        <main class="container">
+        <main>
           ${props.children}
         </main>
         <script src="/static/js/SwitchColorMode.js"></script>
+        <footer>
+        <hr />
+        <center><small>&copy; ${new Date().getFullYear()} ${c.env.COPYRIGHT}</small></center>
+        </footer>
       </body>
     </html>`
   );

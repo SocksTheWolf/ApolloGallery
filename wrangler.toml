@@ -32,3 +32,6 @@ USERNAME = "admin"
 
 # Allow for not using the KV cache method
 USE_CACHE="true"
+
+# Copyright attribution name
+COPYRIGHT="SocksTheWolf"
