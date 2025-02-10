@@ -7,7 +7,7 @@ import { handleGetImage } from "../utils/getImg";
 import { translationMiddleware } from "../utils/localeMiddleware";
 import { cache } from '../utils/cacheMiddleware';
 import { trimTrailingSlash } from 'hono/trailing-slash'
-
+import { cachePurgeWorker } from '../utils/cachePurge';
 
 export const gallery = new Hono({ strict: true });
 
@@ -30,6 +30,23 @@ gallery.get("/img/:p1/:p2/:p3", handleGetImage);
 
 gallery.use('/admin/', trimTrailingSlash())
 gallery.route('/admin', admin);
+
+// Endpoint for cloudflare workers to potentially interface with.
+gallery.get("/cf-worker", async (c) => {
+    const workerAction = c.req.header('Action');
+
+    // If the action is to purge, then check for appropriate values.
+    if (workerAction === "purge") {
+        const purgeKey = c.req.header('PurgeKey');
+        let returnVal = false;
+        if (purgeKey !== undefined) {
+            if (await cachePurgeWorker(c, purgeKey))
+                returnVal = true;
+        }
+        return c.json({updated: returnVal});
+    }
+    return c.text("Unauthorized", 401);
+});
 
 gallery.use('/*', cache());
 
