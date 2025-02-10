@@ -4,39 +4,54 @@ import { getGalleriesFromD1 } from "../../utils/db";
 const GalleriesLayout = ({ galleries, c }) => {
   return (
     <Layout title={c.t("admin_panel_title")} c={c}>
-      <div className="card">
-        <div className="card-header bg-light" style={{ display: "flex", justifyContent: "space-between" }}>
-          <h2 className="mb-0">{c.t("galleries_list_title")}</h2>
+      <article>
+        <header>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h3 className="mb-0">{c.t("galleries_list_title")}</h3>
           <a href="admin/new-gallery" className="btn btn-success">
             <i className="bi bi-plus-circle me-2"></i>
             {c.t("create_gallery_button")}
           </a>
         </div>
-        <div className="card-body">
-          {galleries.length > 0 ? (
-            <div className="list-group">
+        </header>
+
+        {galleries.length > 0 ? (
+          <table class="striped">
+          <thead>
+            <tr>
+              <th>
+              {c.t("gallery_name_label")}
+              </th>
+              <th>
+              Date
+              </th>
+            </tr>
+          </thead>
+          <tbody>
               {galleries.map((gallery, index) => (
-                <a
+                <tr>
+                <td><a
                   href={"admin/" + String(gallery.GalleryTableName)}
                   className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-                  key={index}
-                >
-                  {gallery.GalleryName}
+                  key={index}>
+                  {gallery.GalleryName}</a></td>
+                <td>
                   {gallery.PartyDate && (
                     <span className="badge bg-primary rounded-pill">
                       {gallery.PartyDate}
                     </span>
                   )}
-                </a>
+                </td>
+                </tr>
               ))}
-            </div>
+            </tbody>
+          </table>
           ) : (
             <div className="alert alert-info" role="alert">
               {c.t("no_galleries_message")}
             </div>
           )}
-        </div>
-      </div>
+      </article>
     </Layout>
   );
 };
