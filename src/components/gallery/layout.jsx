@@ -34,7 +34,12 @@ export const Layout = (props) => {
         <script src="/static/js/SwitchColorMode.js"></script>
         <footer>
         <hr />
-        <center><small>&copy; ${new Date().getFullYear()} ${c.env.COPYRIGHT}</small></center>
+        <center>
+          <small>
+            &copy; ${new Date().getFullYear()} ${c.env.COPYRIGHT} - 
+              <a href="admin" class="secondary">Admin Login</a>
+          </small>
+        </center>
         </footer>
       </body>
     </html>`
