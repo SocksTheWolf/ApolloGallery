@@ -1,8 +1,8 @@
 import { getLangs } from "./localeMiddleware";
 import { getGalleryPath } from "./galleryPath";
+import { WORKER_ID_KEY } from "./workerHelpers";
 
 const langs = getLangs();
-const WORKER_ID_KEY = "WORKERID_KEY";
 
 export const cachePurgeSingle = async (c, galleryTableName) => {
   try {
@@ -28,19 +28,6 @@ export const cachePurgeHome = async (c) => {
     await Promise.all(promises);
   } catch (error) {
     console.error('Cache purge error:', error);
-  }
-};
-
-export const cachePurgeWorker = async (c, keyVal) => {
-  try {
-    if (c.env.CACHE_KV.get(WORKER_ID_KEY) === keyVal) {
-      await cachePurgeHome(c);
-      return true;
-    }
-    return false;
-  } catch (err) {
-    console.error(err);
-    return false;
   }
 };
 
