@@ -8,18 +8,30 @@ import { html } from "hono/html";
 export const Gallery = ({ gallery, images, c }) => (
   <Layout title={gallery.GalleryName} c={c}>
     <section>
-      <div className="container">
-      <div style="width: 100%; padding: 0px; max-width: 1200px;">
-        <a href="./" className="back-link">
+      <article>
+      <header>
+        <h2 className="gallery-title">{gallery.GalleryName}</h2>
+      </header>
+      <div class="grid gallery-info gallery-date">
+        {gallery.PartyDate && (
+          <small>{c.t("party_date_label")}: {gallery.PartyDate}</small>
+        )}
+        <span></span>
+        <span></span>
+        {gallery.Tags && (
+          <small>{c.t("tags_label")}: {gallery.Tags}</small>
+        )}
+      </div><hr />
+      {gallery.TextField && (
+        <p className="gallery-description">{gallery.TextField}</p>
+      )}
+      <footer>
+      <a href="./" class="secondary">
           ← {c.t("back_link")}
         </a>
-        <h1 className="gallery-title">{gallery.GalleryName}</h1>
-
-        {gallery.TextField && (
-          <p className="gallery-description">{gallery.TextField}</p>
-        )}
-      </div>
-      </div>
+      </footer>
+      </article>
+      <article>
       <div id="mansory-wraper">
         {images.length === 0 ? (
           <div>
@@ -57,6 +69,7 @@ export const Gallery = ({ gallery, images, c }) => (
           </div>
         )}
       </div>
+      </article>
     </section>
 
     {html`

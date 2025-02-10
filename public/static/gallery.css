@@ -41,6 +41,10 @@
   background: white;
 }
 
+.gallery-info {
+  padding-top: 0px !important;
+}
+
 .gallery-name {
   margin: 0 0 0.75rem 0;
   font-size: 1.25rem;
