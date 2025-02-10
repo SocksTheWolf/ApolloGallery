@@ -10,8 +10,14 @@ const app = new Hono({ strict: true });
 // app.route('/', gallery);                                                |
 //-------------------------------------------------------------------------+
 
+/**
+// Run from /gallery
 app.use('/gallery', appendTrailingSlash())
 app.route('/gallery/', gallery);
+/*/
+// Run from root
+app.route('/', gallery);
+//*/
 
 app.use('/*', serveStatic({ root: './dist' }));
 

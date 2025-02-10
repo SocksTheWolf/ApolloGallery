@@ -21,8 +21,7 @@ gallery.use('/favicon-32x32.png', serveStatic({ path: './favicon-32x32.png' }));
 gallery.use('/apple-touch-icon.png', serveStatic({ path: './apple-touch-icon.png' }));
 gallery.use('/android-chrome-192x192.png', serveStatic({ path: './android-chrome-192x192.png' }));
 gallery.use('/android-chrome-512x512.png', serveStatic({ path: './android-chrome-512x512.png' }));
-gallery.use('/sitemap.xml', serveStatic({ path: './sitemap.xml' }));
-gallery.use('/robots.txt', serveStatic({ path: './robots.txt' }));
+gallery.use('/404.html', serveStatic({ path: './404.html' }));
 
 // galleryly the translation middleware to all routes
 gallery.use('*', translationMiddleware);

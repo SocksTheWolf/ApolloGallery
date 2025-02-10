@@ -25,7 +25,7 @@ id = "ec290df347654a639feecda9c0b077c4"
 PAGE_TITLE = "Apollo Gallery"
 
 # Image transformations
-IMGT = "false"
+IMGT = "true"
 
 # Admin Panel Credentials unsoment to set here | commented to set using cf dashboard
 USERNAME = "admin"
@@ -36,5 +36,6 @@ USE_CACHE="true"
 # Copyright attribution name
 COPYRIGHT="SocksTheWolf"
 
-# Path to the gallery application (should contain no slashes, unless this serves on root, which then it should be a single slash)
-GALLERY_PATH="gallery"
+# Path to the gallery application 
+# (should contain no slashes, unless this serves on root, which then it should be a single slash)
+GALLERY_PATH="/"
