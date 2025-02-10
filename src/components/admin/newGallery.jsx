@@ -2,7 +2,7 @@ import { Layout } from "./adminLayout";
 
 export const newgallery = (c) => {
   return c.html(
-    <Layout title={c.t("title")} c={c} breadcrumb="breadcrumb_new_gallery">
+    <Layout title={c.t("title")} c={c} breadcrumb={c.t("breadcrumb_new_gallery")}>
       <div className="card bg-light mb-4">
         <div className="card-header bg-success text-white">
           <h2 className="mb-0">{c.t("card_header")}</h2>
