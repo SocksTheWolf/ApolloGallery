@@ -17,7 +17,7 @@ export const Layout = (props) => {
         <header>
         <nav>
           <ul>
-            <li><h2><a href="." class="contrast">${c.env.PAGE_TITLE}</h2></a></li>
+            <li><h2><a href="." class="contrast">${c.env.PAGE_TITLE}</a></h2></li>
           </ul>
           <ul>
           <li>
