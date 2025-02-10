@@ -45,7 +45,9 @@ export const Layout = (props) => {
             </a>
         </li>
         <li>
-        <label><input name="color-mode-toggle" role="switch" type="checkbox" value="1" aria-label="Toggle Light or Dark Mode"></label>
+        <label data-tooltip="Toggle Light or Dark Mode">
+          <input name="color-mode-toggle" role="switch" type="checkbox" value="1" aria-label="Toggle Light or Dark Mode">
+        </label>
         </li>
         </ul>
         </nav>
