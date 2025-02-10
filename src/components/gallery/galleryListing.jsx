@@ -1,4 +1,5 @@
 import { Layout } from "./layout";
+import { Slider } from "./slider";
 import { getGalleriesFromD1wGalleryIsPublic } from "../../utils/db";
 
 export const main = async (c) => {
@@ -14,7 +15,11 @@ export const main = async (c) => {
 
   return c.html(
     <Layout title={c.env.PAGE_TITLE} c={c}>
-      <section>
+      <Slider c={c} />
+      <article>
+      <header>
+        <h3>Albums</h3>
+      </header>
       <div className="container">
       {galleries.length == 0 ? (
         <div className="no-images-container text-center py-5">
@@ -58,7 +63,7 @@ export const main = async (c) => {
         </div>
       )}
      </div>
-     </section>
+     </article>
     </Layout>
   );
 };
