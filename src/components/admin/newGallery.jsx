@@ -1,5 +1,11 @@
 import { Layout } from "./adminLayout";
 
+function toDateInputValue(dateObject) {
+  const local = new Date(dateObject);
+  local.setMinutes(dateObject.getMinutes() - dateObject.getTimezoneOffset());
+  return local.toJSON().slice(0,10);
+};
+
 export const newgallery = (c) => {
   return c.html(
     <Layout title={c.t("title")} c={c} breadcrumb={c.t("breadcrumb_new_gallery")}>
@@ -118,6 +124,7 @@ export const newgallery = (c) => {
                   className="form-control"
                   name="PartyDate"
                   id="partyDate"
+                  value={toDateInputValue(new Date())}
                 />
               </div>
               <div className="col-md-6">

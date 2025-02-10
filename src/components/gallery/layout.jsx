@@ -37,7 +37,7 @@ export const Layout = (props) => {
         <center>
           <small>
             &copy; ${new Date().getFullYear()} ${c.env.COPYRIGHT} - 
-              <a href="admin" class="secondary">Admin Login</a>
+              <a href="admin" class="secondary">Admin Panel</a>
           </small>
         </center>
         </footer>
