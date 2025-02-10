@@ -22,7 +22,7 @@ id = "ec290df347654a639feecda9c0b077c4"
 [vars]
 
 # Page title
-PAGE_TITLE = "Apollo Gallery"
+PAGE_TITLE = "Apollo's Gallery"
 
 # Image transformations
 IMGT = "true"
