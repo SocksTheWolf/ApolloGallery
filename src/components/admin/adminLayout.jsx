@@ -3,12 +3,12 @@ import { html, raw } from 'hono/html'
 export const Layout = (props) => {
   const c = props.c;
   const renderBreadcrumb = (latest) => {
-    let returnStr = "";
     if (latest != null && latest !== "admin_panel_breadcrumb") {
-      returnStr = `<li><a href="./">${c.t("admin_panel_breadcrumb")}</a></li>`;
+      return `<li><a href="./">${c.t("admin_panel_breadcrumb")}</a></li><li>${latest}</li>`;
     }
-    returnStr += `<li>${c.t(latest)}</li>`;
-    return returnStr;
+    else if (latest == null) {
+      return `<li>${c.t("admin_panel_breadcrumb")}</li>`;
+    }
   };
 
   const breadcrumb = renderBreadcrumb(props.breadcrumb);

@@ -3,7 +3,7 @@ import { getGalleriesFromD1 } from "../../utils/db";
 
 const GalleriesLayout = ({ galleries, c }) => {
   return (
-    <Layout title={c.t("admin_panel_title")} c={c} breadcrumb="admin_panel_breadcrumb">
+    <Layout title={c.t("admin_panel_title")} c={c}>
       <div className="card">
         <div className="card-header bg-light" style={{ display: "flex", justifyContent: "space-between" }}>
           <h2 className="mb-0">{c.t("galleries_list_title")}</h2>
