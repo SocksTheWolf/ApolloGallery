@@ -241,7 +241,7 @@ const Singlegallery = (props) => {
               <input
                 type="file"
                 className="form-control"
-                accept="image/png, image/jpeg"
+                accept="image/*"
                 multiple
                 id="fileInput"
                 name="file"
