@@ -7,7 +7,8 @@ export const Layout = (props) => {
       return `<li><a href="./">${c.t("admin_panel_breadcrumb")}</a></li><li>${latest}</li>`;
     }
     else if (latest == null) {
-      return `<li>${c.t("admin_panel_breadcrumb")}</li>`;
+      return null;
+      //return `<li>${c.t("admin_panel_breadcrumb")}</li>`;
     }
   };
 
@@ -50,23 +51,25 @@ export const Layout = (props) => {
         </label>
         </li>
         </ul>
-        </nav>
-      </header> 
+        </nav><br />
+        ${breadcrumb != null ? (
+          <section class="breadcrumbs">
+          <nav aria-label="breadcrumb">
+          <ul>
+              <small>{raw(breadcrumb)}</small>
+          </ul>
+          </nav>
+          </section>
+        ) : (
+          <br />
+        )}
+      </header>
       <main class="container">
-        <section>
-        <nav aria-label="breadcrumb">
-        <ul>
-            ${raw(breadcrumb)}
-        </ul>
-        </nav>
-        </section>
-        <section>
-          <div class="row">
-            <div class="col-12">
-              ${props.children}
-            </div>
+        <div class="row">
+          <div class="col-12">
+            ${props.children}
           </div>
-        </section>
+        </div>
       </main>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

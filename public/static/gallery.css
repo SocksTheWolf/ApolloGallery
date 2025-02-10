@@ -61,6 +61,13 @@
   border-top: 1px solid rgba(0,0,0,0.1);
 }
 
+.breadcrumbs {
+  top: -3rem;
+  position: relative;
+  display:block;
+  padding-left:1rem;
+}
+
 /* Gallery view styles */
 .back-link {
   display: inline-block;
