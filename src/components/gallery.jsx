@@ -6,7 +6,6 @@ import { handleGalleryRoute } from "./gallery/gallerySingle";
 import { handleGetImage } from "../utils/getImg";
 import { translationMiddleware } from "../utils/localeMiddleware";
 import { cache } from '../utils/cacheMiddleware';
-import { cachePurgeAll } from '../utils/cachePurge';
 import { trimTrailingSlash } from 'hono/trailing-slash'
 
 
@@ -22,11 +21,6 @@ gallery.get("/img/:p1/:p2/:p3", handleGetImage);
 
 gallery.use('/admin/', trimTrailingSlash())
 gallery.route('/admin', admin);
-
-gallery.get('/purge', async (c) => {   
-  const removedKeys = await cachePurgeAll(c);                      
-  return c.html(`<h3>${c.t('all_cache_purged')} </h3><div>${removedKeys.join('<br>')}</div><a href="./">${c.t('go_home')}</a>`)
-})
 
 gallery.use('/*', cache());
 
