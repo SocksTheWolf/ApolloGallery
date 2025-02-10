@@ -68,6 +68,10 @@
   padding-left:1rem;
 }
 
+.bi {
+  padding-right: 5px;
+}
+
 /* Gallery view styles */
 .back-link {
   display: inline-block;

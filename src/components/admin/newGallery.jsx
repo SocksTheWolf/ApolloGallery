@@ -203,15 +203,11 @@ export const newgallery = (c) => {
                 />
               </div>
             </div>
-
-            <div className="row">
-              <div className="col">
-                <button type="submit" className="btn btn-success">
-                  <i className="bi bi-save me-2"></i>
-                  {c.t("save_gallery_button")}
-                </button>
-              </div>
-            </div>
+            <br />
+            <button type="submit" className="btn btn-success">
+              <i className="bi bi-save me-2"></i>
+              {c.t("save_gallery_button")}
+            </button>
 
             <div id="update_result" className="mt-3"></div>
           </form>
