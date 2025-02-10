@@ -254,22 +254,18 @@ const Singlegallery = (props) => {
           </form>
 
           <div className="progress mb-3">
-            <div
+            <progress
               id="progress-bar"
               className="progress-bar"
               role="progressbar"
-              style={{ width: "0%" }}
-              aria-valuenow="0"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            >
-              0%
-            </div>
+              value="0"
+              min="0"
+              max="100" />
           </div>
 
           <div className="mb-3">
-            <span>{c.t("progress_label")}</span>
-            <span id="current-counter">0</span> z{" "}
+            <span>{c.t("progress_label")} </span>
+            <span id="current-counter">0</span> / {" "}
             <span id="max-counter">0</span>
           </div>
 
@@ -302,7 +298,7 @@ const Singlegallery = (props) => {
                     <div className="d-flex justify-content-between">
                       <button
                         className="btn btn-danger btn-sm"
-                        hx-confirm={`Czy na pewno chcesz usunąć zdjęcie ${image.name}?`}
+                        hx-confirm={`${c.t("deletion_of_image_confirm")} ${image.name}?`}
                         hx-delete={`../admin/api/deleteImage?imagePath=${encodeURIComponent(
                           image.path
                         )}&galleryTableName=${props.gallery.GalleryTableName}`}
