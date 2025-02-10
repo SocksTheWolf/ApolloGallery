@@ -12,18 +12,18 @@ export const handlePostNewGallery = async (c) => {
   try {
     const response = await checkIfExistGalleryOnD1(c, formObject.GalleryTableName);
     if (response.results.length > 0) {
-      throw new Error("Galeria o takiej nazwie/ścieżce już istnieje");
+      throw new Error(c.text("gallery_already_exists"));
     }
 
     const createResponse = await createGallery(c, formObject);
     for (const singleCreated of createResponse) {
       if (!singleCreated.success) {
-        throw new Error("Błąd podczas zapisu: " + JSON.stringify(singleCreated));
+        throw new Error(`${c.text("gallery_save_error")}: ${JSON.stringify(singleCreated)}`);
       }
     }
     await cachePurgeHome(c);
     c.header('hx-redirect', `${formObject.GalleryTableName}`);
-    return c.text("Zapisano w bazie danych");
+    return c.text("gallery_saved");
   } catch (error) {
     return c.html(
       <div className="alert alert-danger">

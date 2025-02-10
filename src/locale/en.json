@@ -65,5 +65,8 @@
   "admin_link": "Go to admin panel",
   "create_gallery_message": " to create one.",
   "deletion_of_image_confirm": "Do you want to delete",
+  "gallery_already_exists": "A gallery with this name already exists",
+  "gallery_saved": "Gallery saved",
+  "gallery_save_error": "Error while saving",
   "date_locale": "en-US"
 }

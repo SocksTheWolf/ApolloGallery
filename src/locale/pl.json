@@ -65,5 +65,8 @@
   "admin_link": "Przejdź do panelu administratora",
   "create_gallery_message": " aby utworzyć galerię.",
   "deletion_of_image_confirm": "Czy na pewno chcesz usunąć zdjęcie",
+  "gallery_already_exists": "Galeria o takiej nazwie/ścieżce już istnieje",
+  "gallery_saved": "Zapisano w bazie danych",
+  "gallery_save_error": "Błąd podczas zapisu",
   "date_locale": "pl-PL"
 }
