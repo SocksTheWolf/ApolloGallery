@@ -17,7 +17,7 @@ gallery.use('/static/*', serveStatic({ root: './dist' }));
 // To handle static files if the gallery is set to the base root, add static bindings to each root assumed file
 // I am not aware of a way in hono to automatically generate this pathing.
 const staticFileServe = ["favicon.ico", "favicon-32x32.png", "favicon-16x16.png", "meta-card.png", "apple-touch-icon.png", 
-  "android-chrome-192x192.png", "android-chrome-manifest-512x512.png", "site.webmanifest", "404.html"];
+  "android-chrome-192x192.png", "android-chrome-manifest-512x512.png", "site.webmanifest", "404.html", "robots.txt"];
 staticFileServe.forEach((item) => {
   gallery.use(`/${item}`, serveStatic({path:`./${item}`}));
 });
