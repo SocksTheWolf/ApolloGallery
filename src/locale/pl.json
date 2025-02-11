@@ -69,5 +69,7 @@
   "gallery_saved": "Zapisano w bazie danych",
   "gallery_save_error": "Błąd podczas zapisu",
   "light_or_dark_mode": "",
+  "mass_delete_msg": "Rozpoczynam usuwanie wszystkich plików z R2, jest ich",
+  "all_files_deleted": "Usunięto wszystkie pliki",
   "date_locale": "pl-PL"
 }
