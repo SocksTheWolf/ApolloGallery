@@ -16,8 +16,6 @@ gallery.use('/static/*', serveStatic({ root: './dist' }));
 
 // To handle static files if the gallery is the base root, add static bindings to each root assumed file
 gallery.use('/favicon.ico', serveStatic({ path: './favicon.ico' }));
-gallery.use('/meta-card.png', serveStatic({ path: './meta-card.png' }));
-gallery.use('/favicon.svg', serveStatic({ path: './favicon.svg' }));
 gallery.use('/favicon-96x96.png', serveStatic({ path: './favicon-96x96.png' }));
 gallery.use('/apple-touch-icon.png', serveStatic({ path: './apple-touch-icon.png' }));
 gallery.use('/web-app-manifest-192x192.png', serveStatic({ path: './web-app-manifest-192x192.png' }));
