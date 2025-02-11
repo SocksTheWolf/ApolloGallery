@@ -37,7 +37,8 @@ export const workerRouter = async (c, keyVal, action) => {
     return c.text("Unauthorized", 401);
 
   let wasSuccess = false;
-  if (doesWorkerKeyMatch(c, keyVal)) {
+  const matchSuccess = doesWorkerKeyMatch(c, keyVal);
+  if (matchSuccess) {
     switch (action) {
       case "slider":
         if (await workerSliderPurge(c))
@@ -52,5 +53,5 @@ export const workerRouter = async (c, keyVal, action) => {
       break;
     }
   }
-  return c.json({handled: wasSuccess, action: action});
+  return c.json({handled: wasSuccess, action: action, matched: matchSuccess});
 };
