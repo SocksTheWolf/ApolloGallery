@@ -261,7 +261,7 @@ export const getSliderImages = async (
   function SliderItem(gallery_name, gallery_link, obj) {
     this.link = `${getGalleryPath(c)}${gallery_link}`;
     this.name = gallery_name;
-    this.url = `${getImagePath(c, obj.path)}`;
+    this.url = obj.path;
     this.w = obj.width;
     this.h = obj.height;
     this.thumb = this.url;

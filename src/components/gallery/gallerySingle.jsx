@@ -1,5 +1,5 @@
 import { Layout } from "./layout";
-import { getImagePath } from "../../utils/galleryPath";
+import { getImageWithTransforms } from "../../utils/galleryPath";
 import {
   getGalleriesFromD1,
   getIndywidualGalleryFromD1wApproved,
@@ -45,22 +45,13 @@ export const Gallery = ({ gallery, images, c }) => (
                 <div class="masonry-item-content">
                   <div class="placeholder"></div>
                   <a
-                    href={
-                      c.env.IMGT === "true"
-                      
-                        ? `/cdn-cgi/image/f=auto,q=80${getImagePath(c, image.path)}`
-                        : `${getImagePath(c, image.path)}`
-                    }
+                    href={getImageWithTransforms(c, image.path, "full")}
                     data-pswp-width={image.width}
                     data-pswp-height={image.height}
                     target="_blank"
                   >
                     <img
-                      src={
-                        c.env.IMGT === "true"
-                          ? `/cdn-cgi/image/f=auto,q=75,w=433${getImagePath(c, image.path)}`
-                          : `${getImagePath(c, image.path)}`
-                      }
+                      src={getImageWithTransforms(c, image.path, "gallery-thumb")}
                       alt={image.name}
                       loading="lazy"
                     />

@@ -1,5 +1,6 @@
 import { html } from 'hono/html'
 import { getSliderImages } from '../../utils/db';
+import { getImageWithTransforms } from '../../utils/galleryPath';
 
 export const Slider = async (props) => {
     const c = props.c;
@@ -23,7 +24,7 @@ export const Slider = async (props) => {
             <ul class="splide__list">
             ${images.map((image) => (
               <li class="splide__slide">
-                <img src={image.url} />
+                <img src={getImageWithTransforms(c, image.url, "slider")} />
                 <div>From the <a href={image.link}>{image.name} album</a></div>
               </li>
             ))}
@@ -35,7 +36,7 @@ export const Slider = async (props) => {
           <ul id="thumbnails" class="thumbnails">
             ${thumbnails.map((image) => (
               <li class="thumbnail">
-                <img src={image.thumb} />
+                <img src={getImageWithTransforms(c, image.thumb, "slider-thumb")} />
               </li>
             ))}
           </ul>
