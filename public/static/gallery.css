@@ -1,3 +1,7 @@
+.header-nav ul {
+  align-items: first baseline !important;
+}
+
 /* Gallery grid styles */
 .galleries-grid {
   display: grid;

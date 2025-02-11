@@ -12,17 +12,20 @@ export const Layout = (props) => {
         <link rel="stylesheet" href="/static/gallery.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yohns/picocss@2.2.10/css/pico.orange.min.css" />
         <link rel="stylesheet" href="/static/photoswipe.css" />
+        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
         <SocialMetaTags />
       </head>
       <body class="container">
         <header>
-        <nav>
+        <nav class="header-nav">
           <ul>
             <li><h2><a href="." class="contrast">{c.env.PAGE_TITLE}</a></h2></li>
           </ul>
           <ul>
+          <li data-placement="bottom" data-tooltip="Support the site and dog!"><script src="/static/js/kofi.js"></script></li>
+          <li></li>
           <li>
-            <label data-tooltip={c.t("light_or_dark_mode")}>
+            <label data-placement="bottom" data-tooltip={c.t("light_or_dark_mode")}>
               <input name="color-mode-toggle" role="switch" type="checkbox" value="1" />
             </label>
           </li>
@@ -38,8 +41,7 @@ export const Layout = (props) => {
         <center>
           <small>
             &copy; {new Date().getFullYear()} {c.env.COPYRIGHT} -  
-            <a href="admin">Admin Panel</a> -  
-            <a data-tooltip="Help keep this website running and a puppy real happy" target="_blank" href="https://ko-fi.com/socksthewolf">Tip</a>
+            <a href="admin">Admin Panel</a>
           </small>
         </center>
         </footer>
