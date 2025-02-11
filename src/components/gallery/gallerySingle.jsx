@@ -7,7 +7,7 @@ import {
 import { html } from "hono/html";
 
 export const Gallery = ({ gallery, images, c }) => (
-  <Layout title={gallery.GalleryName} c={c} desc={gallery.TextField}>
+  <Layout title={gallery.GalleryName} c={c} prefetch="single">
     <section>
       <article>
       <header>

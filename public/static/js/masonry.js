@@ -131,6 +131,9 @@ const masonry = new MasonryLayout('#masonry-container', {
     minColumnWidth: 200
 });
 
-imagesLoaded(document.querySelector("#masonry-container")).on('progress', function(){
-    masonry.layout();
+// Fix images overlapping incorrectly for mobile devices (specificially iOS Safari)
+const container = document.querySelector("#masonry-container");
+imagesLoaded(container).on('progress', function(){
+    if (masonry !== null)
+        masonry.layout();
 });
