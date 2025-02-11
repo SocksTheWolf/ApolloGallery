@@ -28,6 +28,9 @@ PAGE_TITLE = "Pineapple Gallery"
 # Image transformations
 IMGT = "true"
 
+# Use Cache KV functionality
+USE_CACHE = "true"
+
 # Admin Panel Credentials unsoment to set here | commented to set using cf dashboard
 # USERNAME = "admin"
 # PASSWORD = "superSecretPassword"

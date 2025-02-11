@@ -9,6 +9,25 @@ export const cache = (options = {}) => {
     const url = new URL(c.req.url);
     const acceptLanguage = await c.t();
 
+    const serveOriginalContent = async () => {
+      // If no cache, generate response
+      await next();
+
+      // Clone the response to read its body
+      const originalResponse = c.res.clone();
+
+      // Don't cache error responses
+      if (!originalResponse.ok || originalResponse.status !== 200) {
+        return originalResponse;
+      }
+
+      return await originalResponse.text();
+    };
+
+    if (c.env.USE_CACHE === "false") {
+      return await serveOriginalContent();
+    }
+
     // Generate cache key
     const cacheKey = `page:${url.pathname}@${acceptLanguage}`;
     try {
@@ -29,18 +48,7 @@ export const cache = (options = {}) => {
         });
       }
 
-      // If no cache, generate response
-      await next();
-
-      // Clone the response to read its body
-      const originalResponse = c.res.clone();
-
-      // Don't cache error responses
-      if (!originalResponse.ok || originalResponse.status !== 200) {
-        return originalResponse;
-      }
-
-      const content = await originalResponse.text();
+      const content = await serveOriginalContent();
 
       // Store in KV
       c.executionCtx.waitUntil(
