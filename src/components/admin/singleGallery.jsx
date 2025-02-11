@@ -72,92 +72,85 @@ const Singlegallery = (props) => {
       </details>
 
       <hr />
-      <details>
+      <details open>
         <summary role="button" class="contrast">{c.t("images_in_gallery_title")}</summary>
         <article class="container">
           <header>
             <h3>{c.t("images_in_gallery_title")}</h3>
           </header>
-          <div id="mansory-wraper">
-           <div id="masonry-container">
+           <div class="edit-grid">
             {props.images.map((image, index) => (
-              <div
-                key={index}
-                className="masonry-item"
+              <div key={index}
+                class="edit-item"
                 hx-target="this"
-                hx-swap="outerHTML"
-              >
-                <div className="masonry-item-content">
+                hx-swap="outerHTML">
+                  <center>
                   <img
-                    src={`../img/${image.path}`}
+                    src={getImagePath(c, image.path)}
                     className="card-img-top"
-                    loading="lazy"
-                    data-pswp-width={image.width}
-                    data-pswp-height={image.height}
                     alt={image.name}
+                    loading="lazy"
                   />
-                  <div class="placeholder"></div>
                   <small>{image.name}</small>
-                  <div className="card-body">
-                    <div className="grid justify-content-between">
-                      <button
-                        className="btn btn-danger btn-sm"
-                        hx-confirm={`${c.t("deletion_of_image_confirm")} ${image.name}?`}
-                        hx-delete={`../admin/api/deleteImage?imagePath=${encodeURIComponent(
-                          image.path
-                        )}&galleryTableName=${props.gallery.GalleryTableName}`}
-                      >
-                        <i className="bi bi-trash me-2"></i>
-                        {c.t("delete_image_button")}
-                      </button>
-                      <button
-                        className="btn btn-secondary btn-sm"
-                        hx-post={`../admin/api/toggleApproval?imagePath=${encodeURIComponent(
-                          image.path
-                        )}&galleryTableName=${props.gallery.GalleryTableName}`}
-                        hx-target="this"
-                      >
-                        {image.approved ? (
-                          <>
-                            <i className="bi bi-check-circle me-2"></i>
-                            {c.t("approved_label")}
-                          </>
-                        ) : (
-                          <>
-                            <i className="bi bi-x-circle me-2"></i>
-                            {c.t("unapproved_label")}
-                          </>
-                        )}
-                      </button>
-                      <button
-                        className="btn btn-secondary btn-sm"
-                        hx-post={`../admin/api/setAsThumb?imagePath=${encodeURIComponent(
-                          image.path
-                        )}&galleryTableName=${props.gallery.GalleryTableName}`}
-                        hx-target="this"
-                      >
-                        {props.gallery.CoverImage === getImagePath(c, image.path) ? (
-                          <>
-                            <i className="bi bi-check-circle me-2"></i>
-                            {c.t("current_thumb")}
-                          </>
-                        ) : (
-                          <>
-                            <i className="bi bi-x-circle me-2"></i>
-                            {c.t("set_as_thumb")}
-                          </>
-                        )}
-                      </button>
-                    </div>
+                  </center>
+                  <div className="grid card-body">
+                    <button
+                      className="btn btn-danger btn-sm"
+                      hx-confirm={`${c.t("deletion_of_image_confirm")} ${image.name}?`}
+                      hx-delete={`../admin/api/deleteImage?imagePath=${encodeURIComponent(
+                        image.path
+                      )}&galleryTableName=${props.gallery.GalleryTableName}`}
+                    >
+                      <i className="bi bi-trash me-2"></i>
+                      {c.t("delete_image_button")}
+                    </button>
+                    <button
+                      className="btn btn-secondary btn-sm"
+                      hx-post={`../admin/api/toggleApproval?imagePath=${encodeURIComponent(
+                        image.path
+                      )}&galleryTableName=${props.gallery.GalleryTableName}`}
+                      hx-target="this"
+                    >
+                      {image.approved ? (
+                        <>
+                          <i className="bi bi-check-circle me-2"></i>
+                          {c.t("approved_label")}
+                        </>
+                      ) : (
+                        <>
+                          <i className="bi bi-x-circle me-2"></i>
+                          {c.t("unapproved_label")}
+                        </>
+                      )}
+                    </button>
+                    <button
+                      className="btn btn-secondary btn-sm"
+                      hx-post={`../admin/api/setAsThumb?imagePath=${encodeURIComponent(
+                        image.path
+                      )}&galleryTableName=${props.gallery.GalleryTableName}`}
+                      hx-target="this"
+                    >
+                      {props.gallery.CoverImage === getImagePath(c, image.path) ? (
+                        <>
+                          <i className="bi bi-check-circle me-2"></i>
+                          {c.t("current_thumb")}
+                        </>
+                      ) : (
+                        <>
+                          <i className="bi bi-x-circle me-2"></i>
+                          {c.t("set_as_thumb")}
+                        </>
+                      )}
+                    </button>
                   </div>
                 </div>
-              </div>
             ))}
           </div>
-        </div>
         </article>
       </details>
-      <script type="module" src="/static/js/masonry.js"></script>
+      <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+      <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+      <script src="/static/js/adminEditGallery.js"></script>
     </Layout>
   );
 };

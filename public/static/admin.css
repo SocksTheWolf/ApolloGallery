@@ -1,3 +1,20 @@
 .adminHeader {
     height: 7em;
 }
+
+.card-body, .edit-item small {
+    display: block;
+}
+
+.edit-item img {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.card-body .btn {
+    margin-left: 5px;
+}
+
+.edit-item {
+    margin-bottom: 10px;
+}
