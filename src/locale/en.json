@@ -69,5 +69,7 @@
   "gallery_saved": "Gallery saved",
   "gallery_save_error": "Error while saving",
   "light_or_dark_mode": "Toggle Light or Dark Mode",
+  "mass_delete_msg": "Attempting to delete",
+  "all_files_deleted": "All files deleted",
   "date_locale": "en-US"
 }

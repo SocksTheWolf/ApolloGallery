@@ -6,7 +6,7 @@ return streamSSE(c, async (stream) => {
     const files = await c.env.R2.list();
     const filesCount = files.objects.length;
     await stream.writeSSE({
-        data: "Rozpoczynam usuwanie wszystkich plików z R2, jest ich: " + filesCount,
+        data: `${c.t("mass_delete_msg")} ${filesCount}`,
         event: 'START',
         id: String(id++),
     });
@@ -23,7 +23,7 @@ return streamSSE(c, async (stream) => {
     }
     
     await stream.writeSSE({
-        data: "Usunięto wszystkie pliki",
+        data: c.t("all_files_deleted"),
         event: 'END',
         id: String(id),
     });
