@@ -12,7 +12,7 @@ export const getImagePath = (c, img) => {
 export const getImageWithTransforms = (c, img, location="main", format="auto") => {
     // Covers already have the path transform done to them.
     const baseImgLocation = (location !== "cover") ? getImagePath(c, img) : img;
-    if (c.env.IMGT === "false") {
+    if (c.env.IMGT === "false" || location === "original") {
         return baseImgLocation;
     }
     let cloudFlareBase = `/cdn-cgi/image/f=${format},metadata=copyright`;

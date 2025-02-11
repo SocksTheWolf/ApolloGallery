@@ -78,15 +78,16 @@ const Singlegallery = (props) => {
           <header>
             <h3>{c.t("images_in_gallery_title")}</h3>
           </header>
-          <div class="grid">
+          <div id="mansory-wraper">
+           <div id="masonry-container">
             {props.images.map((image, index) => (
               <div
                 key={index}
-                className="col"
+                className="col masonry-item"
                 hx-target="this"
                 hx-swap="outerHTML"
               >
-                <div className="card h-100">
+                <div className="card h-100 masonry-item-content">
                   <img
                     src={`../img/${image.path}`}
                     className="card-img-top"
@@ -150,8 +151,10 @@ const Singlegallery = (props) => {
               </div>
             ))}
           </div>
+        </div>
         </article>
       </details>
+      <script type="module" src="/static/js/masonry.js"></script>
     </Layout>
   );
 };
