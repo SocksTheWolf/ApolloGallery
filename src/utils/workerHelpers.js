@@ -5,7 +5,8 @@ export const WORKER_ID_KEY = "WORKERID_KEY";
 
 const doesWorkerKeyMatch = async (c, keyVal) => {
   try {
-    return (await c.env.CACHE_KV.get(WORKER_ID_KEY) === keyVal);
+    const KeyMatch = await c.env.CACHE_KV.get(WORKER_ID_KEY);
+    return (KeyMatch === keyVal && KeyMatch !== null && KeyMatch !== "");
   } catch(err) {
     console.warn(`Key Match Check failed: ${err}`);
   }
