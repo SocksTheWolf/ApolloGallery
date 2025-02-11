@@ -83,20 +83,23 @@ const Singlegallery = (props) => {
             {props.images.map((image, index) => (
               <div
                 key={index}
-                className="col masonry-item"
+                className="masonry-item"
                 hx-target="this"
                 hx-swap="outerHTML"
               >
-                <div className="card h-100 masonry-item-content">
+                <div className="masonry-item-content">
                   <img
                     src={`../img/${image.path}`}
                     className="card-img-top"
                     loading="lazy"
+                    data-pswp-width={image.width}
+                    data-pswp-height={image.height}
                     alt={image.name}
                   />
-                  <small className="card-title">{image.name}</small>
+                  <div class="placeholder"></div>
+                  <small>{image.name}</small>
                   <div className="card-body">
-                    <div className="grid d-flex justify-content-between">
+                    <div className="grid justify-content-between">
                       <button
                         className="btn btn-danger btn-sm"
                         hx-confirm={`${c.t("deletion_of_image_confirm")} ${image.name}?`}
