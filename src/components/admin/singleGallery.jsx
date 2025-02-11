@@ -53,9 +53,9 @@ const Singlegallery = (props) => {
                   name="TextField"
                   id="textField"
                   rows="3"
-                  value={props.gallery.TextField}
-                  placeholder={c.t("description_placeholder")}
-                />
+                  placeholder={c.t("description_placeholder")}>
+                    {props.gallery.TextField}
+                  </textarea>
               </div>
             </div>
 
