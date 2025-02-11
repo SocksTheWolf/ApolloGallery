@@ -1,5 +1,6 @@
 import { html, raw } from 'hono/html';
 import { SocialMetaTags } from './metaTags';
+import { ThemeSwitcher } from '../utils/themeSwitcher';
 
 export const Layout = (props) => {
   const c = props.c;
@@ -22,12 +23,10 @@ export const Layout = (props) => {
             <li><h2><a href="." class="contrast">{c.env.PAGE_TITLE}</a></h2></li>
           </ul>
           <ul>
-          <li data-placement="bottom" data-tooltip="Support the site and dog!"><script src="/static/js/kofi.js"></script></li>
+          <li data-placement="bottom" data-tooltip="Support this site and the dog!"><script src="/static/js/kofi.js"></script></li>
           <li></li>
           <li>
-            <label data-placement="bottom" data-tooltip={c.t("light_or_dark_mode")}>
-              <input name="color-mode-toggle" role="switch" type="checkbox" value="1" />
-            </label>
+            <ThemeSwitcher c={c} />
           </li>
           </ul>
         </nav>
@@ -35,7 +34,6 @@ export const Layout = (props) => {
         <main>
           {props.children}
         </main>
-        <script src="/static/js/SwitchColorMode.js"></script>
         <footer>
         <hr />
         <center>

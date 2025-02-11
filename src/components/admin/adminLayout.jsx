@@ -1,5 +1,6 @@
 import { html, raw } from 'hono/html'
 import { getGalleryPath } from '../../utils/galleryPath';
+import { ThemeSwitcher } from '../utils/themeSwitcher';
 
 export const Layout = (props) => {
   const c = props.c;
@@ -59,9 +60,7 @@ export const Layout = (props) => {
             </a>
         </li>
         <li>
-        <label data-tooltip="${c.t("light_or_dark_mode")}">
-          <input name="color-mode-toggle" role="switch" type="checkbox" value="1">
-        </label>
+        ${(<ThemeSwitcher c={c} />)}
         </li>
         </ul>
         </nav><br />
@@ -81,7 +80,6 @@ export const Layout = (props) => {
         ${props.children}
       </main>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="/static/js/SwitchColorMode.js"></script>
       </body>
     </html>`
   );
