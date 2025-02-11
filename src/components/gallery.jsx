@@ -23,14 +23,6 @@ gallery.use('/web-app-manifest-512x512.png', serveStatic({ path: './web-app-mani
 gallery.use('/site.webmanifest', serveStatic({ path: './site.webmanifest' }));
 gallery.use('/404.html', serveStatic({ path: './404.html' }));
 
-// galleryly the translation middleware to all routes
-gallery.use('*', translationMiddleware);
-
-gallery.get("/img/:p1/:p2/:p3", handleGetImage);
-
-gallery.use('/admin/', trimTrailingSlash())
-gallery.route('/admin', admin);
-
 // Endpoint for cloudflare workers to potentially interface with.
 gallery.get("/cf-worker", async (c) => {
     const workerAction = c.req.header('Action');
@@ -38,8 +30,18 @@ gallery.get("/cf-worker", async (c) => {
     return await workerRouter(c, workerKey, workerAction);
 });
 
-gallery.use('/*', cache());
+// the translation middleware to all routes
+gallery.use('*', translationMiddleware);
 
+// Handle image lookups
+gallery.get("/img/:p1/:p2/:p3", handleGetImage);
+
+// Fix up admin paths properly
+gallery.use('/admin/', trimTrailingSlash());
+gallery.route('/admin', admin);
+
+// Main application interface
+gallery.use('/*', cache());
 gallery.get("/", main);
 
 gallery.get("/:galleryTableName", handleGalleryRoute);

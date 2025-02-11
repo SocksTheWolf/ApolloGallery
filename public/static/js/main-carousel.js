@@ -1,4 +1,8 @@
 document.addEventListener( 'DOMContentLoaded', function () {
+  if (document.querySelector("#main-carousel") === null) {
+    return;
+  }
+
   var splide = new Splide( '#main-carousel', {
     pagination: false,
     rewind: true,

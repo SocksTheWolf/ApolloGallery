@@ -1,6 +1,7 @@
 import { html, raw } from 'hono/html';
 import { SocialMetaTags } from './metaTags';
 import { ThemeSwitcher } from '../utils/themeSwitcher';
+import { PreloadAssets } from '../utils/preloader';
 
 export const Layout = (props) => {
   const c = props.c;
@@ -10,11 +11,12 @@ export const Layout = (props) => {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
         <title>{props.title}</title>
+        <SocialMetaTags />
+        <PreloadAssets />
         <link rel="stylesheet" href="/static/gallery.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yohns/picocss@2.2.10/css/pico.orange.min.css" />
         <link rel="stylesheet" href="/static/photoswipe.css" />
         <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
-        <SocialMetaTags />
       </head>
       <body class="container">
         <header>

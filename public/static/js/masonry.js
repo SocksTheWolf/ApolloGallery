@@ -42,7 +42,7 @@ class MasonryLayout {
 
         this.handleResize = this.handleResize.bind(this);
         window.addEventListener('resize', this.handleResize);
-        console.log("resize event listener added");
+        //console.log("resize event listener added");
         this.layout();
     }
 
@@ -62,7 +62,7 @@ class MasonryLayout {
     }
 
     layout(isResizeEvent = false) {
-        console.log(`layout called with isResizeEvent: ${isResizeEvent}`);
+        //console.log(`layout called with isResizeEvent: ${isResizeEvent}`);
         const { count: columnCount, width: columnWidth } = this.calculateColumns();
         const columns = Array(columnCount).fill().map(() => ({
             height: 0,
@@ -99,7 +99,7 @@ class MasonryLayout {
         // Dispatch resize event only if not already dispatched
         if (!this.resizeEventDispatched) {
             window.dispatchEvent(new Event('resize'));
-            console.log("resize event dispatched");
+            //console.log("resize event dispatched");
             this.resizeEventDispatched = true; // Set flag to true
 
             // Reset flag after 500ms
@@ -110,7 +110,7 @@ class MasonryLayout {
     }
 
     handleResize() {
-        console.log("handleResize called");
+        //console.log("handleResize called");
         requestAnimationFrame(() => this.layout(true));
     }
 
