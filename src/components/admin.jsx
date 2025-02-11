@@ -11,7 +11,7 @@ import { deleteSingleGallery } from "./admin/singleGalleryDelete";
 import { deleteImage } from "./admin/deleteImage";
 import { toggleApproval } from "./admin/toggleImageApproval";
 import { manualPurge } from "./admin/manualPurge";
-
+import { cachePurgeAll } from '../utils/cachePurge';
 
 export const admin = new Hono({ strict: false });
 
@@ -35,6 +35,11 @@ admin.get("/deleteallimageslonglinktonotenteraccidentally", (c) => {
     "This endpoint is intentionally left blank to prevent accidental deletion",
     { status: 403 }
   );
+});
+
+admin.get('/purge', async (c) => {   
+  const removedKeys = await cachePurgeAll(c);                      
+  return c.html(`<h3>${c.t('all_cache_purged')} </h3><div>${removedKeys.join('<br>')}</div><a href="./">${c.t('go_home')}</a>`)
 });
 
 admin.post("/new-gallery", handlePostNewGallery);
