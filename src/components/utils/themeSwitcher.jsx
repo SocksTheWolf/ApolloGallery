@@ -3,7 +3,7 @@ export const ThemeSwitcher = (props) => {
     return (
       <label data-placement="bottom" data-tooltip={c.t("light_or_dark_mode")}>
         <input name="color-mode-toggle" role="switch" type="checkbox" value="1" />
-        <script src="/static/js/SwitchColorMode.js"></script>
+        <script type="module" src="/static/js/SwitchColorMode.js"></script>
       </label>
     );
 };

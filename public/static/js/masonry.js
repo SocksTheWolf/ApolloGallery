@@ -132,6 +132,8 @@ const masonry = new MasonryLayout('#masonry-container', {
 });
 
 // Fix images overlapping incorrectly for mobile devices (specificially iOS Safari)
-imagesLoaded(document.querySelector("#masonry-container")).on('progress', function(){
-    masonry.layout();
+const container = document.querySelector("#masonry-container");
+imagesLoaded(container).on('progress', function(){
+    if (masonry !== null)
+        masonry.layout();
 });

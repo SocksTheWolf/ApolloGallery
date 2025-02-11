@@ -13,13 +13,14 @@ export const main = async (c) => {
   }
 
   const { results: galleries } = galleriesResponse;
+  const hasGalleries = (galleries.length != 0);
 
   return c.html(
-    <Layout title={c.env.PAGE_TITLE} c={c}>
+    <Layout title={c.env.PAGE_TITLE} c={c} prefetch={hasGalleries ? "listing" : "none"}>
       {galleries.length != 0 ? (
         <Slider c={c} />
       ) :
-        <br />
+        <></>
       }
       <article>
       <header>
