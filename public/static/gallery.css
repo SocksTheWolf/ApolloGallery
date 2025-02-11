@@ -99,6 +99,10 @@
 }
 
 /* Slideshow of images */
+.splide {
+  height: 50rem;
+}
+
 .splide__slide img {
   width: 100%;
   height: 100%;

@@ -10,7 +10,7 @@ export const Layout = (props) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
         <title>{props.title}</title>
         <link rel="stylesheet" href="/static/gallery.css" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yohns/picocss@2.2.10/css/pico.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yohns/picocss@2.2.10/css/pico.orange.min.css" />
         <link rel="stylesheet" href="/static/photoswipe.css" />
         <SocialMetaTags />
       </head>
@@ -37,8 +37,9 @@ export const Layout = (props) => {
         <hr />
         <center>
           <small>
-            &copy; {new Date().getFullYear()} {c.env.COPYRIGHT} - 
-              <a href="admin" class="secondary">Admin Panel</a>
+            &copy; {new Date().getFullYear()} {c.env.COPYRIGHT} -  
+            <a href="admin">Admin Panel</a> -  
+            <a data-tooltip="Help keep this website running and a puppy real happy" target="_blank" href="https://ko-fi.com/socksthewolf">Tip</a>
           </small>
         </center>
         </footer>
