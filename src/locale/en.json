@@ -71,5 +71,7 @@
   "light_or_dark_mode": "Toggle Light or Dark Mode",
   "mass_delete_msg": "Attempting to delete",
   "all_files_deleted": "All files deleted",
+  "current_thumb": "Current Thumbnail",
+  "set_as_thumb": "Set as Thumbnail",
   "date_locale": "en-US"
 }

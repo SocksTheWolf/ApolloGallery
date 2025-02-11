@@ -1,3 +1,5 @@
+import { getGalleryPath, getImagePath } from './galleryPath';
+
 export const getGalleriesFromD1 = async (c) => {
   return await c.env.DB.prepare("SELECT * FROM Galleries ORDER BY PartyDate DESC").all();
 };
@@ -216,15 +218,32 @@ export const toggleImageApproval = async (c, GalleryTableName, imagePath) => {
   }
 };
 
+export const setAsThumbnail = async (c, GalleryTableName, imagePath) => {
+  try {
+    const {success} = await c.env.DB.prepare(
+      `UPDATE Galleries SET CoverImage=?1 WHERE GalleryTableName=?2`
+    ).bind(getImagePath(c, imagePath), GalleryTableName).all();
+    
+    return success;
+  } catch (error) {
+    console.error("Error setting thumbnail:", error.message);
+    return false;
+  }
+};
+
 export const deleteImageFromGallery = async (
   c,
   GalleryTableName,
   imagePath
 ) => {
   try {
-    await c.env.DB.prepare(`DELETE FROM ${GalleryTableName} WHERE path = ?1`)
-      .bind(imagePath)
-      .all();
+    const imgRemoval = c.env.DB.prepare(`DELETE FROM ${GalleryTableName} WHERE path = ?1`);
+    const thumbUpdate = c.env.DB.prepare(`UPDATE Galleries SET CoverImage="" WHERE CoverImage=?1 AND GalleryTableName=?2`);
+
+    await c.env.DB.batch([
+      imgRemoval.bind(imagePath),
+      thumbUpdate.bind(getImagePath(c, imagePath), GalleryTableName)
+    ]);
 
     return true;
   } catch (error) {
