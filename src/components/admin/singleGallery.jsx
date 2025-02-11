@@ -93,8 +93,8 @@ const Singlegallery = (props) => {
                     loading="lazy"
                     alt={image.name}
                   />
+                  <small className="card-title">{image.name}</small>
                   <div className="card-body">
-                    <h5 className="card-title">{image.name}</h5>
                     <div className="grid d-flex justify-content-between">
                       <button
                         className="btn btn-danger btn-sm"
