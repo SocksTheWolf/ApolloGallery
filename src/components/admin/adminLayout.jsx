@@ -10,7 +10,6 @@ export const Layout = (props) => {
     }
     else if (latest == null) {
       return null;
-      //return `<li>${c.t("admin_panel_breadcrumb")}</li>`;
     }
   };
 
@@ -37,14 +36,9 @@ export const Layout = (props) => {
       <header class="container adminHeader">
         <nav>
         <ul>
-          <li><h1>${c.t("admin_panel_title")}</h1></li>
+          <li><h1><a href="." class="contrast">${c.t("admin_panel_title")}</a></h1></li>
         </ul>
         <ul>
-        <li>
-          <a class="nav-link" href=${makeURL(getGalleryPath(c))}>
-            ${c.t("public_view")}
-          </a>
-        </li>
         <li>
           <a
             class="nav-link"
