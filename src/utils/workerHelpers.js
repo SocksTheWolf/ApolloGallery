@@ -40,7 +40,7 @@ export const workerRouter = async (c, keyVal, action) => {
   if (doesWorkerKeyMatch(c, keyVal)) {
     switch (action) {
       case "slider":
-        if (await sliderPurge(c))
+        if (await workerSliderPurge(c))
           wasSuccess = true;
       break;
       case "purgeAll":
