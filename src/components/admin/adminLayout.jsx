@@ -30,10 +30,11 @@ export const Layout = (props) => {
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"></link>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yohns/picocss@2.2.10/css/pico.min.css" />
         <link rel="stylesheet" href="/static/gallery.css" />
+        <link rel="stylesheet" href="/static/admin.css" />
         <script src="https://unpkg.com/htmx.org@1.9.12"></script>
       </head>
       <body>
-      <header class="container">
+      <header class="container adminHeader">
         <nav>
         <ul>
           <li><h1>${c.t("admin_panel_title")}</h1></li>
@@ -78,15 +79,10 @@ export const Layout = (props) => {
         )}
       </header>
       <main class="container">
-        <div class="row">
-          <div class="col-12">
-            ${props.children}
-          </div>
-        </div>
+        ${props.children}
       </main>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="/static/js/SwitchColorMode.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="/static/js/SwitchColorMode.js"></script>
       </body>
     </html>`
   );
