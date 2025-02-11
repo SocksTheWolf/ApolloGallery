@@ -1,10 +1,14 @@
 import { toggleImageApproval } from "../../utils/db";
+import { cachePurgeSingle } from "../../utils/cachePurge";
 
 export const toggleApproval = async (c) => {
   const { imagePath, galleryTableName } = c.req.query();
 
   try {
     const newApproval = await toggleImageApproval(c, galleryTableName, imagePath);
+
+    // Clear the cache for this gallery
+    await cachePurgeSingle(c, galleryTableName);
 
     return c.html(`
       <button 
