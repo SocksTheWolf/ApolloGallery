@@ -26,14 +26,14 @@ export const getImageWithTransforms = (c, img, location="main", format="auto") =
         case "gallery-thumb":
         // Used for the image gallery cover images
         case "cover":
-            cloudFlareBase += ",q=80,w=433,h=200,fit=scale-down";
+            cloudFlareBase += ",q=70,w=433,h=200,fit=scale-down";
         break;
         // Used for the global slider
         case "slider":
         // Full sized images
         case "main":
         case "full":
-            cloudFlareBase += ",q=85";
+            cloudFlareBase += ",q=75";
         break;
     }
     return cloudFlareBase + baseImgLocation;
