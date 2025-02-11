@@ -32,6 +32,15 @@ gallery.route('/admin', admin);
 
 gallery.use('/*', cache());
 
+// Handle image lookups
+gallery.get("/img/:p1/:p2/:p3", handleGetImage);
+
+// Fix up admin paths properly
+gallery.use('/admin/', trimTrailingSlash());
+gallery.route('/admin', admin);
+
+// Main application interface
+gallery.use('/*', cache());
 gallery.get("/", main);
 
 gallery.get("/:galleryTableName", handleGalleryRoute);
