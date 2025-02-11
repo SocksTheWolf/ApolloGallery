@@ -6,20 +6,10 @@ function toDateInputValue(dateObject) {
     return local.toJSON().slice(0,10);
 };
 
-export const SortSelectionOptions = (c, selected) => {
-    const sortSelection = {
-        "original": c.t("images_order_original"),
-        "name_asc": c.t("images_order_name_asc"),
-        "name_desc": c.t("images_order_name_desc"),
-        "created_asc": c.t("images_order_created_asc"),
-        "created_desc": c.t("images_order_created_desc"),
-        "modified_asc": c.t("images_order_modified_asc"),
-        "modified_desc": c.t("images_order_modified_desc")
-    };
-
+export const SelectionOptions = (options, selected) => {
     let htmlReturn = "";
-    for (const key in sortSelection) {
-        const value = sortSelection[key];
+    for (const key in options) {
+        const value = options[key];
         const isSelected = (key == selected) ? "selected" : "";
         htmlReturn += `<option value="${key}" ${isSelected}>${value}</option>`;
     }
@@ -29,8 +19,26 @@ export const SortSelectionOptions = (c, selected) => {
 export const GalleryForm = (props) => {
     const c = props.c;
     const isEditing = props.gallery !== undefined;
-    const currentSort = props.gallery?.ImagesOrder || "original";
-    const sortSelection = SortSelectionOptions(c, currentSort);
+
+    // For sorting the galleries
+    const sortVal = props.gallery?.ImagesOrder || "original";
+    const sortSelection = {
+        "original": c.t("images_order_original"),
+        "name_asc": c.t("images_order_name_asc"),
+        "name_desc": c.t("images_order_name_desc"),
+        "created_asc": c.t("images_order_created_asc"),
+        "created_desc": c.t("images_order_created_desc"),
+        "modified_asc": c.t("images_order_modified_asc"),
+        "modified_desc": c.t("images_order_modified_desc")
+    };
+    const sortHTML = SelectionOptions(sortSelection, sortVal);
+    // Visibility options
+    const visVal = props.gallery?.GalleryIsPublic || "FALSE";
+    const visibilitySelection = {
+        "TRUE": c.t("gallery_visibility_public"),
+        "FALSE": c.t("gallery_visibility_private")
+    };
+    const visHTML = SelectionOptions(visibilitySelection, visVal);
 
     const getValueForProperty = (propName) => {
         if (isEditing)
@@ -164,33 +172,15 @@ export const GalleryForm = (props) => {
 
         </fieldset>
         <fieldset class="grid">
-
             <label htmlFor="galleryIsPublic" className="form-label">
                 <i className="bi bi-eye me-2"></i>
                 {c.t("gallery_visibility_label")}
-                {isEditing ? (
-                <select
-                    className="form-select"
-                    name="GalleryIsPublic"
-                    id="galleryIsPublic" 
-                    defaultValue={props.gallery.GalleryIsPublic}
-                    key={props.gallery.GalleryIsPublic}>
-                        <option value="TRUE" selected={props.gallery.GalleryIsPublic === "TRUE"}>{c.t("gallery_visibility_public")}</option>
-                        <option value="FALSE" selected={props.gallery.GalleryIsPublic === "FALSE"}>{c.t("gallery_visibility_private")}</option>
-                </select>
-                ) : (
                 <select
                     className="form-select"
                     name="GalleryIsPublic"
                     id="galleryIsPublic">
-                    <option value="TRUE">
-                        {c.t("gallery_visibility_public")}
-                    </option>
-                    <option selected value="FALSE">
-                        {c.t("gallery_visibility_private")}
-                    </option>
-                    </select>
-                )}
+                    {raw(visHTML)}
+                </select>
             </label>
 
             <label htmlFor="password" className="form-label">
@@ -226,9 +216,8 @@ export const GalleryForm = (props) => {
                 <select
                     className="form-select"
                     name="ImagesOrder"
-                    id="imagesOrder"
-                    defaultValue={currentSort}>
-                    {raw(sortSelection)}
+                    id="imagesOrder">
+                    {raw(sortHTML)}
                 </select>
             </label>
         </fieldset>
