@@ -16,7 +16,7 @@ gallery.use('/static/*', serveStatic({ root: './dist' }));
 
 // To handle static files if the gallery is the base root, add static bindings to each root assumed file
 const staticFileServe = ["favicon.ico", "favicon-96x96.png", "apple-touch-icon.png", 
-    "web-app-manifest-192x192.png", "web-app-manifest-512x512.png", "site.webmanifest", "404.html"];
+    "web-app-manifest-192x192.png", "web-app-manifest-512x512.png", "site.webmanifest", "404.html", "robots.txt"];
 staticFileServe.forEach((item) => {
     gallery.use(`/${item}`, serveStatic({path:`./${item}`}));
 });
