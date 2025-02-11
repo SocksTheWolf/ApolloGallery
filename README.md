@@ -4,9 +4,11 @@
 </div>
 
 ## Description
+
 Pineapple Gallery is a web application for managing and displaying galleries of images. 📸 It is built using **Hono** and leverages **Cloudflare Workers**, **D1**, and **R2** for backend services. 🚀
 
 ### Features
+
 - **User-Friendly Interface**: Easy to navigate and manage galleries. 🌟
 - **Cloudflare Integration**: Utilizes Cloudflare Workers, D1, and R2 for efficient and scalable backend operations. 🌐
 - **Multi-Language Support**: Supports multiple languages for a global audience. 🌍
@@ -16,6 +18,7 @@ Pineapple Gallery is a web application for managing and displaying galleries of 
 - **Cache Control**: Manual cache purging and automated cache middleware 🔄
 
 ### Tech Stack
+
 - **Frontend**: Hono (with server-side rendering), HTMX
 - **Backend**: Hono, Cloudflare Workers
 - **Database**: Cloudflare D1
@@ -23,10 +26,12 @@ Pineapple Gallery is a web application for managing and displaying galleries of 
 - **Cache**: Cloudflare KV
 
 ### Server-Side Rendering (SSR)
+
 - **Main Route**: The main route (`/`) is server-side rendered, generating HTML on the server for dynamic content.
 - **Admin Routes**: The admin routes (`/admin/*`) are also server-side rendered, providing a dynamic and responsive admin panel.
 
 ## Table of Contents
+
 - [Description](#description)
   - [Features](#features)
   - [Tech Stack](#tech-stack)
@@ -36,7 +41,6 @@ Pineapple Gallery is a web application for managing and displaying galleries of 
 - [Setup](#setup)
 - [Development](#development)
 - [Deployment](#deployment)
-- [Notes](#notes)
 - [Known Issues](#known-issues)
 - [To Do](#to-do)
 - [License](#license)
@@ -45,35 +49,44 @@ Pineapple Gallery is a web application for managing and displaying galleries of 
 ## Quick Start
 
 Before you start, you need the following:
+
 - Node.js and npm installed
 - A Cloudflare account
 - Wrangler installed
 
 ### Prerequisites
+
 1. **Node.js and npm**: Ensure you have Node.js and npm installed. You can download them from [Node.js official website](https://nodejs.org/).
 2. **Cloudflare Account**: Sign up for a Cloudflare account at [Cloudflare](https://www.cloudflare.com/).
 3. **Wrangler**: Install Wrangler, the Cloudflare Workers CLI tool, by running:
+
    ```sh
    npm install -g @cloudflare/wrangler
    ```
 
 ### Setup
+
 1. Clone the repository:
+
    ```sh
    git clone https://github.com/Endriur24/PineappleGallery.git
    cd PineappleGallery
    ```
 
 2. Install dependencies:
+
    ```sh
    npm install
    ```
 
 3. Create a D1 database:
+
    ```sh
    wrangler d1 create "pineapplegallery-database"
    ```
+
    Paste the results, which look like this, into `wrangler.toml` (keep the binding name the same = "DB"):
+
    ```toml
    [[d1_databases]]
    binding = "DB"
@@ -82,10 +95,13 @@ Before you start, you need the following:
    ```
 
 4. Create an R2 bucket:
+
    ```sh
    wrangler r2 bucket create "pineapplegallery-bucket"
    ```
+
    Update `wrangler.toml` according to the response, but keep the binding name the same as below ("R2"):
+
    ```toml
    [[r2_buckets]]
    binding = "R2"
@@ -93,9 +109,11 @@ Before you start, you need the following:
    ```
 
 5. Create KV namespace for cache functionality
+
    ```sh
    wrangler kv namespace create CACHE_KV
    ```
+
    Update `wrangler.toml` according to the response, but keep the binding name the same as below:
 
    ```toml
@@ -103,39 +121,49 @@ Before you start, you need the following:
    binding = "CACHE_KV"
    id = "42ee21cd50bf44adb285c6c3d02727cd"   #paste your own id
    ```
+
 6. Create .dev.vars according to example (image transformations doesnt work locally)
 
-
 ### Development
+
 Start the development server:
+
 ```sh
 npm run dev
 ```
 
 ### Deployment
+
 Deploy the application:
+
 ```sh
 npm run deploy
 ```
+
 Turn on image transformations for your account in cloudflare dashboard.
 
 ## Configuration
 
 ### Environment Variables
+
 The following environment variables need to be set:
+
 - `USERNAME` - Admin panel username
 - `PASSWORD` - Admin panel password
 
 ### Routing Configuration
+
 The gallery can be mounted on any path by adjusting `index.jsx`:
 
 1. Default configuration (at `/gallery/`):
+
 ```javascript
 app.use('/gallery', appendTrailingSlash())
 app.route('/gallery/', gallery);
 ```
 
 2. Root path configuration (at `/`):
+
 ```javascript
 app.route('/', gallery);
 ```
@@ -145,6 +173,7 @@ Remember to adjust `cachePurge.js` according to your chosen path.
 ## API Endpoints
 
 ### Admin API
+
 - `POST /api/toggleApproval` - Toggle image approval status
 - `DELETE /api/deleteImage` - Delete an image
 - `POST /:galleryTableName` - Edit gallery details
@@ -153,22 +182,26 @@ Remember to adjust `cachePurge.js` according to your chosen path.
 - `POST /:galleryTableName/purge` - Manual cache purge for gallery
 
 ### Admin Pages
+
 - `/admin/` - Gallery listing and management
 - `/admin/new-gallery` - Create new gallery
 - `/admin/:galleryTableName` - Single gallery management
 
-## Known issues 
- - when photoswipe lightbox is opened - it crashes when chaning orientation from landscape to portrait
+## Known issues
+
+- when photoswipe lightbox is opened - crashes when changing orientation from landscape to portrait
 
 ## To do
- - gallery password protection
- - displaying tags
- - displaying location
- - automatic publication according to publication date
- - images approval system
- - client side js translations
+
+- gallery password protection
+- displaying tags
+- displaying location
+- automatic publication according to publication date
+- images approval system
+- client side js translations
 
 ## License
+
 This project is licensed under the [MIT License](LICENSE).
 
 ## Contributing
