@@ -12,7 +12,8 @@ import { deleteImage } from "./admin/deleteImage";
 import { toggleApproval } from "./admin/toggleImageApproval";
 import { manualPurge } from "./admin/manualPurge";
 import { cachePurgeAll } from '../utils/cachePurge';
-import { secureHeaders } from 'hono/secure-headers'
+import { secureHeaders } from 'hono/secure-headers';
+import { setAsThumb } from "./admin/setAsThumb";
 
 export const admin = new Hono({ strict: false });
 
@@ -50,6 +51,8 @@ admin.post("/new-gallery", handlePostNewGallery);
 admin.delete("/api/deleteImage", deleteImage); //api
 
 admin.post("/api/toggleApproval", toggleApproval); //api
+
+admin.post("/api/setAsThumb", setAsThumb); //api
 
 admin.get("/:galleryTableName", handleSingleGallery);
 

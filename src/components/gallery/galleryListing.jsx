@@ -45,6 +45,8 @@ export const main = async (c) => {
                 <img
                   src={gallery.CoverImage}
                   alt={gallery.GalleryName}
+                  width="433px"
+                  height="200px"
                   className="gallery-card-image"
                 />
               ) : (

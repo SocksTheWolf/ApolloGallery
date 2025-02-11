@@ -4,3 +4,7 @@ export const getGalleryPath = (c) => {
     }
     return `/${c.env.GALLERY_PATH}/`;
 };
+
+export const getImagePath = (c, img) => {
+    return `${getGalleryPath(c)}img/${img}`;
+};

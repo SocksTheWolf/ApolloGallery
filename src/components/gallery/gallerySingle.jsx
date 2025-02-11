@@ -1,5 +1,5 @@
 import { Layout } from "./layout";
-import { getGalleryPath } from "../../utils/galleryPath";
+import { getImagePath } from "../../utils/galleryPath";
 import {
   getGalleriesFromD1,
   getIndywidualGalleryFromD1wApproved,
@@ -47,8 +47,9 @@ export const Gallery = ({ gallery, images, c }) => (
                   <a
                     href={
                       c.env.IMGT === "true"
-                        ? `/cdn-cgi/image/f=auto,q=80${getGalleryPath(c)}img/${image.path}`
-                        : `img/${image.path}`
+                      
+                        ? `/cdn-cgi/image/f=auto,q=80${getImagePath(c, image.path)}`
+                        : `${getImagePath(c, image.path)}`
                     }
                     data-pswp-width={image.width}
                     data-pswp-height={image.height}
@@ -57,8 +58,8 @@ export const Gallery = ({ gallery, images, c }) => (
                     <img
                       src={
                         c.env.IMGT === "true"
-                          ? `/cdn-cgi/image/f=auto,q=75,w=433${getGalleryPath(c)}img/${image.path}`
-                          : `img/${image.path}`
+                          ? `/cdn-cgi/image/f=auto,q=75,w=433${getImagePath(c, image.path)}`
+                          : `${getImagePath(c, image.path)}`
                       }
                       alt={image.name}
                       loading="lazy"

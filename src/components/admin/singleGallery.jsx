@@ -1,6 +1,7 @@
 import { Layout } from "./adminLayout";
 import { getGalleriesFromD1, getIndywidualGalleryFromD1 } from "../../utils/db";
 import { GalleryForm } from "./galleryForm";
+import { getImagePath } from "../../utils/galleryPath";
 
 const Singlegallery = (props) => {
   const c = props.c; // Ensure the context is passed correctly
@@ -94,7 +95,7 @@ const Singlegallery = (props) => {
                   />
                   <div className="card-body">
                     <h5 className="card-title">{image.name}</h5>
-                    <div className="d-flex justify-content-between">
+                    <div className="grid d-flex justify-content-between">
                       <button
                         className="btn btn-danger btn-sm"
                         hx-confirm={`${c.t("deletion_of_image_confirm")} ${image.name}?`}
@@ -121,6 +122,25 @@ const Singlegallery = (props) => {
                           <>
                             <i className="bi bi-x-circle me-2"></i>
                             {c.t("unapproved_label")}
+                          </>
+                        )}
+                      </button>
+                      <button
+                        className="btn btn-secondary btn-sm"
+                        hx-post={`../admin/api/setAsThumb?imagePath=${encodeURIComponent(
+                          image.path
+                        )}&galleryTableName=${props.gallery.GalleryTableName}`}
+                        hx-target="this"
+                      >
+                        {props.gallery.CoverImage === getImagePath(c, image.path) ? (
+                          <>
+                            <i className="bi bi-check-circle me-2"></i>
+                            {c.t("current_thumb")}
+                          </>
+                        ) : (
+                          <>
+                            <i className="bi bi-x-circle me-2"></i>
+                            {c.t("set_as_thumb")}
                           </>
                         )}
                       </button>

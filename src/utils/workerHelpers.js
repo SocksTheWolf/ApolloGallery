@@ -1,5 +1,6 @@
 import { cachePurgeHome, cachePurgeAll } from "./cachePurge";
 
+// KV Key used for authenticating external cloudflare workers
 export const WORKER_ID_KEY = "WORKERID_KEY";
 
 const doesWorkerKeyMatch = (c, keyVal) => {
@@ -32,7 +33,7 @@ export const workerPurgeAll = async (c) => {
 };
 
 export const workerRouter = async (c, keyVal, action) => {
-  if (keyVal === undefined || action === undefined)
+  if (keyVal === undefined || keyVal === null || action === undefined || action === null)
     return c.text("Unauthorized", 401);
 
   let wasSuccess = false;
