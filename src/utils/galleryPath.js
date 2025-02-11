@@ -24,8 +24,6 @@ export const getImageWithTransforms = (c, img, location="main", format="auto") =
         break;
         // Thumbnail for images in a gallery
         case "gallery-thumb":
-            cloudFlareBase += ",q=70,w=433";
-        break;
         // Used for the image gallery cover images
         case "cover":
             cloudFlareBase += ",q=80,w=433,h=200,fit=scale-down";

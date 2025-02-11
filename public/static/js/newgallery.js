@@ -1,5 +1,3 @@
-console.log("hello from new galery js");
-
 import { initLatinise } from "./latinise.js";
 
 initLatinise();
