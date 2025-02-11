@@ -1,11 +1,12 @@
 import { html } from 'hono/html';
-import { SocialMetaTags } from './metaTags';
+import { SocialMetaTags } from '../utils/metaTags';
 import { ThemeSwitcher } from '../utils/themeSwitcher';
 import { PreloadAssets } from '../utils/preloader';
 
 export const Layout = (props) => {
   const c = props.c;
   const prefetchType = props.prefetch;
+  const desc = props.desc || c.env.DESCRIPTION;
   return (
     html`
     <!DOCTYPE html>
@@ -14,7 +15,7 @@ export const Layout = (props) => {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
         <title>${props.title}</title>
-        ${<SocialMetaTags />}
+        ${<SocialMetaTags title={props.title} desc={desc} url={c.req.url} />}
         ${<PreloadAssets type={prefetchType} />}
         <link rel="stylesheet" href="/static/gallery.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yohns/picocss@2.2.10/css/pico.orange.min.css" />

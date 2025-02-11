@@ -24,6 +24,9 @@ id = "ec290df347654a639feecda9c0b077c4"
 # Page title
 PAGE_TITLE = "Apollo's Gallery"
 
+# Default Page Description
+DESCRIPTION = "Cute Shiba Inu pictures daily! Check out his amazing adventures and sign up for updates!"
+
 # Image transformations
 IMGT = "true"
 
