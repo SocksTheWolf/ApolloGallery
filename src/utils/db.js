@@ -1,4 +1,5 @@
 import { getGalleryPath, getImagePath } from './galleryPath';
+const shuffle = require('shuffle-array');
 
 export const getGalleriesFromD1 = async (c) => {
   return await c.env.DB.prepare("SELECT * FROM Galleries ORDER BY PartyDate DESC").all();
@@ -254,13 +255,9 @@ export const deleteImageFromGallery = async (
 
 export const getSliderImages = async (
   c,
-  maxImages = 5,
-  maxGalleries = 5
+  maxImages = 6,
+  maxGalleries = 3
 ) => {
-  // Rand function
-  const rand = (max, min=1) => {
-    return Math.floor(Math.random() * (max - min) + min);
-  };
   function SliderItem(gallery_name, gallery_link, obj) {
     this.link = `${getGalleryPath(c)}${gallery_link}`;
     this.name = gallery_name;
@@ -283,23 +280,13 @@ export const getSliderImages = async (
     let curImages = [];
     // Pull random images from here
     for (var i = 0; i < image_galleries.length; ++i) {
-      // Break out if we're at too many.
-      if (curImages.length >= maxImages)
-        break;
-
       const gallery_name = image_galleries[i].GalleryName;
       const table_name = image_galleries[i].GalleryTableName;
-      const pickImages = maxImages - curImages.length;
-      // Should not be possible
-      if (pickImages <= 0) {
-        console.warn("We hit the max amount of images when trying to hit the slider.");
-        break;
-      }
+
       // Picks a couple images from the given table_name table
-      const randomNum = rand(pickImages);
       const {results} = await c.env.DB
         .prepare(`SELECT path,width,height FROM ${table_name} WHERE approved = TRUE ORDER BY RANDOM() LIMIT ?`)
-        .bind(randomNum).all();
+        .bind(maxImages).all();
 
       if (results !== null && results.length > 0) {
         // Push each image to the back of the array
@@ -308,7 +295,8 @@ export const getSliderImages = async (
         });
       }
     }
-    return curImages;
+
+    return shuffle.pick(curImages, {"picks": maxImages});
   } catch (error) {
     console.error("Fetching slider images returned error:" + error.message);
     return null;
