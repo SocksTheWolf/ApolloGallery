@@ -1,72 +1,52 @@
-export const cache = (options = {}) => {
-  const {
-    maxAge = 180,
-    includeLang = true,
-    ignoreQueryParams = false
-  } = options;
+export const cache = () => {
+  const createResponse = (content, isCached, lang, cacheKey) =>
+    new Response(content, {
+      headers: {
+        'Content-Type': 'text/html',
+        'X-KV-Cache-Status': isCached ? 'HIT' : 'MISS',
+        'X-Selected-Language': lang,
+        'X-KV-Cache-Key': cacheKey,
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      },
+    });
 
   return async (c, next) => {
-    const url = new URL(c.req.url);
-    const acceptLanguage = await c.t();
+    if (c.env.USE_CACHE === "false") {
+      await next();
+      return c.res;
+    }
 
-    const serveOriginalContent = async () => {
+    try {
+      const lang = await c.t();
+
+      // Generate cache key
+      const cacheKey = `page:${new URL(c.req.url).pathname}@${lang}`;
+
+      // Try to get cached content from KV
+      const cachedContent = await c.env.CACHE_KV.get(cacheKey);
+      if (cachedContent) {
+        return createResponse(cachedContent, true, lang, cacheKey);
+      }
+
       // If no cache, generate response
       await next();
-
-      // Clone the response to read its body
       const originalResponse = c.res.clone();
 
-      // Don't cache error responses
-      if (!originalResponse.ok || originalResponse.status !== 200) {
+      // Pass through non-200 responses without caching
+      if (originalResponse.status !== 200) {
         return originalResponse;
       }
 
-      return await originalResponse.text();
-    };
-
-    if (c.env.USE_CACHE === "false") {
-      return await serveOriginalContent();
-    }
-
-    // Generate cache key
-    const cacheKey = `page:${url.pathname}@${acceptLanguage}`;
-    try {
-      // Try to get cached content from KV
-      const cachedContent = await c.env.CACHE_KV.get(cacheKey);
-
-      if (cachedContent) {
-        return new Response(cachedContent, {
-          headers: {
-            'Content-Type': 'text/html',
-            'X-KV-Cache-Status': 'HIT',
-            'X-KV-Cache-Key': cacheKey,
-            'X-Selected-Language': acceptLanguage,
-            'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-            'Pragma': 'no-cache',
-            'Expires': '0'
-          }
-        });
-      }
-
-      const content = await serveOriginalContent();
-
-      // Store in KV
+      // Cache the successful response
+      const content = await originalResponse.text();
       c.executionCtx.waitUntil(
         c.env.CACHE_KV.put(cacheKey, content)
       );
 
-      // Return the response
-      return new Response(content, {
-        headers: {
-          'Content-Type': 'text/html',
-          'X-KV-Cache-Status': 'MISS',
-          'X-Generated-Language': acceptLanguage,
-          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-          'Pragma': 'no-cache',
-          'Expires': '0'
-        }
-      });
-
+      // Replace original response with one containing cache headers
+      c.res = createResponse(content, false, lang, cacheKey);
     } catch (error) {
       console.error('Cache error:', error);
       await next();
