@@ -1,4 +1,4 @@
-import { getGalleryPath, getImagePath } from './galleryPath';
+import { getGalleryPath, getImagePath, getImageWithTransforms } from './galleryPath';
 const shuffle = require('shuffle-array');
 
 export const getGalleriesFromD1 = async (c) => {
@@ -249,6 +249,22 @@ export const deleteImageFromGallery = async (
     return true;
   } catch (error) {
     console.error("Error deleting image:", error.message);
+    return false;
+  }
+};
+
+export const getThumbnailForGallery = async(c, GalleryTableName) => {
+  try {
+    const {results} = await c.env.DB.prepare(
+      `SELECT CoverImage FROM Galleries WHERE GalleryTableName=?1 AND approved = TRUE`
+    ).bind(GalleryTableName).run();
+    
+    if (results == null || results.length == 0)
+      return "/meta-card.png";
+
+    return getImageWithTransforms(c, results[0].CoverImage, "gallery-thumb");
+  } catch (error) {
+    console.error("Error getting thumbnail:", error.message);
     return false;
   }
 };
