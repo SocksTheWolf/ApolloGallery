@@ -15,14 +15,14 @@ export const Gallery = ({ gallery, images, c }) => (
       </header>
       <div class="grid gallery-info gallery-date">
         {gallery.PartyDate && (
-          <small class="float-date">{c.t("party_date_label")}: {gallery.PartyDate}</small>
+          <small class="gallery-date-single">{c.t("party_date_label")}: {gallery.PartyDate}</small>
         )}
-        <span></span>
-        <span></span>
+        <span class="gallery-info-spacing"></span>
+        <span class="gallery-info-spacing"></span>
         {gallery.Tags && (
-          <small>{c.t("tags_label")}: {gallery.Tags}</small>
+          <small class="gallery-tags-single">{c.t("tags_label")}: {gallery.Tags}</small>
         )}
-        <span></span>
+        <span class="gallery-info-spacing"></span>
       </div><hr />
       {gallery.TextField && (
         <p className="gallery-description">{gallery.TextField}</p>
