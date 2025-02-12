@@ -31,6 +31,9 @@ export const getGalleriesFromD1wGalleryIsPublic = async (c) => {
     try {
       // Attempt to create the Galleries table
       await c.env.DB.prepare(createTableSQL).run();
+      // Create an index on the gallery table, for better storage and lookup optimization
+      await c.env.DB.prepare(`CREATE INDEX IF NOT EXISTS idx_galleries_public ON Galleries(GalleryIsPublic)`).run();
+
       return "The Galleries table in database did not exist and has been created. Please reload the page and clean the cache.";
     } catch (createError) {
       console.error("Error creating the Galleries table:", createError.message);

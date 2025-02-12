@@ -6,15 +6,16 @@
     "dev:wrangler": "wrangler pages dev dist --live-reload",
     "dev:esbuild": "esbuild --bundle src/index.jsx --format=esm --watch --outfile=dist/_worker.js",
     "dev:static": "cpx \"public/**/*\" dist --watch",
-    "build": "npm run build:clean && run-p build:*",
-    "build:clean": "rimraf dist",
+    "build": "npm run clean && run-p build:*",
+    "clean": "rimraf dist",
     "build:esbuild": "esbuild --bundle src/index.jsx --format=esm --outfile=dist/_worker.js",
     "build:static": "cpx \"public/**/*\" dist",
     "deploy": "wrangler pages deploy"
   },
   "dependencies": {
     "accept-language-parser": "^1.5.0",
-    "hono": "^4.6.12"
+    "hono": "^4.6.12",
+    "rimraf": "^6.0.1"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241127.0",

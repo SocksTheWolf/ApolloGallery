@@ -65,7 +65,7 @@ class FileUploader {
   displayUploadNotification(successfulUploads, results) {
     if (successfulUploads.length === results.length) {
       const successMessage = `<div class="alert alert-success">
-        All files uploaded successfully! <span id="reload-countdown">Reloading in 2 seconds...</span>
+        All files uploaded successfully! <span id="reload-countdown"></span>
       </div>`;
       this.uploadErrorBox.innerHTML = successMessage + this.uploadErrorBox.innerHTML;
 
