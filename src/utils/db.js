@@ -87,6 +87,7 @@ export const createGallery = async (c, formObject) => {
     c.env.DB.prepare(
       `CREATE TABLE IF NOT EXISTS ${formObject.GalleryTableName} (approved BOOLEAN, width INTEGER, height INTEGER, name TEXT, hash TEXT, path TEXT PRIMARY KEY, dateCreated INTEGER, dateModified INTEGER)`
     ),
+    c.env.DB.prepare(`CREATE INDEX IF NOT EXISTS idx_${formObject.GalleryTableName}_approved ON ${formObject.GalleryTableName}(approved)`)
   ]);
 };
 
