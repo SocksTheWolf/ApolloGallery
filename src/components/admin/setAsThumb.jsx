@@ -1,4 +1,5 @@
 import { setAsThumbnail } from "../../utils/db";
+import { cachePurgeHome } from "../../utils/cachePurge";
 
 export const setAsThumb = async (c) => {
   const { imagePath, galleryTableName } = c.req.query();
@@ -18,9 +19,9 @@ export const setAsThumb = async (c) => {
           hx-target="this"
         >
           ${success ? (
-            `<i class="bi bi-check-circle me-2"></i>${c.t("current_thumb")}`
+            `<i class="bi bi-pin-angle-fill me-2"></i>${c.t("current_thumb")}`
           ) : (
-            `<i class="bi bi-x-circle me-2"></i>${c.t("set_as_thumb")}`
+            `<i class="bi bi-pin me-2"></i>${c.t("set_as_thumb")}`
           )}
         </button>
       `);
