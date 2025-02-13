@@ -24,6 +24,8 @@ id = "42ee21cd50bf44adb285c6c3d02727cd"
 # Page title
 PAGE_TITLE = "Pineapple Gallery"
 
+# Page description
+DESCRIPTION = "Pineapple Gallery is a project designed to serve up image galleries using Cloudflare!"
 
 # Image transformations
 IMGT = "true"

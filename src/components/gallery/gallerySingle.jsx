@@ -6,7 +6,7 @@ import {
 import { html } from "hono/html";
 
 export const Gallery = ({ gallery, images, c }) => (
-  <Layout title={gallery.GalleryName} c={c}>
+  <Layout title={gallery.GalleryName} c={c} desc={gallery.TextField}>
     <section>
       <div className="container">
       <div style="width: 100%; padding: 0px; max-width: 1200px;">

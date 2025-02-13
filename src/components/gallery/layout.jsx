@@ -3,6 +3,7 @@ import { html } from 'hono/html'
 
 export const Layout = (props) => {
   const c = props.c;
+  const desc = props.desc || c.env.DESCRIPTION;
   return (
     html`<!doctype html>
     <html lang=${c.t()}>
@@ -10,6 +11,7 @@ export const Layout = (props) => {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
         <title>${props.title}</title>
+        ${<SocialMetaTags title={props.title} desc={desc} url={c.req.url} />}
         <link rel="stylesheet" href="/static/style.css" />
         <link rel="stylesheet" href="/static/photoswipe.css" />
       </head>
