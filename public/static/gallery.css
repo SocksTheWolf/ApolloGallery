@@ -3,7 +3,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
   gap: 2rem;
-  padding: 2rem;
   box-sizing: border-box;
 }
 
@@ -41,24 +40,12 @@
   background: white;
 }
 
-.gallery-info {
-  padding-top: 0px !important;
-}
-
 .gallery-name {
   margin: 0 0 0.75rem 0;
   font-size: 1.25rem;
   color: #2c3e50;
   font-weight: 600;
   line-height: 1.3;
-}
-
-.gallery-date {
-  color: #666;
-  font-size: 0.9rem;
-  margin-top: auto;
-  padding-top: 0.75rem;
-  border-top: 1px solid rgba(0,0,0,0.1);
 }
 
 .breadcrumbs {
@@ -85,25 +72,26 @@
   text-decoration: underline;
 }
 
+.gallery-info {
+  margin: 1rem 0 2.5rem;
+}
+
 .gallery-title {
-  margin: 1rem 1rem 2rem;
+  margin-bottom: 0;
+}
+
+.gallery-tags {
+  margin-left: 0.5rem;
 }
 
 .gallery-description {
-  margin: 1rem;
-  line-height: 1.6;
-}
-
-.float-date {
-  padding-left: 1.4rem;
+  margin: 1rem 0;
 }
 
 /* new mansory css   */
 
 #mansory-wraper {
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 10px;
   box-sizing: border-box;
 }
 

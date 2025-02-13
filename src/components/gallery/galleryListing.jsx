@@ -21,7 +21,7 @@ export const main = async (c) => {
       prefetch={hasGalleries ? "listing" : "none"}
     >
       <section>
-        <div className="container">
+        <div>
           {galleries.length == 0 ? (
             <div className="no-images-container text-center py-5">
               <p className="text-muted">

@@ -50,7 +50,7 @@ export const PreloadAssets = (props) => {
     }
 
     return html`
-        <link rel="preload" href="https://cdn.jsdelivr.net/npm/@yohns/picocss@2.2.10/css/pico.orange.min.css" as="style" />
+        <link rel="preload" href="https://cdn.jsdelivr.net/npm/@yohns/picocss@2.2.10/css/pico.amber.min.css" as="style" />
         <link rel="modulepreload" href="/static/js/SwitchColorMode.js" as="script" />
         ${raw(prefetchCode)}
     `;

@@ -9,30 +9,19 @@ import { html } from "hono/html";
 export const Gallery = ({ gallery, images, c }) => (
   <Layout title={gallery.GalleryName} c={c} prefetch="single">
     <section>
-      <article>
-      <header>
-        <h2 className="gallery-title">{gallery.GalleryName}</h2>
-      </header>
-      <div class="grid gallery-info gallery-date">
-        {gallery.PartyDate && (
-          <small class="float-date">{c.t("party_date_label")}: {gallery.PartyDate}</small>
-        )}
-        <span></span>
-        <span></span>
-        {gallery.Tags && (
-          <small>{c.t("tags_label")}: {gallery.Tags}</small>
-        )}
-      </div><hr />
-      {gallery.TextField && (
-        <p className="gallery-description">{gallery.TextField}</p>
-      )}
-      <footer>
       <a href="./" class="secondary">
-          ← {c.t("back_link")}
-        </a>
-      </footer>
-      </article>
-      <article>
+        ← {c.t("back_link")}
+      </a>
+      <div className="gallery-info">
+        <h1 className="gallery-title">{gallery.GalleryName}</h1>
+        {gallery.PartyDate && <small>{gallery.PartyDate}</small>}
+        {gallery.Tags && (
+            <small className="gallery-tags">
+              {c.t("tags_label")}: {gallery.Tags}
+            </small>
+          )}
+        {gallery.TextField && <p className="gallery-description">{gallery.TextField}</p>}
+      </div>
       <div id="mansory-wraper">
         {images.length === 0 ? (
           <div>
@@ -51,7 +40,11 @@ export const Gallery = ({ gallery, images, c }) => (
                     target="_blank"
                   >
                     <img
-                      src={getImageWithTransforms(c, image.path, "gallery-thumb")}
+                      src={getImageWithTransforms(
+                        c,
+                        image.path,
+                        "gallery-thumb"
+                      )}
                       alt={image.name}
                       loading="lazy"
                     />
@@ -62,11 +55,13 @@ export const Gallery = ({ gallery, images, c }) => (
           </div>
         )}
       </div>
-      </article>
     </section>
 
     {html`
-      <script type="module" src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+      <script
+        type="module"
+        src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"
+      ></script>
       <script type="module" src="/static/js/initPhotoSwipe.js"></script>
       <script type="module" src="/static/js/masonry.js"></script>
     `}
