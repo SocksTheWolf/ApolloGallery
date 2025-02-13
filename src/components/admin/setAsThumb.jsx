@@ -6,6 +6,7 @@ export const setAsThumb = async (c) => {
   try {
     // Update the thumbnail to this one
     const success = await setAsThumbnail(c, galleryTableName, imagePath);
+    await cachePurgeHome(c);
 
     return c.html(`
         <button 
