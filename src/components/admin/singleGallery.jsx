@@ -130,14 +130,14 @@ const Singlegallery = (props) => {
                       )}&galleryTableName=${props.gallery.GalleryTableName}`}
                       hx-target="this"
                     >
-                      {props.gallery.CoverImage === getImagePathRaw(c, image.path) ? (
+                      {props.gallery.CoverImage === getImagePathRaw(image.path) ? (
                         <>
-                          <i className="bi bi-check-circle me-2"></i>
+                          <i className="bi bi-pin-angle-fill me-2"></i>
                           {c.t("current_thumb")}
                         </>
                       ) : (
                         <>
-                          <i className="bi bi-x-circle me-2"></i>
+                          <i className="bi bi-pin me-2"></i>
                           {c.t("set_as_thumb")}
                         </>
                       )}
