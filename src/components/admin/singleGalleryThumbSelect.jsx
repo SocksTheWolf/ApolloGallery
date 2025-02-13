@@ -13,15 +13,16 @@ export const setAsThumb = async (c) => {
       await cachePurgeHome(c);
 
     return c.html(`
+        <span hx-swap-oob="innerHTML:#selected-thumb"><i class="bi bi-pin me-2"></i>${c.t("set_as_thumb")}</span>
         <button 
           class="btn btn-secondary btn-sm"
           hx-post="../admin/api/setAsThumb?imagePath=${encodeURIComponent(imagePath)}&galleryTableName=${galleryTableName}"
           hx-target="this"
         >
           ${success ? (
-            `<i class="bi bi-pin-angle-fill me-2"></i>${c.t("current_thumb")}`
+            `<span id="selected-thumb"><i class="bi bi-pin-angle-fill me-2"></i>${c.t("current_thumb")}</span>`
           ) : (
-            `<i class="bi bi-pin me-2"></i>${c.t("set_as_thumb")}`
+            `<span><i class="bi bi-pin me-2"></i>${c.t("set_as_thumb")}</span>`
           )}
         </button>
       `);

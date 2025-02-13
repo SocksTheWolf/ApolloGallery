@@ -13,7 +13,7 @@ import { toggleApproval } from "./admin/toggleImageApproval";
 import { manualPurge } from "./admin/manualPurge";
 import { cachePurgeAll } from '../utils/cachePurge';
 import { secureHeaders } from 'hono/secure-headers';
-import { setAsThumb } from "./admin/setAsThumb";
+import { setAsThumb } from "./admin/singleGalleryThumbSelect";
 
 export const admin = new Hono({ strict: false });
 

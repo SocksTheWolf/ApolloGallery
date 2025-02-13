@@ -31,25 +31,28 @@ const Singlegallery = (props) => {
         </button>
       </fieldset>
 
-      <details>
+      <details open>
         <summary role="button" class="contrast">{c.t("add_images_title")}</summary>
         <article>
           <header><h3>{c.t("add_images_title")}</h3></header>
-          <form className="mb-3">
-              <fieldset class="grid">
-                <input
-                  type="file"
-                  className="form-control"
-                  accept="image/*"
-                  multiple
-                  id="fileInput"
-                  name="file"
-                />
+          <form>
+            <fieldset class="grid">
+              <input type="file"
+                className="form-control"
+                accept="image/*"
+                multiple
+                id="fileInput"
+                name="file" />
+              <details>
+              </details>
+              </fieldset>
+              <br />
+              <center>
                 <button id="submit" className="btn btn-primary">
                   <i className="bi bi-upload me-2"></i>
                   {c.t("upload_images_button")}
                 </button>
-              </fieldset>
+              </center>
             </form>
             <br />
             <progress
@@ -66,8 +69,6 @@ const Singlegallery = (props) => {
               <span id="current-counter">0</span> / {" "}
               <span id="max-counter">0</span>
             </footer>
-
-            
         </article>
       </details>
 
@@ -131,15 +132,15 @@ const Singlegallery = (props) => {
                       hx-target="this"
                     >
                       {props.gallery.CoverImage === getImagePathRaw(image.path) ? (
-                        <>
+                        <span id="selected-thumb">
                           <i className="bi bi-pin-angle-fill me-2"></i>
                           {c.t("current_thumb")}
-                        </>
+                        </span>
                       ) : (
-                        <>
+                        <span>
                           <i className="bi bi-pin me-2"></i>
                           {c.t("set_as_thumb")}
-                        </>
+                        </span>
                       )}
                     </button>
                   </div>
