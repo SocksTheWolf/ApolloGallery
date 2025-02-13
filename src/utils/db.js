@@ -223,7 +223,7 @@ export const setAsThumbnail = async (c, GalleryTableName, imagePath) => {
   try {
     const {success} = await c.env.DB.prepare(
       `UPDATE Galleries SET CoverImage=?1 WHERE GalleryTableName=?2`
-    ).bind(getImagePathRaw(c, imagePath), GalleryTableName).all();
+    ).bind(getImagePathRaw(imagePath), GalleryTableName).all();
     
     return success;
   } catch (error) {
