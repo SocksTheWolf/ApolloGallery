@@ -165,32 +165,3 @@
       background-position: -200% 0;
   }
 }
-
-
-/* backend css */
-.btn.htmx-request {
-  position: relative;
-  overflow: hidden;
-}
-
-.btn.htmx-request::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 200%;
-  height: 100%;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
-  animation: loading-wave 1s linear infinite;
-  z-index: 1; 
-  pointer-events: none; 
-}
-
-@keyframes loading-wave {
-  from {
-    left: -100%;
-  }
-  to {
-    left: 100%;
-  }
-}
