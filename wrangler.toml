@@ -36,9 +36,10 @@ IMGT = "true"
 # Use Cache KV functionality
 USE_CACHE = "true"
 
-# Admin Panel Credentials unsoment to set here | commented to set using cf dashboard
+# "Admin Panel Credentials – remove the comment to set them here, or keep it commented to manage them via the CF Dashboard.
 # USERNAME = "admin"
 # PASSWORD = "superSecretPassword"
 
 # Path to the gallery application (should contain no slashes, unless this serves on root, which then it should be a single slash)
+# Make sure to also update index.jsx accordingly.
 GALLERY_PATH="gallery"

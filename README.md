@@ -153,22 +153,7 @@ The following environment variables need to be set:
 
 ### Routing Configuration
 
-The gallery can be mounted on any path by adjusting `index.jsx`:
-
-1. Default configuration (at `/gallery/`):
-
-```javascript
-app.use('/gallery', appendTrailingSlash())
-app.route('/gallery/', gallery);
-```
-
-2. Root path configuration (at `/`):
-
-```javascript
-app.route('/', gallery);
-```
-
-Remember to adjust `cachePurge.js` according to your chosen path.
+The gallery can be mounted on any path by adjusting both `index.jsx` and `wrangler.toml`
 
 ## API Endpoints
 
@@ -189,12 +174,11 @@ Remember to adjust `cachePurge.js` according to your chosen path.
 
 ## Known issues
 
-- when photoswipe lightbox is opened - crashes when changing orientation from landscape to portrait
+- ~~when photoswipe lightbox is opened - crashes when changing orientation from landscape to portrait~~
 
 ## To do
 
 - gallery password protection
-- displaying tags
 - displaying location
 - automatic publication according to publication date
 - images approval system
