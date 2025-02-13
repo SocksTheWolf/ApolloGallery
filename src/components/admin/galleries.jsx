@@ -9,7 +9,7 @@ const GalleriesLayout = ({ galleries, c }) => {
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <h3 className="mb-0">{c.t("galleries_list_title")}</h3>
           <a href="admin/new-gallery" className="btn btn-success">
-            <i className="bi bi-plus-circle me-2"></i>
+            <i className="bi bi-plus-circle"></i>
             {c.t("create_gallery_button")}
           </a>
         </div>

@@ -12,7 +12,7 @@ export const manualPurge = async (c) => {
          hx-target="this"
          hx-swap="outerHTML"
          >
-        <i class="bi bi-arrow-clockwise me-2"></i>
+        <i class="bi bi-arrow-clockwise"></i>
         ${c.t("purged")} ${galleryTableName}
        </button>
       `);

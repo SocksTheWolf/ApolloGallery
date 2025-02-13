@@ -17,7 +17,7 @@ const Singlegallery = (props) => {
           hx-target="#update_result"
           hx-delete={props.gallery.GalleryTableName + "/delete"}
         >
-          <i className="bi bi-trash me-2"></i>
+          <i className="bi bi-trash"></i>
           {c.t("delete_gallery_button")}
         </button>
         <button
@@ -26,7 +26,7 @@ const Singlegallery = (props) => {
           hx-swap="outerHTML"
           hx-target="this"
         >
-          <i className="bi bi-arrow-clockwise me-2"></i>
+          <i className="bi bi-arrow-clockwise"></i>
           {c.t("purge-cache")}
         </button>
       </fieldset>
@@ -49,7 +49,7 @@ const Singlegallery = (props) => {
               <br />
               <center>
                 <button id="submit" className="btn btn-primary">
-                  <i className="bi bi-upload me-2"></i>
+                  <i className="bi bi-upload"></i>
                   {c.t("upload_images_button")}
                 </button>
               </center>
@@ -102,7 +102,7 @@ const Singlegallery = (props) => {
                         image.path
                       )}&galleryTableName=${props.gallery.GalleryTableName}`}
                     >
-                      <i className="bi bi-trash me-2"></i>
+                      <i className="bi bi-trash"></i>
                       {c.t("delete_image_button")}
                     </button>
                     <button
@@ -114,12 +114,12 @@ const Singlegallery = (props) => {
                     >
                       {image.approved ? (
                         <>
-                          <i className="bi bi-check-circle me-2"></i>
+                          <i className="bi bi-check-circle"></i>
                           {c.t("approved_label")}
                         </>
                       ) : (
                         <>
-                          <i className="bi bi-x-circle me-2"></i>
+                          <i className="bi bi-x-circle"></i>
                           {c.t("unapproved_label")}
                         </>
                       )}
@@ -133,12 +133,12 @@ const Singlegallery = (props) => {
                     >
                       {props.gallery.CoverImage === getImagePathRaw(image.path) ? (
                         <span id="selected-thumb">
-                          <i className="bi bi-pin-angle-fill me-2"></i>
+                          <i className="bi bi-pin-angle-fill"></i>
                           {c.t("current_thumb")}
                         </span>
                       ) : (
                         <span>
-                          <i className="bi bi-pin me-2"></i>
+                          <i className="bi bi-pin"></i>
                           {c.t("set_as_thumb")}
                         </span>
                       )}

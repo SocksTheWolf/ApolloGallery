@@ -58,7 +58,7 @@ export const GalleryForm = (props) => {
         <form hx-post="" hx-target="#update_result">
         <fieldset>
             <label htmlFor="galleryName" className="form-label">
-                <i className="bi bi-folder me-2"></i>
+                <i className="bi bi-folder"></i>
                 {c.t("gallery_name_label")}
             <input
                 required
@@ -72,7 +72,7 @@ export const GalleryForm = (props) => {
             
             {isEditing ? (
             <div className="form-text text-muted">
-                <i className="bi bi-database me-2"></i>
+                <i className="bi bi-database"></i>
                 {c.t("gallery_table_name_label")}: {props.gallery.GalleryTableName}
                 <br /><br />
             </div>
@@ -80,7 +80,7 @@ export const GalleryForm = (props) => {
             <label
                 htmlFor="galleryTableName"
                 className="form-label text-muted">
-                <i className="bi bi-database me-2"></i>
+                <i className="bi bi-database"></i>
                 {c.t("gallery_table_name_label")}
             <input
                 required
@@ -92,7 +92,7 @@ export const GalleryForm = (props) => {
             </label>
             )}
             <label htmlFor="textField" className="form-label">
-                  <i className="bi bi-text-paragraph me-2"></i>
+                  <i className="bi bi-text-paragraph"></i>
                   {c.t("description_label")}
                 <textarea
                     className="form-control"
@@ -107,7 +107,7 @@ export const GalleryForm = (props) => {
         </fieldset>
         <fieldset class="grid">
             <label htmlFor="location" className="form-label">
-                <i className="bi bi-geo-alt me-2"></i>
+                <i className="bi bi-geo-alt"></i>
                 {c.t("location_label")}
             <input type="text"
                 className="form-control"
@@ -118,7 +118,7 @@ export const GalleryForm = (props) => {
             </label>
             
             <label htmlFor="tags" className="form-label">
-                <i className="bi bi-tags me-2"></i>
+                <i className="bi bi-tags"></i>
                 {c.t("tags_label")}
             <input
                 type="text"
@@ -132,7 +132,7 @@ export const GalleryForm = (props) => {
         </fieldset>
         <fieldset class="grid">
             <label htmlFor="partyDate" className="form-label">
-                <i className="bi bi-calendar-event me-2"></i>
+                <i className="bi bi-calendar-event"></i>
                 {c.t("party_date_label")}
             <input
                 required
@@ -144,7 +144,7 @@ export const GalleryForm = (props) => {
             </label>
             
             <label htmlFor="publicationDate" className="form-label">
-                <i className="bi bi-calendar2-check me-2"></i>
+                <i className="bi bi-calendar2-check"></i>
                 {c.t("publication_date_label")}
             <input
                 type="datetime-local"
@@ -157,7 +157,7 @@ export const GalleryForm = (props) => {
         </fieldset>
         <fieldset class="grid">
             <label htmlFor="galleryIsPublic" className="form-label">
-                <i className="bi bi-eye me-2"></i>
+                <i className="bi bi-eye"></i>
                 {c.t("gallery_visibility_label")}
                 <select
                     className="form-select"
@@ -168,7 +168,7 @@ export const GalleryForm = (props) => {
             </label>
 
             <label htmlFor="password" className="form-label">
-                <i className="bi bi-key me-2"></i>
+                <i className="bi bi-key"></i>
                 {c.t("password_label")}
             <input
                 type="password"
@@ -182,7 +182,7 @@ export const GalleryForm = (props) => {
         </fieldset>
         <fieldset class="grid">
             <label htmlFor="reviewers" className="form-label">
-                <i className="bi bi-people me-2"></i>
+                <i className="bi bi-people"></i>
                 {c.t("reviewers_label")}
             <input
                 type="text"
@@ -194,7 +194,7 @@ export const GalleryForm = (props) => {
             </label>
             
             <label htmlFor="imagesOrder" className="form-label">
-                <i className="bi bi-sort-alpha-down me-2"></i>
+                <i className="bi bi-sort-alpha-down"></i>
                 {c.t("images_order_label")}
                 <select
                     className="form-select"
@@ -205,7 +205,7 @@ export const GalleryForm = (props) => {
             </label>
         </fieldset>
         <button type="submit" className="btn btn-success">
-              <i className="bi bi-save me-2"></i>
+              <i className="bi bi-save"></i>
               {c.t("save_gallery_button")}
         </button>
 
