@@ -1,4 +1,5 @@
 import { html } from 'hono/html'
+import { SocialMetaTags } from "../utils/metaTags"
 
 
 export const Layout = (props) => {
