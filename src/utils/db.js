@@ -46,13 +46,12 @@ export const getGalleriesFromD1wGalleryIsPublic = async (c) => {
 
 export const updateGalleryOnD1 = async (c, formObject) => {
   return await c.env.DB.prepare(
-    "UPDATE Galleries SET GalleryName = ?1, TextField = ?3, CoverImage = ?4, PartyDate = ?5, PublicationDate = ?6, GalleryIsPublic = ?7, ImagesOrder = ?8, Reviewers = ?9, Password = ?10, Tags = ?11, Location = ?12 WHERE GalleryTableName = ?2;"
+    "UPDATE Galleries SET GalleryName = ?1, TextField = ?3, PartyDate = ?4, PublicationDate = ?5, GalleryIsPublic = ?6, ImagesOrder = ?7, Reviewers = ?8, Password = ?9, Tags = ?10, Location = ?11 WHERE GalleryTableName = ?2;"
   )
     .bind(
       formObject.GalleryName,
       formObject.GalleryTableName,
       formObject.TextField,
-      formObject.CoverImage,
       formObject.PartyDate,
       formObject.PublicationDate,
       formObject.GalleryIsPublic,
