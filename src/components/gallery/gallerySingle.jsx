@@ -11,7 +11,7 @@ export const Gallery = ({ gallery, images, c }) => (
     <section>
       <article>
       <header>
-        <h2 className="gallery-title">{gallery.GalleryName}</h2>
+        <h2>{gallery.GalleryName}</h2>
       </header>
       <div class="grid gallery-info gallery-date">
         {gallery.PartyDate && (
