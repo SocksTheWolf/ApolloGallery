@@ -27,6 +27,9 @@ PAGE_TITLE = "Pineapple Gallery"
 # Page description
 DESCRIPTION = "Pineapple Gallery is a project designed to serve up image galleries using Cloudflare!"
 
+# Copyright attribution name
+COPYRIGHT="Pineapple Gallery"
+
 # Image transformations
 IMGT = "true"
 
