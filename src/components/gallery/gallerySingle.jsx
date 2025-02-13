@@ -14,7 +14,7 @@ export const Gallery = ({ gallery, images, c }) => (
       </header>
       <div class="grid gallery-info gallery-date">
         {gallery.PartyDate && (
-          <small>{c.t("party_date_label")}: {gallery.PartyDate}</small>
+          <small class="float-date">{c.t("party_date_label")}: {gallery.PartyDate}</small>
         )}
         <span></span>
         <span></span>
