@@ -1,12 +1,12 @@
 import { getLangs } from "./localeMiddleware";
+import { getGalleryPath } from "./galleryPath";
 
 const langs = getLangs();
 
 export const cachePurgeSingle = async (c, galleryTableName) => {
   try {
     const promises = langs.map(async (lang) => {
-      const path = (c.env.GALLERY_PATH !== "/" ? `${c.env.GALLERY_PATH}/`: "/");
-      const cacheKey = `page:/${path}${galleryTableName}@${lang}`;
+      const cacheKey = `page:${getGalleryPath(c)}${galleryTableName}@${lang}`;
       console.log(cacheKey)
       return await c.env.CACHE_KV.delete(cacheKey);
     });
@@ -20,8 +20,7 @@ export const cachePurgeSingle = async (c, galleryTableName) => {
 export const cachePurgeHome = async (c) => {
   try {
     const promises = langs.map(async (lang) => {
-      const path = (c.env.GALLERY_PATH !== "/" ? `${c.env.GALLERY_PATH}/`: "/");
-      const cacheKey = `page:/${path}@${lang}`;
+      const cacheKey = `page:${getGalleryPath(c)}@${lang}`;
       return await c.env.CACHE_KV.delete(cacheKey);
     });
 
