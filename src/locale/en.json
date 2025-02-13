@@ -68,5 +68,6 @@
   "gallery_already_exists": "A gallery with this name already exists",
   "gallery_saved": "Gallery saved",
   "gallery_save_error": "Error while saving",
+  "light_or_dark_mode": "Toggle Light or Dark Mode",
   "date_locale": "en-US"
 }

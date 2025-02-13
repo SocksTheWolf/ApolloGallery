@@ -25,8 +25,8 @@ export const Layout = (props) => {
           </ul>
           <ul>
           <li>
-            <label data-tooltip="Toggle Light or Dark Mode">
-              <input name="color-mode-toggle" role="switch" type="checkbox" value="1" aria-label="Toggle Light or Dark Mode">
+            <label data-tooltip="${c.t("light_or_dark_mode")}">
+              <input name="color-mode-toggle" role="switch" type="checkbox" value="1">
             </label>
           </li>
           </ul>
