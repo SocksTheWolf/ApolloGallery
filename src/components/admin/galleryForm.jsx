@@ -104,18 +104,6 @@ export const GalleryForm = (props) => {
                 {getValueForProperty("TextField")}
                 </textarea>
             </label>
-            
-
-            <label htmlFor="coverImage" className="form-label">
-                    <i className="bi bi-image me-2"></i>
-                    {c.t("cover_image_label")}
-                <input type="text"
-                    className="form-control"
-                    name="CoverImage"
-                    id="coverImage"
-                    value={getValueForProperty("CoverImage")}
-                    placeholder={c.t("cover_image_placeholder")} />
-            </label>
 
         </fieldset>
         <fieldset class="grid">
