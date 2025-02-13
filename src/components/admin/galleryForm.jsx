@@ -70,11 +70,11 @@ export const GalleryForm = (props) => {
                 placeholder={c.t("gallery_name_placeholder")} />
             </label>
             
-
             {isEditing ? (
             <div className="form-text text-muted">
                 <i className="bi bi-database me-2"></i>
                 {c.t("gallery_table_name_label")}: {props.gallery.GalleryTableName}
+                <br /><br />
             </div>
             ) : (
             <label
@@ -91,7 +91,6 @@ export const GalleryForm = (props) => {
                 placeholder={c.t("gallery_table_name_placeholder")} />
             </label>
             )}
-            <br />
             <label htmlFor="textField" className="form-label">
                   <i className="bi bi-text-paragraph me-2"></i>
                   {c.t("description_label")}
@@ -107,7 +106,6 @@ export const GalleryForm = (props) => {
 
         </fieldset>
         <fieldset class="grid">
-            
             <label htmlFor="location" className="form-label">
                 <i className="bi bi-geo-alt me-2"></i>
                 {c.t("location_label")}
@@ -118,7 +116,6 @@ export const GalleryForm = (props) => {
                 value={getValueForProperty("Location")}
                 placeholder={c.t("location_placeholder")} />
             </label>
-
             
             <label htmlFor="tags" className="form-label">
                 <i className="bi bi-tags me-2"></i>
@@ -134,7 +131,6 @@ export const GalleryForm = (props) => {
 
         </fieldset>
         <fieldset class="grid">
-            
             <label htmlFor="partyDate" className="form-label">
                 <i className="bi bi-calendar-event me-2"></i>
                 {c.t("party_date_label")}
@@ -185,7 +181,6 @@ export const GalleryForm = (props) => {
 
         </fieldset>
         <fieldset class="grid">
-            
             <label htmlFor="reviewers" className="form-label">
                 <i className="bi bi-people me-2"></i>
                 {c.t("reviewers_label")}
