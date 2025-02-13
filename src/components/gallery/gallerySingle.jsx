@@ -60,6 +60,7 @@ export const Gallery = ({ gallery, images, c }) => (
     </section>
 
     {html`
+      <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
       <script type="module" src="/static/js/initPhotoSwipe.js"></script>
       <script type="module" src="/static/js/masonry.js"></script>
     `}
