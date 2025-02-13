@@ -23,6 +23,14 @@ class FileUploader {
     this.submitButton.addEventListener("click", this.handleSubmit.bind(this));
   }
 
+  updateSubmitButton(isBusy=true) {
+    this.submitButton.setAttribute("aria-busy", isBusy);
+    if (isBusy)
+      this.submitButton.setAttribute("disabled", true);
+    else
+      this.submitButton.removeAttribute("disabled");
+  }
+
   async handleSubmit(event) {
     event.preventDefault();
     this.resetUploadState();
@@ -34,6 +42,7 @@ class FileUploader {
     }
 
     try {
+      this.updateSubmitButton();
       const results = await this.uploadFiles(
         this.fileList,
         CONCURRENT_UPLOAD_LIMIT,
@@ -48,6 +57,7 @@ class FileUploader {
     this.progressBar.setAttribute("aria-valuemax", this.fileList.length);
     this.maxFileCounter.innerText = this.fileList.length;
     this.uploadErrorBox.innerHTML = "";
+    this.updateSubmitButton(false);
   }
 
   createCompletionCallback() {
@@ -96,6 +106,7 @@ class FileUploader {
       this.uploadErrorBox.innerHTML = `<div class="alert alert-warning">
         No files were uploaded successfully
       </div>` + this.uploadErrorBox.innerHTML;
+      this.updateSubmitButton(false);
     }
   }
 
