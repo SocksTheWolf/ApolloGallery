@@ -18,10 +18,10 @@ export const deleteSingleGallery = async (c) => {
       for (const image of images) {
         await c.env.R2.delete(image.path);
       }
+      await cachePurgeSingle(c, galleryTableName);
     }
 
     await cachePurgeHome(c);
-    await cachePurgeSingle(c, galleryTableName);
 
     return c.html(`<b>${c.t('gallery_deleted')} <a href="../admin">${c.t('return')}</a></b>`);
   } catch (error) {

@@ -8,7 +8,8 @@ export const toggleApproval = async (c) => {
     const newApproval = await toggleImageApproval(c, galleryTableName, imagePath);
 
     // Clear the cache for this gallery
-    await cachePurgeSingle(c, galleryTableName);
+    if (newApproval)
+      await cachePurgeSingle(c, galleryTableName);
 
     return c.html(`
       <button 
