@@ -24,9 +24,9 @@ export const SocialMetaTags = (props) => {
         <meta property="twitter:title" content="${title}" />
         <meta property="twitter:description" content="${desc}" />
         <meta property="twitter:image" content="${origin}/meta-card.png" />
-        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="icon" type="image/png" href="${origin}/favicon-96x96.png" sizes="96x96" />
+        <link rel="shortcut icon" href="${origin}/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="${origin}/apple-touch-icon.png" />
+        <link rel="manifest" href="${origin}/site.webmanifest" />
     `;
 };
