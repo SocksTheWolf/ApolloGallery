@@ -17,6 +17,13 @@ export const Layout = (props) => {
     return `${protocol}//${prefix}${host}${path}`;
   };
 
+  const getPath = () => {
+    if (c.env.GALLERY_PATH === "/")
+      return "/";
+    else
+      return `/${c.env.GALLERY_PATH}/`;
+  }
+
   const breadcrumb = renderBreadcrumb(props.breadcrumb);
   return (
     html`<!doctype html>
@@ -39,21 +46,21 @@ export const Layout = (props) => {
         </ul>
         <ul>
         <li>
-          <a class="nav-link" href=${makeURL("/gallery/")}>
+          <a class="nav-link" href=${makeURL(getPath())}>
             ${c.t("public_view")}
           </a>
         </li>
         <li>
           <a
             class="nav-link"
-            href=${makeURL("/gallery/admin/purge")}>
+            href=${makeURL(`${getPath()}admin/purge`)}>
               ${c.t("purge-cache")}
           </a>
         </li>
         <li>
           <a
             class="nav-link"
-            href=${makeURL("/gallery/admin", "logout@")}>
+            href=${makeURL(`${getPath()}admin`, "logout@")}>
               ${c.t("logout")}
             </a>
         </li>
