@@ -33,7 +33,7 @@ export const getImageWithTransforms = (c, img, location="main", format="auto") =
         // Full sized images
         case "main":
         case "full":
-            cloudFlareBase += ",q=75";
+            cloudFlareBase += ",q=85";
         break;
     }
     return cloudFlareBase + baseImgLocation;
