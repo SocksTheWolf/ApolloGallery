@@ -1,17 +1,24 @@
 export const getGalleryPath = (c) => {
-    if (c.env.GALLERY_PATH === "/" || c.env.GALLERY_PATH === "") {
+    // Make sure we handle any potentially invalid settings.
+    const pathSetting = (c.env.GALLERY_PATH[0] === '/') ? c.env.GALLERY_PATH.substring(1) : c.env.GALLERY_PATH;
+    
+    if (pathSetting === "/" || pathSetting === "") {
         return "/"
     }
-    return `/${c.env.GALLERY_PATH}/`;
+    return `/${pathSetting}/`;
 };
 
 export const getImagePath = (c, img) => {
-    return `${getGalleryPath(c)}img/${img}`;
+    return `${getGalleryPath(c)}${getImagePathRaw(img)}`;
+};
+
+export const getImagePathRaw  = (img) => {
+    return `img/${img}`;
 };
 
 export const getImageWithTransforms = (c, img, location="main", format="auto") => {
-    // Covers already have the path transform done to them.
-    const baseImgLocation = (location !== "cover") ? getImagePath(c, img) : img;
+    // Covers already have the most of the image path applied to them (they store the raws)
+    const baseImgLocation = (location !== "cover") ? getImagePath(c, img) : `${getGalleryPath(c)}${img}`;
     if (c.env.IMGT === "false" || location === "original") {
         return baseImgLocation;
     }

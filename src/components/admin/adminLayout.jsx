@@ -4,18 +4,22 @@ import { ThemeSwitcher } from '../utils/themeSwitcher';
 
 export const Layout = (props) => {
   const c = props.c;
+
+  // TODO: Auto resolve the URL and then strip any trailing characters automatically from links rendered to return this to dynamic
+  const makeURL = (path,prefix="") => {
+    const {protocol, host} = new URL(c.req.url);
+    return `${protocol}//${prefix}${host}${path}`;
+  };
+  
+  const {pathname} = new URL(c.req.url);
+  const headerURL = (pathname === "/admin") ? "./" : makeURL(`${getGalleryPath(c)}admin`);
   const renderBreadcrumb = (latest) => {
     if (latest != null && latest !== "admin_panel_breadcrumb") {
-      return `<li><a href="./">${c.t("admin_panel_breadcrumb")}</a></li><li>${latest}</li>`;
+      return `<li><a href="${makeURL(`${getGalleryPath(c)}admin`)}">${c.t("admin_panel_breadcrumb")}</a></li><li>${latest}</li>`;
     }
     else if (latest == null) {
       return null;
     }
-  };
-
-  const makeURL = (path,prefix="") => {
-    const {protocol, host} = new URL(c.req.url);
-    return `${protocol}//${prefix}${host}${path}`;
   };
 
   const breadcrumb = renderBreadcrumb(props.breadcrumb);
@@ -36,7 +40,7 @@ export const Layout = (props) => {
       <header class="container adminHeader">
         <nav>
         <ul>
-          <li><h1><a href="." class="contrast">${c.t("admin_panel_title")}</a></h1></li>
+          <li><h1><a href=${headerURL} class="contrast">${c.t("admin_panel_title")}</a></h1></li>
         </ul>
         <ul>
         <li>

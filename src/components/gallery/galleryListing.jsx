@@ -1,7 +1,7 @@
 import { Layout } from "./layout";
 import { Slider } from "./slider";
 import { getGalleriesFromD1wGalleryIsPublic } from "../../utils/db";
-import { getImageWithTransforms } from "../../utils/galleryPath";
+import { getImageWithTransforms, getGalleryPath } from "../../utils/galleryPath";
 
 export const main = async (c) => {
   const galleriesResponse = await getGalleriesFromD1wGalleryIsPublic(c);
@@ -39,7 +39,7 @@ export const main = async (c) => {
         <div className="galleries-grid">
           {galleries.map((gallery) => (
             <a
-              href={"./" + gallery.GalleryTableName}
+              href={`${getGalleryPath(c)}${gallery.GalleryTableName}`}
               className="gallery-card"
               key={gallery.GalleryTableName}
             >

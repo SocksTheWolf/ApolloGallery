@@ -1,4 +1,4 @@
-import { getGalleryPath, getImagePath, getImageWithTransforms } from './galleryPath';
+import { getGalleryPath, getImagePath, getImagePathRaw, getImageWithTransforms } from './galleryPath';
 const shuffle = require('shuffle-array');
 
 export const getGalleriesFromD1 = async (c) => {
@@ -223,7 +223,7 @@ export const setAsThumbnail = async (c, GalleryTableName, imagePath) => {
   try {
     const {success} = await c.env.DB.prepare(
       `UPDATE Galleries SET CoverImage=?1 WHERE GalleryTableName=?2`
-    ).bind(getImagePath(c, imagePath), GalleryTableName).all();
+    ).bind(getImagePathRaw(c, imagePath), GalleryTableName).all();
     
     return success;
   } catch (error) {

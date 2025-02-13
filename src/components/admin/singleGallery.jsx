@@ -1,7 +1,7 @@
 import { Layout } from "./adminLayout";
 import { getGalleriesFromD1, getIndywidualGalleryFromD1 } from "../../utils/db";
 import { GalleryForm } from "./galleryForm";
-import { getImagePath } from "../../utils/galleryPath";
+import { getImagePath, getImagePathRaw } from "../../utils/galleryPath";
 
 const Singlegallery = (props) => {
   const c = props.c; // Ensure the context is passed correctly
@@ -130,7 +130,7 @@ const Singlegallery = (props) => {
                       )}&galleryTableName=${props.gallery.GalleryTableName}`}
                       hx-target="this"
                     >
-                      {props.gallery.CoverImage === getImagePath(c, image.path) ? (
+                      {props.gallery.CoverImage === getImagePathRaw(c, image.path) ? (
                         <>
                           <i className="bi bi-check-circle me-2"></i>
                           {c.t("current_thumb")}
