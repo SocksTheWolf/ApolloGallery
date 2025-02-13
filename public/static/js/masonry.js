@@ -130,3 +130,7 @@ const masonry = new MasonryLayout('#masonry-container', {
     gap: 16,
     minColumnWidth: 200
 });
+
+imagesLoaded(document.querySelector("#masonry-container")).on('progress', function(){
+    masonry.layout();
+});

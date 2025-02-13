@@ -311,7 +311,7 @@ const Singlegallery = (props) => {
                     <div className="d-flex justify-content-between">
                       <button
                         className="btn btn-danger btn-sm"
-                        hx-confirm={`Czy na pewno chcesz usunąć zdjęcie ${image.name}?`}
+                        hx-confirm={`${c.t("deletion_of_image_confirm")} ${image.name}?`}
                         hx-delete={`../admin/api/deleteImage?imagePath=${encodeURIComponent(
                           image.path
                         )}&galleryTableName=${props.gallery.GalleryTableName}`}

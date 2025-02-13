@@ -64,5 +64,6 @@
   "no_galleries_message": "No galleries available. ",
   "admin_link": "Go to admin panel",
   "create_gallery_message": " to create one.",
+  "deletion_of_image_confirm": "Do you want to delete",
   "date_locale": "en-US"
 }

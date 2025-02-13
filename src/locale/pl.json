@@ -64,5 +64,6 @@
   "no_galleries_message": "Brak dostępnych galerii. ",
   "admin_link": "Przejdź do panelu administratora",
   "create_gallery_message": " aby utworzyć galerię.",
+  "deletion_of_image_confirm": "Czy na pewno chcesz usunąć zdjęcie",
   "date_locale": "pl-PL"
 }
