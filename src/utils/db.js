@@ -74,7 +74,7 @@ export const createGallery = async (c, formObject) => {
       formObject.GalleryName,
       formObject.GalleryTableName,
       formObject.TextField,
-      formObject.CoverImage,
+      "",
       formObject.PartyDate,
       formObject.PublicationDate,
       formObject.GalleryIsPublic,
@@ -256,7 +256,7 @@ export const deleteImageFromGallery = async (
 export const getThumbnailForGallery = async(c, GalleryTableName) => {
   try {
     const {results} = await c.env.DB.prepare(
-      `SELECT CoverImage FROM Galleries WHERE GalleryTableName=?1 AND approved = TRUE`
+      `SELECT CoverImage FROM Galleries WHERE GalleryTableName=?1`
     ).bind(GalleryTableName).run();
     
     if (results == null || results.length == 0)
