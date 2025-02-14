@@ -13,7 +13,7 @@ export const Gallery = ({ gallery, images, c }) => (
       <header>
         <h2>{gallery.GalleryName}</h2>
       </header>
-      <div class="grid gallery-info gallery-date">
+      <div class="grid gallery-info gallery-tiny-info">
         {gallery.PartyDate && (
           <small class="gallery-date-single">{c.t("party_date_label")}: {gallery.PartyDate}</small>
         )}

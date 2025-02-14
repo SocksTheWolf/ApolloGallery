@@ -51,8 +51,14 @@ html {
   background: white;
 }
 
+.gallery-tiny-info {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+
 .gallery-info {
-  padding-top: 0px !important;
+  padding-top: 0px;
 }
 
 .gallery-name {
@@ -64,9 +70,6 @@ html {
 }
 
 .gallery-date {
-  color: #666;
-  font-size: 0.9rem;
-  margin-top: auto;
   padding-top: 0.75rem;
   border-top: 1px solid rgba(0,0,0,0.1);
 }

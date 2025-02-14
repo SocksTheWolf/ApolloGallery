@@ -61,7 +61,7 @@ export const main = async (c) => {
               <div className="gallery-content">
                 <h2 className="gallery-name">{gallery.GalleryName}</h2>
                 {gallery.PartyDate && (
-                  <div className="gallery-date">
+                  <div className="gallery-date gallery-tiny-info">
                     {new Date(gallery.PartyDate).toLocaleDateString(c.t("date_locale"))}
                   </div>
                 )}
