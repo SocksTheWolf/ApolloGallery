@@ -10,7 +10,7 @@ export const Layout = (props) => {
   return (
     html`
     <!DOCTYPE html>
-    <html data-theme="auto" lang=${c.t()}>
+    <html data-theme="dark" lang=${c.t()}>
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
