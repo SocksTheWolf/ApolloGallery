@@ -31,8 +31,8 @@ const Singlegallery = (props) => {
         </button>
       </fieldset>
 
-      <details open>
-        <summary role="button" class="contrast">{c.t("add_images_title")}</summary>
+      <details>
+        <summary role="button" class="outline">{c.t("add_images_title")}</summary>
         <article>
           <header><h3>{c.t("add_images_title")}</h3></header>
           <form>
@@ -43,16 +43,11 @@ const Singlegallery = (props) => {
                 multiple
                 id="fileInput"
                 name="file" />
-              <details>
-              </details>
-              </fieldset>
-              <br />
-              <center>
                 <button id="submit" className="btn btn-primary">
                   <i className="bi bi-upload"></i>
                   {c.t("upload_images_button")}
                 </button>
-              </center>
+              </fieldset>
             </form>
             <br />
             <progress
@@ -73,8 +68,8 @@ const Singlegallery = (props) => {
       </details>
 
       <hr />
-      <details open>
-        <summary role="button" class="contrast">{c.t("images_in_gallery_title")}</summary>
+      <details id="images-in-gallery">
+        <summary role="button" class="outline">{c.t("images_in_gallery_title")}</summary>
         <article class="container">
           <header>
             <h3>{c.t("images_in_gallery_title")}</h3>
