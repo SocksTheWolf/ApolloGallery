@@ -318,3 +318,41 @@ export const getSliderImages = async (
     return null;
   }
 };
+
+export const publishFutureGalleries = async(c) => {
+  try {
+    // Selects all rows within 5 min of running right now.
+    // This way, another worker's cron job can call the endpoint to auto publish.
+    const {results:future_galleries} = await c.env.DB.prepare(
+      `SELECT GalleryTableName, 
+      CAST ((JulianDay(PublicationDate) - JulianDay('now')) * 24 * 60 As Integer) AS MinWindow 
+      FROM Galleries WHERE 
+      GalleryIsPublic = "FALSE" 
+      AND PublicationDate IS NOT "" 
+      AND MinWindow BETWEEN -5 AND 5`).run();
+
+    // No galleries to update
+    if (future_galleries === null || future_galleries.length === 0) {
+      return 0;
+    }
+
+    // Map the names into a new db query
+    const galleryNames = future_galleries.map((item) => {
+      return item.GalleryTableName;
+    });
+
+    // Publish all these tables yes!
+    const result = await c.env.DB.prepare(`UPDATE Galleries SET GalleryIsPublic = "TRUE" WHERE GalleryTableName in (?)`)
+      .bind(galleryNames.join(",")).run();
+
+    if (result) {
+      return result.meta.changes;
+    }
+    
+  } catch(err) {
+    console.error("publishing future galleries returned error: " + err.message);
+    return -1;
+  }
+
+  return 0;
+}
