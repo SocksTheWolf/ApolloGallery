@@ -259,11 +259,11 @@ export const getThumbnailForGallery = async(c, GalleryTableName) => {
     ).bind(GalleryTableName).run();
     
     if (results == null || results.length == 0)
-      return "/meta-card.png";
+      return null;
 
     return getImageWithTransforms(c, results[0].CoverImage, "gallery-thumb");
   } catch (error) {
     console.error("Error getting thumbnail:", error.message);
-    return false;
+    return null;
   }
 };
