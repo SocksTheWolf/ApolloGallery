@@ -2,6 +2,7 @@ import { html } from 'hono/html';
 import { SocialMetaTags } from '../utils/metaTags';
 import { ThemeSwitcher } from '../utils/themeSwitcher';
 import { PreloadAssets } from '../utils/preloader';
+import { HeadScripts } from '../utils/headScripts';
 
 export const Layout = (props) => {
   const c = props.c;
@@ -20,6 +21,7 @@ export const Layout = (props) => {
         <link rel="stylesheet" href="/static/gallery.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yohns/picocss@2.2.10/css/pico.amber.min.css" />
         <link rel="stylesheet" href="/static/photoswipe.css" />
+        ${<HeadScripts />}
       </head>
       <body class="container">
         <header>
@@ -37,7 +39,6 @@ export const Layout = (props) => {
         <main>
           ${props.children}
         </main>
-        <script src="/static/js/SwitchColorMode.js"></script>
         <footer>
         <hr />
         <center>
@@ -47,6 +48,7 @@ export const Layout = (props) => {
           </small>
         </center>
         </footer>
+        <script src="/static/js/SwitchColorMode.js"></script>
       </body>
     </html>`
   );

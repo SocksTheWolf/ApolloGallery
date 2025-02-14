@@ -1,5 +1,7 @@
 import { html, raw } from 'hono/html'
 import { getGalleryPath } from '../../utils/galleryPath';
+import { ThemeSwitcher } from '../utils/themeSwitcher';
+import { HeadScripts } from '../utils/headScripts';
 
 export const Layout = (props) => {
   const c = props.c;
@@ -9,7 +11,6 @@ export const Layout = (props) => {
     }
     else if (latest == null) {
       return null;
-      //return `<li>${c.t("admin_panel_breadcrumb")}</li>`;
     }
   };
 
@@ -31,6 +32,7 @@ export const Layout = (props) => {
         <link rel="stylesheet" href="/static/gallery.css" />
         <link rel="stylesheet" href="/static/admin.css" />
         <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+        ${<HeadScripts />}
       </head>
       <body>
       <header class="container adminHeader">
@@ -59,9 +61,7 @@ export const Layout = (props) => {
             </a>
         </li>
         <li>
-        <label data-tooltip="${c.t("light_or_dark_mode")}">
-          <input name="color-mode-toggle" role="switch" type="checkbox" value="1">
-        </label>
+        ${<ThemeSwitcher c={c} />}
         </li>
         </ul>
         </nav><br />

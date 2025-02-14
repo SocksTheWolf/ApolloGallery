@@ -9,17 +9,29 @@
 const SwitchColorMode = {
 	// Config
 	_scheme: "auto",
-	toggleSelector: "input[name='color-mode-toggle']",
 	rootAttribute: "data-theme",
 	localStorageKey: "picoPreferredColorScheme",
 
 	// Init
-	init() {
-		this.checkbox = document.querySelector(this.toggleSelector);
-		if (!this.checkbox) {
-			console.error("Theme switcher toggle not found");
+	init(containerId) {
+		// Create and insert the checkbox
+		const container = document.getElementById(containerId);
+		if (!container) {
+			console.error(`Container with id '${containerId}' not found`);
 			return;
 		}
+
+		// Create the checkbox element
+		const checkbox = document.createElement('input');
+		checkbox.setAttribute('name', 'color-mode-toggle');
+		checkbox.setAttribute('role', 'switch');
+		checkbox.setAttribute('type', 'checkbox');
+		checkbox.setAttribute('value', '1');
+
+		// Insert the checkbox into the container
+		container.appendChild(checkbox);
+
+		this.checkbox = checkbox;
 
 		// If first visit, use the theme from <html> attribute; otherwise, use stored preference
 		this.scheme = this.schemeFromLocalStorage ?? this.schemeFromHTML;
@@ -32,6 +44,14 @@ const SwitchColorMode = {
 			this.scheme = this.checkbox.checked ? "dark" : "light";
 			this.schemeToLocalStorage();
 		});
+
+		// Listen for system color scheme changes
+		if (this.scheme === "auto") {
+			window.matchMedia("(prefers-color-scheme: dark)")
+				.addEventListener("change", (e) => {
+					this.scheme = "auto";
+				});
+		}
 	},
 
 	// Get color scheme from local storage
@@ -75,5 +95,5 @@ const SwitchColorMode = {
 	},
 };
 
-// Init
-SwitchColorMode.init();
+// Initialize with container ID
+SwitchColorMode.init('theme-switcher');
