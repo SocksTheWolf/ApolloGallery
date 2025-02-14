@@ -6,7 +6,10 @@ export const newgallery = (c) => {
   
   return c.html(
     <Layout title={c.t("title")} c={c} breadcrumb={c.t("breadcrumb_new_gallery")}>
-      <GalleryForm c={c} title={title} />
+      <article>
+        <header>{title}</header>
+        <GalleryForm c={c} />
+      </article>
     </Layout>
   );
 };

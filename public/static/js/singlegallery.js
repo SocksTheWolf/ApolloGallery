@@ -251,9 +251,11 @@ class FileUploader {
       reader.readAsArrayBuffer(file);
     });
   }
+}
 
-
-
+function toggleUploaderWrapper() {
+  const uploaderWrapper = document.querySelector('#uploader-wraper');
+  uploaderWrapper.classList.toggle('closed');
 }
 
 // Usage
@@ -266,4 +268,9 @@ document.addEventListener("DOMContentLoaded", () => {
     currentFileCounter: document.getElementById("current-counter"),
     maxFileCounter: document.getElementById("max-counter"),
   });
+
+  const toggleButton = document.getElementById("toggle-uploader-button");
+  if (toggleButton) {
+    toggleButton.addEventListener("click", toggleUploaderWrapper);
+  }
 });

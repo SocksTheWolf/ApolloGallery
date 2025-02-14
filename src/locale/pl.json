@@ -71,5 +71,7 @@
   "light_or_dark_mode": "Przełącz w tryb jasny lub ciemny",
   "mass_delete_msg": "Rozpoczynam usuwanie wszystkich plików z R2, jest ich",
   "all_files_deleted": "Usunięto wszystkie pliki",
+  "current_thumb": "Obecna miniatura",
+  "set_as_thumb": "Ustaw miniaturę",
   "date_locale": "pl-PL"
 }
