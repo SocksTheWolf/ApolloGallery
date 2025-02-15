@@ -39,6 +39,10 @@ USE_CACHE = "true"
 # Copyright attribution name
 COPYRIGHT = "SocksTheWolf"
 
+# Color scheme used for CSS
+# Valid color names can be found here: https://picocss.com/docs/colors
+COLOR_SCHEME = "orange"
+
 # Path to the gallery application 
 # (should contain no slashes, unless this serves on root, which then it should be a single slash)
 GALLERY_PATH = "/"

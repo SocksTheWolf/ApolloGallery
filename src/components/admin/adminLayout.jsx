@@ -1,6 +1,7 @@
 import { html, raw } from 'hono/html'
 import { getGalleryPath } from '../../utils/galleryPath';
 import { ThemeSwitcher } from '../utils/themeSwitcher';
+import { getPicoCSS } from '../../utils/getPicoCSS';
 
 export const Layout = (props) => {
   const c = props.c;
@@ -31,7 +32,7 @@ export const Layout = (props) => {
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>${props.title}</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"></link>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yohns/picocss@2.2.10/css/pico.orange.min.css" />
+        <link rel="stylesheet" href="${getPicoCSS(c)}" />
         <link rel="stylesheet" href="/static/gallery.css" />
         <link rel="stylesheet" href="/static/admin.css" />
         <script src="https://unpkg.com/htmx.org@1.9.12"></script>
