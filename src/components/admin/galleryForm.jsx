@@ -49,7 +49,7 @@ export const GalleryForm = (props) => {
     else return toDateInputValue(new Date());
   };
   return (
-    <form hx-post="" hx-target="#update_result">
+    <form hx-post="" hx-indicator=".btn-submit" hx-target="#update_result">
       <fieldset>
         <label htmlFor="galleryName">
           <i className="bi bi-folder"></i>
@@ -187,7 +187,7 @@ export const GalleryForm = (props) => {
           </select>
         </label>
       </fieldset>
-      <button type="submit">
+      <button type="submit" className="btn btn-submit">
         <i className="bi bi-save"></i>
         {c.t("save_gallery_button")}
       </button>

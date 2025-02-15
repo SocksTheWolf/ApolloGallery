@@ -22,7 +22,7 @@ const Singlegallery = (props) => {
             hx-confirm={`${c.t("confirm_gallery_delete")} ${
               props.gallery.GalleryName
             }?`}
-            className="secondary"
+            className="btn secondary"
             hx-target="#update_result"
             hx-delete={props.gallery.GalleryTableName + "/delete"}
           >
@@ -30,7 +30,7 @@ const Singlegallery = (props) => {
             {c.t("delete_gallery_button")}
           </button>
           <button
-            className="secondary"
+            className="btn secondary"
             hx-post={props.gallery.GalleryTableName + "/purge"}
             hx-swap="outerHTML"
             hx-target="this"
@@ -44,7 +44,7 @@ const Singlegallery = (props) => {
       <article>
         <header className="w-button">
           <h3>{c.t("images_in_gallery_title")}</h3>
-          <a id="toggle-uploader-button">
+          <a hx-on:click="htmx.toggleClass(htmx.find('#uploader-wraper'), 'closed')" id="toggle-uploader-button">
             <i className="bi bi-plus-circle"></i>
             {c.t("add_images_title")}
           </a>
@@ -129,7 +129,7 @@ const Singlegallery = (props) => {
                 <small>{image.name}</small>
                 <div className="admin-card-buttons">
                   <button
-                    className="secondary"
+                    className="btn secondary"
                     hx-confirm={`${c.t("deletion_of_image_confirm")} ${
                       image.name
                     }?`}
@@ -141,7 +141,7 @@ const Singlegallery = (props) => {
                     {c.t("delete_image_button")}
                   </button>
                   <button
-                    className="secondary"
+                    className="btn secondary"
                     hx-post={`../admin/api/toggleApproval?imagePath=${encodeURIComponent(
                       image.path
                     )}&galleryTableName=${props.gallery.GalleryTableName}`}

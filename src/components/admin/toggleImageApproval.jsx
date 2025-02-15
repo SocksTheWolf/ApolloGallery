@@ -13,14 +13,14 @@ export const toggleApproval = async (c) => {
 
     return c.html(`
       <button 
-        class="secondary"
+        class=" btn secondary"
         hx-post="../admin/api/toggleApproval?imagePath=${encodeURIComponent(imagePath)}&galleryTableName=${galleryTableName}"
         hx-target="this"
       >
         ${newApproval ? (
-          `<i class="bi bi-check-circle me-2"></i>${c.t('approved_label')}`
+          `<i class="bi bi-check-circle"></i>${c.t('approved_label')}`
         ) : (
-          `<i class="bi bi-x-circle me-2"></i>${c.t('unapproved_label')}`
+          `<i class="bi bi-x-circle"></i>${c.t('unapproved_label')}`
         )}
       </button>
     `);
