@@ -57,13 +57,12 @@ export const GalleryForm = (props) => {
         <header>{raw(props.title)}</header>
         <form hx-post="" hx-target="#update_result">
         <fieldset>
-            <label htmlFor="galleryName" className="form-label">
+            <label htmlFor="galleryName">
                 <i className="bi bi-folder"></i>
                 {c.t("gallery_name_label")}
             <input
                 required
                 type="text"
-                className="form-control form-control-lg"
                 name="GalleryName"
                 id="galleryName"
                 value={getValueForProperty("GalleryName")}
@@ -71,31 +70,29 @@ export const GalleryForm = (props) => {
             </label>
             
             {isEditing ? (
-            <div className="form-text text-muted">
+            <div>
                 <i className="bi bi-database"></i>
                 {c.t("gallery_table_name_label")}: {props.gallery.GalleryTableName}
                 <br /><br />
             </div>
             ) : (
             <label
-                htmlFor="galleryTableName"
-                className="form-label text-muted">
+                htmlFor="galleryTableName">
                 <i className="bi bi-database"></i>
                 {c.t("gallery_table_name_label")}
             <input
                 required
                 type="text"
-                className="form-control form-control-sm bg-light"
+                tabindex="-1"
                 name="GalleryTableName"
                 id="galleryTableName"
                 placeholder={c.t("gallery_table_name_placeholder")} />
             </label>
             )}
-            <label htmlFor="textField" className="form-label">
+            <label htmlFor="textField">
                   <i className="bi bi-text-paragraph"></i>
                   {c.t("description_label")}
                 <textarea
-                    className="form-control"
                     name="TextField"
                     id="textField"
                     rows="3"
@@ -106,23 +103,21 @@ export const GalleryForm = (props) => {
 
         </fieldset>
         <fieldset class="grid">
-            <label htmlFor="location" className="form-label">
+            <label htmlFor="location">
                 <i className="bi bi-geo-alt"></i>
                 {c.t("location_label")}
             <input type="text"
-                className="form-control"
                 name="Location"
                 id="location"
                 value={getValueForProperty("Location")}
                 placeholder={c.t("location_placeholder")} />
             </label>
             
-            <label htmlFor="tags" className="form-label">
+            <label htmlFor="tags">
                 <i className="bi bi-tags"></i>
                 {c.t("tags_label")}
             <input
                 type="text"
-                className="form-control"
                 name="Tags"
                 id="tags"
                 value={getValueForProperty("Tags")}
@@ -131,24 +126,22 @@ export const GalleryForm = (props) => {
 
         </fieldset>
         <fieldset class="grid">
-            <label htmlFor="partyDate" className="form-label">
+            <label htmlFor="partyDate">
                 <i className="bi bi-calendar-event"></i>
                 {c.t("party_date_label")}
             <input
                 required
                 type="date"
-                className="form-control"
                 name="PartyDate"
                 id="partyDate"
                 value={getAlbumDate()} />
             </label>
             
-            <label htmlFor="publicationDate" className="form-label">
+            <label htmlFor="publicationDate">
                 <i className="bi bi-calendar2-check"></i>
                 {c.t("publication_date_label")}
             <input
                 type="datetime-local"
-                className="form-control"
                 name="PublicationDate"
                 id="publicationDate"
                 value={getValueForProperty("PublicationDate")} />
@@ -156,23 +149,21 @@ export const GalleryForm = (props) => {
 
         </fieldset>
         <fieldset class="grid">
-            <label htmlFor="galleryIsPublic" className="form-label">
+            <label htmlFor="galleryIsPublic">
                 <i className="bi bi-eye"></i>
                 {c.t("gallery_visibility_label")}
                 <select
-                    className="form-select"
                     name="GalleryIsPublic"
                     id="galleryIsPublic">
                     {raw(visHTML)}
                 </select>
             </label>
 
-            <label htmlFor="password" className="form-label">
+            <label htmlFor="password">
                 <i className="bi bi-key"></i>
                 {c.t("password_label")}
             <input
                 type="password"
-                className="form-control"
                 name="Password"
                 id="password"
                 value={getValueForProperty("Password")}
@@ -181,23 +172,21 @@ export const GalleryForm = (props) => {
 
         </fieldset>
         <fieldset class="grid">
-            <label htmlFor="reviewers" className="form-label">
+            <label htmlFor="reviewers">
                 <i className="bi bi-people"></i>
                 {c.t("reviewers_label")}
             <input
                 type="text"
-                className="form-control"
                 name="Reviewers"
                 id="reviewers"
                 value={getValueForProperty("Reviewers")}
                 placeholder={c.t("reviewers_placeholder")}  />
             </label>
             
-            <label htmlFor="imagesOrder" className="form-label">
+            <label htmlFor="imagesOrder">
                 <i className="bi bi-sort-alpha-down"></i>
                 {c.t("images_order_label")}
                 <select
-                    className="form-select"
                     name="ImagesOrder"
                     id="imagesOrder">
                     {raw(sortHTML)}
@@ -209,7 +198,7 @@ export const GalleryForm = (props) => {
               {c.t("save_gallery_button")}
         </button>
 
-        <div id="update_result" className="mt-3"></div>
+        <div id="update_result"></div>
         </form>
         {isEditing ? (
             <script type="module" src="/static/js/singlegallery.js"></script>

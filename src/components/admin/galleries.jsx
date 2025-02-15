@@ -7,7 +7,7 @@ const GalleriesLayout = ({ galleries, c }) => {
       <article>
         <header>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <h3 className="mb-0">{c.t("galleries_list_title")}</h3>
+          <h3>{c.t("galleries_list_title")}</h3>
           <a href="admin/new-gallery" className="btn btn-success">
             <i className="bi bi-plus-circle"></i>
             {c.t("create_gallery_button")}
@@ -32,7 +32,6 @@ const GalleriesLayout = ({ galleries, c }) => {
                 <tr>
                 <td><a
                   href={"admin/" + String(gallery.GalleryTableName)}
-                  className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
                   key={index}>
                   {gallery.GalleryName}</a></td>
                 <td>

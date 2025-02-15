@@ -38,7 +38,6 @@ const Singlegallery = (props) => {
           <form>
             <fieldset class="grid">
               <input type="file"
-                className="form-control"
                 accept="image/*"
                 multiple
                 id="fileInput"

@@ -28,8 +28,8 @@ export const main = async (c) => {
       </header>
       <div className="container">
       {galleries.length == 0 ? (
-        <div className="no-images-container text-center py-5">
-          <p className="text-muted">
+        <div className="no-images-container text-center">
+          <p>
             {c.t("no_galleries_message")}
             <a href="./admin">{c.t("admin_link")}</a>
             {c.t("create_gallery_message")}

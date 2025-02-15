@@ -8,6 +8,10 @@ html {
   overflow-x: hidden;
 }
 
+.text-center {
+  text-align: center;
+}
+
 /* Gallery grid styles */
 .galleries-grid {
   display: grid;

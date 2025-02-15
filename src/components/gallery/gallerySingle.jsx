@@ -37,7 +37,7 @@ export const Gallery = ({ gallery, images, c }) => (
       <div id="mansory-wraper">
         {images.length === 0 ? (
           <div>
-            <p className="text-muted">{c.t("no_images_message")}</p>
+            <p><i>{c.t("no_images_message")}</i></p>
           </div>
         ) : (
           <div id="masonry-container">

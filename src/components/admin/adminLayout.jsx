@@ -45,14 +45,12 @@ export const Layout = (props) => {
         <ul>
         <li>
           <a
-            class="nav-link"
             href=${makeURL(`${getGalleryPath(c)}admin/purge`)}>
               ${c.t("purge-cache")}
           </a>
         </li>
         <li>
           <a
-            class="nav-link"
             href=${makeURL(`${getGalleryPath(c)}admin`, "logout@")}>
               ${c.t("logout")}
             </a>
