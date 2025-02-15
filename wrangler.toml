@@ -28,7 +28,7 @@ PAGE_TITLE = "Pineapple Gallery"
 DESCRIPTION = "Pineapple Gallery is a project designed to serve up image galleries using Cloudflare!"
 
 # Copyright attribution name
-COPYRIGHT="Pineapple Gallery"
+COPYRIGHT = "Pineapple Gallery"
 
 # Image transformations
 IMGT = "true"
@@ -42,4 +42,8 @@ USE_CACHE = "true"
 
 # Path to the gallery application (should contain no slashes, unless this serves on root, which then it should be a single slash)
 # Make sure to also update index.jsx accordingly.
-GALLERY_PATH="gallery"
+GALLERY_PATH = "gallery"
+
+# Color scheme used for CSS
+# Valid color names can be found here: https://picocss.com/docs/colors
+COLOR_SCHEME = "amber"
