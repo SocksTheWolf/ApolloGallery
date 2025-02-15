@@ -36,7 +36,7 @@ const Gallery = new PageAssetDefinition([
 
 export const PreloadAssets = (props) => {
     const prefetchType = props.type || "";
-    const ctx = props.ctx;
+    const ctx = props.c;
     let prefetchCode = "";
     switch (prefetchType)
     {
