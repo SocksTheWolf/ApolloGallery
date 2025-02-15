@@ -27,6 +27,12 @@ class FileUploader {
     event.preventDefault();
     this.resetUploadState();
 
+    if (this.fileInput.files.length === 0) {
+      // push an empty array so we display an error that no files were uploaded.
+      this.displayUploadNotification([], []);
+      return;
+    }
+
     try {
       const results = await this.uploadFiles(
         this.fileList,
@@ -63,7 +69,7 @@ class FileUploader {
   }
 
   displayUploadNotification(successfulUploads, results) {
-    if (successfulUploads.length === results.length) {
+    if (successfulUploads.length === results.length && results.length !== 0) {
       const successMessage = `<div class="alert alert-success">
         All files uploaded successfully! <span id="reload-countdown"></span>
       </div>`;
@@ -255,8 +261,12 @@ class FileUploader {
 
 // Usage
 document.addEventListener("DOMContentLoaded", () => {
+  const fileInputBox = document.getElementById("fileInput");
+  // Clear out this fun thing Firefox does where it caches file input paths into the box upon reload.
+  fileInputBox.value = "";
+
   const uploader = new FileUploader({
-    fileInput: document.getElementById("fileInput"),
+    fileInput: fileInputBox,
     submitButton: document.getElementById("submit"),
     progressBar: document.getElementById("progress-bar"),
     uploadErrorBox: document.getElementById("upload-error"),
