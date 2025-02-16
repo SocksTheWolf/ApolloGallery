@@ -56,7 +56,7 @@ export const PreloadAssets = (props) => {
 
     return html`
         <link rel="preload" href="${getPicoCSS(ctx)}" as="style" />
-        <link rel="preload" href="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" as="script" />
+        <link rel="preload" href="/static/js/back-to-top.min.js" as="script" />
         <link rel="modulepreload" href="/static/js/SwitchColorMode.js" as="script" />
         ${raw(prefetchCode)}
     `;
