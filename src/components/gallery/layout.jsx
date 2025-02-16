@@ -49,7 +49,7 @@ export const Layout = (props) => {
           </small>
         </center>
         </footer>
-        <script src="/static/js/SwitchColorMode.js"></script>
+        <script type="module" src="/static/js/SwitchColorMode.js"></script>
       </body>
     </html>`
   );
