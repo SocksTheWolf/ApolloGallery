@@ -7,7 +7,7 @@ import {
 import { html } from "hono/html";
 
 export const Gallery = ({ gallery, images, c }) => (
-  <Layout title={gallery.GalleryName} c={c} prefetch="single" desc={gallery.TextField}>
+  <Layout title={gallery.GalleryName} c={c} prefetch="single" desc={gallery.TextField} gallery_table_name={gallery.GalleryTableName}>
     <section>
       <article>
       <header>
@@ -37,7 +37,7 @@ export const Gallery = ({ gallery, images, c }) => (
       <div id="mansory-wraper">
         {images.length === 0 ? (
           <div>
-            <p><i>{c.t("no_images_message")}</i></p>
+            <p>{c.t("no_images_message")}</p>
           </div>
         ) : (
           <div id="masonry-container">

@@ -37,6 +37,10 @@ export const getImageWithTransforms = (c, img, location="main", format="auto") =
         case "cover":
             cloudFlareBase += ",q=70,w=433,h=200,fit=scale-down";
         break;
+        case "social-card":
+            // According to best practices, 600x600 is a good minimum size https://developers.facebook.com/docs/sharing/best-practices
+            cloudFlareBase += ",q=75,w=600,h=600,fit=scale-down";
+        break;
         // Used for the global slider
         case "slider":
         // Full sized images

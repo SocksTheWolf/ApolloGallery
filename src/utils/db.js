@@ -253,7 +253,7 @@ export const deleteImageFromGallery = async (
   }
 };
 
-export const getThumbnailForGallery = async(c, GalleryTableName) => {
+export const getThumbnailForGallery = async(c, GalleryTableName, location="gallery-thumb") => {
   if (GalleryTableName === null || GalleryTableName === "")
     return null;
   
@@ -262,10 +262,11 @@ export const getThumbnailForGallery = async(c, GalleryTableName) => {
       `SELECT CoverImage FROM Galleries WHERE GalleryTableName=?1`
     ).bind(GalleryTableName).run();
     
-    if (results == null || results.length == 0)
+    if (results === null || results.length == 0 ||
+        results[0].CoverImage === "" || results[0].CoverImage === null)
       return null;
 
-    return getImageWithTransforms(c, results[0].CoverImage, "gallery-thumb");
+    return getImageWithTransforms(c, results[0].CoverImage, location);
   } catch (error) {
     console.error("Error getting thumbnail:", error.message);
     return null;
