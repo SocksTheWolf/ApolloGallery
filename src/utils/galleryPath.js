@@ -1,4 +1,11 @@
+import { isEnvVarSet } from "./envVars";
+
 export const getGalleryPath = (c) => {
+    if (!isEnvVarSet(c.env, "GALLERY_PATH")) {
+        console.error("GALLERY_PATH IS NOT SET");
+        return "/";
+    }
+
     if (c.env.GALLERY_PATH === "/" || c.env.GALLERY_PATH === "") {
         return "/"
     }
