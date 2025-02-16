@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { serveStatic } from 'hono/cloudflare-pages';
 import { gallery } from "./components/gallery";
+import { getEnvVar } from "./utils/envVars";
 
 const staticFiles = new Hono({ strict: true });
 const galleryApp = new Hono({ strict: true });
@@ -29,9 +30,9 @@ galleryApp.notFound(async (c) => {
 export default {
     async fetch (req, env, ctx) {
         const {pathname} = new URL(req.url);
-        const galPath = env.GALLERY_PATH;
+        const galPath = getEnvVar(env, "GALLERY_PATH");
         // Handle path separation
-        if (galPath !== "" && galPath !== "/") {
+        if (galPath !== null && galPath !== "/") {
             const subStr = pathname.substring(1, galPath.length + 1);
             // If the paths match, serve up the gallery.
             if (subStr === galPath) {
