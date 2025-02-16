@@ -1,5 +1,6 @@
 import { html, raw } from 'hono/html'
 import { getPicoCSS } from '../../utils/getPicoCSS';
+import { isEnvVarSet } from '../../utils/envVars';
 
 class PageAssetDefinition {
     constructor(scripts, styles=null) {
@@ -53,6 +54,10 @@ export const PreloadAssets = (props) => {
         default:
         break;
     }
+
+    // Preload the kofi fonts if we're using kofi support
+    if (isEnvVarSet(ctx.env, "KOFI_USERNAME"))
+        prefetchCode += "<link rel='preload' href='https://fonts.googleapis.com/css?family=Quicksand:400,700' as='style' />";
 
     return html`
         <link rel="preload" href="${getPicoCSS(ctx)}" as="style" />

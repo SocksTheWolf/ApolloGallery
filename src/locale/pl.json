@@ -71,5 +71,7 @@
   "light_or_dark_mode": "",
   "mass_delete_msg": "Rozpoczynam usuwanie wszystkich plików z R2, jest ich",
   "all_files_deleted": "Usunięto wszystkie pliki",
+  "kofi_tooltip": "",
+  "kofi_label": "",
   "date_locale": "pl-PL"
 }

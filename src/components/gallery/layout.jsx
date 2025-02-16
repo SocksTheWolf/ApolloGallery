@@ -4,6 +4,7 @@ import { ThemeSwitcher } from '../utils/themeSwitcher';
 import { PreloadAssets } from '../utils/preloader';
 import { getPicoCSS } from '../../utils/getPicoCSS';
 import { FooterScripts } from '../utils/footerScripts';
+import { KofiSupport } from './kofiSupport';
 
 export const Layout = (props) => {
   const c = props.c;
@@ -23,7 +24,6 @@ export const Layout = (props) => {
         <link rel="stylesheet" href="/static/gallery.css" />
         <link rel="stylesheet" href="${getPicoCSS(c)}" />
         <link rel="stylesheet" href="/static/photoswipe.css" />
-        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
       </head>
       <body class="container">
         <header>
@@ -32,7 +32,7 @@ export const Layout = (props) => {
             <li><h2><a href="." class="contrast">${c.env.PAGE_TITLE}</a></h2></li>
           </ul>
           <ul>
-          <li data-placement="bottom" data-tooltip="Support this site and the dog!"><script src="/static/js/kofi.js"></script></li>
+            ${<KofiSupport c={c} />}
           <li></li>
           <li>
             ${<ThemeSwitcher c={c} />}

@@ -39,6 +39,9 @@ USE_CACHE = "true"
 # Copyright attribution name
 COPYRIGHT = "SocksTheWolf"
 
+# Kofi Username (leave empty if you do not want to add a kofi support widget)
+KOFI_USERNAME = "SocksTheWolf"
+
 # Color scheme used for CSS
 # Valid color names can be found here: https://picocss.com/docs/colors
 COLOR_SCHEME = "orange"
