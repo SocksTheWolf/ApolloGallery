@@ -254,6 +254,9 @@ export const deleteImageFromGallery = async (
 };
 
 export const getThumbnailForGallery = async(c, GalleryTableName) => {
+  if (GalleryTableName === null || GalleryTableName === "")
+    return null;
+  
   try {
     const {results} = await c.env.DB.prepare(
       `SELECT CoverImage FROM Galleries WHERE GalleryTableName=?1`
