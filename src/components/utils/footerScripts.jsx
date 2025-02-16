@@ -8,6 +8,5 @@ export const FooterScripts = () => {
           backgroundColor: 'var(--pico-primary-background)',
           textColor: 'var(--pico-color)'
         })</script>
-        <script type="module" src="/static/js/SwitchColorMode.js"></script>
     `;
 };

@@ -56,6 +56,7 @@ export const PreloadAssets = (props) => {
 
     return html`
         <link rel="preload" href="${getPicoCSS(ctx)}" as="style" />
+        <link rel="preload" href="https://storage.ko-fi.com/cdn/widget/Widget_2.js" as="script" />
         <link rel="preload" href="/static/js/back-to-top.min.js" as="script" />
         <link rel="modulepreload" href="/static/js/SwitchColorMode.js" as="script" />
         ${raw(prefetchCode)}
