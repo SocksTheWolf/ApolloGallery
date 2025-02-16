@@ -3,6 +3,7 @@ import { SocialMetaTags } from '../utils/metaTags';
 import { ThemeSwitcher } from '../utils/themeSwitcher';
 import { PreloadAssets } from '../utils/preloader';
 import { getPicoCSS } from '../../utils/getPicoCSS';
+import { FooterScripts } from '../utils/footerScripts';
 
 export const Layout = (props) => {
   const c = props.c;
@@ -12,7 +13,7 @@ export const Layout = (props) => {
   return (
     html`
     <!DOCTYPE html>
-    <html data-theme="dark" lang=${c.t()}>
+    <html data-theme="auto" lang=${c.t()}>
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -51,13 +52,8 @@ export const Layout = (props) => {
           </small>
         </center>
         </footer>
-        <script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
-        <script>addBackToTop({
-          diameter: 56,
-          backgroundColor: 'rgb(220, 88, 48)',
-          textColor: '#fff'
-        })</script>
       </body>
+      ${<FooterScripts />}
     </html>`
   );
 };

@@ -2,6 +2,7 @@ import { html, raw } from 'hono/html'
 import { getGalleryPath } from '../../utils/galleryPath';
 import { ThemeSwitcher } from '../utils/themeSwitcher';
 import { getPicoCSS } from '../../utils/getPicoCSS';
+import { FooterScripts } from '../utils/footerScripts';
 
 export const Layout = (props) => {
   const c = props.c;
@@ -78,6 +79,7 @@ export const Layout = (props) => {
       </main>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
       </body>
+      ${<FooterScripts />}
     </html>`
   );
 };
