@@ -8,7 +8,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
     rewind: true,
     cover: true,
     width: "90%",
-    fixedHeight: "50em",
+    heightRatio: 0.7
   });
   
   
