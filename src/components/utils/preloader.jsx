@@ -1,4 +1,5 @@
 import { html, raw } from 'hono/html'
+import { getPicoCSS } from '../../utils/getPicoCSS';
 
 class PageAssetDefinition {
     constructor(scripts, styles=null) {
@@ -32,6 +33,7 @@ const Gallery = new PageAssetDefinition([
 
 export const PreloadAssets = (props) => {
     const prefetchType = props.type || "";
+    const ctx = props.c;
     let prefetchCode = "";
     switch (prefetchType)
     {
@@ -50,7 +52,7 @@ export const PreloadAssets = (props) => {
     }
 
     return html`
-        <link rel="preload" href="https://cdn.jsdelivr.net/npm/@yohns/picocss@2.2.10/css/pico.amber.min.css" as="style" />
+        <link rel="preload" href="${getPicoCSS(ctx)}" as="style" />
         <link rel="modulepreload" href="/static/js/SwitchColorMode.js" as="script" />
         ${raw(prefetchCode)}
     `;

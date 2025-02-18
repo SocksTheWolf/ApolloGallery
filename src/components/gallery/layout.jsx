@@ -3,6 +3,7 @@ import { SocialMetaTags } from '../utils/metaTags';
 import { ThemeSwitcher } from '../utils/themeSwitcher';
 import { PreloadAssets } from '../utils/preloader';
 import { HeadScripts } from '../utils/headScripts';
+import { getPicoCSS } from '../../utils/getPicoCSS';
 
 export const Layout = (props) => {
   const c = props.c;
@@ -17,9 +18,9 @@ export const Layout = (props) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
         <title>${props.title}</title>
         ${<SocialMetaTags title={props.title} desc={desc} url={c.req.url} />}
-        ${<PreloadAssets type={prefetchType} />}
+        ${<PreloadAssets type={prefetchType} c={c} />}
         <link rel="stylesheet" href="/static/gallery.css" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yohns/picocss@2.2.10/css/pico.amber.min.css" />
+        <link rel="stylesheet" href="${getPicoCSS(c)}" />
         <link rel="stylesheet" href="/static/photoswipe.css" />
         ${<HeadScripts />}
       </head>
@@ -48,7 +49,7 @@ export const Layout = (props) => {
           </small>
         </center>
         </footer>
-        <script src="/static/js/SwitchColorMode.js"></script>
+        <script type="module" src="/static/js/SwitchColorMode.js"></script>
       </body>
     </html>`
   );
