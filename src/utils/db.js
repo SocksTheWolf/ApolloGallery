@@ -32,11 +32,11 @@ export const getGalleriesFromD1wGalleryIsPublic = async (c) => {
     `;
 
     try {
-      // Attempt to create the Galleries table
-      await c.env.DB.prepare(createTableSQL).run();
-      // Create an index on the gallery table, for better storage and lookup optimization
-      await c.env.DB.prepare(`CREATE INDEX IF NOT EXISTS idx_galleries_public ON Galleries(GalleryIsPublic)`).run();
-      
+      await c.env.DB.batch([
+        c.env.DB.prepare(createTableSQL),
+        c.env.DB.prepare(`CREATE INDEX IF NOT EXISTS idx_galleries_public ON Galleries(GalleryIsPublic)`),
+        c.env.DB.prepare(`PRAGMA optimize`)
+      ]);
       return "The Galleries table in database did not exist and has been created. Please reload the page and clean the cache.";
     } catch (createError) {
       console.error("Error creating the Galleries table:", createError.message);
@@ -86,7 +86,9 @@ export const createGallery = async (c, formObject) => {
     c.env.DB.prepare(
       `CREATE TABLE IF NOT EXISTS ${formObject.GalleryTableName} (approved BOOLEAN, width INTEGER, height INTEGER, name TEXT, hash TEXT, path TEXT PRIMARY KEY, dateCreated INTEGER, dateModified INTEGER)`
     ),
-    c.env.DB.prepare(`CREATE INDEX IF NOT EXISTS idx_${formObject.GalleryTableName}_approved ON ${formObject.GalleryTableName}(approved)`)
+    c.env.DB.prepare(`CREATE INDEX IF NOT EXISTS idx_${formObject.GalleryTableName}_approved ON ${formObject.GalleryTableName}(approved)`),
+    /* Fire the pragma optimize, which is now recommended after creating indexes */
+    c.env.DB.prepare(`PRAGMA optimize`)
   ]);
 };
 
