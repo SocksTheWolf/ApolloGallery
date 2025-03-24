@@ -9,7 +9,7 @@
       "ESNext"
     ],
     "types": [
-        "worker-configuration.d.ts", 
+        "./worker-configuration.d.ts", 
         "node"
     ],
     "jsx": "react-jsx",
