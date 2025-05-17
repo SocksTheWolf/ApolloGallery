@@ -6,6 +6,7 @@
     "dev:wrangler": "wrangler pages dev dist --live-reload",
     "dev:esbuild": "esbuild --bundle src/index.jsx --format=esm --watch --outfile=dist/_worker.js",
     "dev:static": "cpx \"public/**/*\" dist --watch",
+    "cibuild": "npm run generate-types && npm run build",
     "build": "npm run clean && run-p build:*",
     "clean": "rimraf dist",
     "build:esbuild": "esbuild --bundle src/index.jsx --format=esm --outfile=dist/_worker.js",
