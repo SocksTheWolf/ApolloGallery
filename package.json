@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "accept-language-parser": "^1.5.0",
-    "hono": "^4.7.10",
+    "hono": "^4.7.11",
     "rimraf": "^6.0.1",
     "shuffle-array": "^1.0.1"
   },
