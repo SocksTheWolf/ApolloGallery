@@ -1,8 +1,8 @@
-import PhotoSwipeLightbox from "/static/js/photoswipe-lightbox.esm.min.js";
+import PhotoSwipeLightbox from "/static/js/thirdparty/photoswipe-lightbox.esm.min.js";
 const lightbox = new PhotoSwipeLightbox({
   gallery: "#masonry-container",
   children: "a",
-  pswpModule: () => import("/static/js/photoswipe.esm.min.js"),
+  pswpModule: () => import("/static/js/thirdparty/photoswipe.esm.min.js"),
 });
 lightbox.on("uiRegister", function () {
   lightbox.pswp.ui.registerElement({

@@ -34,8 +34,8 @@ export const Layout = (props) => {
         <title>${props.title}</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"></link>
         <link rel="stylesheet" href="${getPicoCSS(c)}" />
-        <link rel="stylesheet" href="/static/gallery.css" />
-        <link rel="stylesheet" href="/static/admin.css" />
+        <link rel="stylesheet" href="/static/css/gallery.css" />
+        <link rel="stylesheet" href="/static/css/admin.css" />
         <script src="https://unpkg.com/htmx.org@1.9.12"></script>
       </head>
       <body>

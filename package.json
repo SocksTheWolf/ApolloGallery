@@ -6,11 +6,15 @@
     "dev:wrangler": "wrangler pages dev dist --live-reload",
     "dev:esbuild": "esbuild --bundle src/index.jsx --format=esm --watch --outfile=dist/_worker.js",
     "dev:static": "cpx \"public/**/*\" dist --watch",
+    "dev:minify": "run-p minify:*",
     "cibuild": "npm run generate-types && npm run build",
     "build": "npm run clean && run-p build:*",
     "clean": "rimraf dist",
     "build:esbuild": "esbuild --bundle src/index.jsx --format=esm --outfile=dist/_worker.js",
     "build:static": "cpx \"public/**/*\" dist",
+    "build:minify": "run-p minify:*",
+    "minify:js": "npx foreach -g \"./dist/static/js/**.js\" -x \"node-minify --compressor uglify-js --input #{path} --output #{path}\"",
+    "minify:css": "npx foreach -g \"./dist/static/css/**.css\" -x \"node-minify --compressor cssnano --input #{path} --output #{path}\"",
     "deploy": "wrangler pages deploy",
     "generate-types": "wrangler types"
   },
@@ -21,8 +25,12 @@
     "shuffle-array": "^1.0.1"
   },
   "devDependencies": {
+    "@node-minify/cli": "^9.0.2",
+    "@node-minify/cssnano": "^9.0.1",
+    "@node-minify/uglify-js": "^9.0.1",
     "@types/node": "~20.17.0",
     "cpx2": "^8.0.0",
+    "foreach-cli": "^1.8.1",
     "npm-run-all": "^4.1.5",
     "wrangler": "^4.15.2"
   }
