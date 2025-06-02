@@ -2,6 +2,9 @@ name = "apollogallery"
 compatibility_date = "2024-11-27"
 pages_build_output_dir = "./dist"
 compatibility_flags = [ "nodejs_compat" ]
+preview_urls = false
+send_metrics = false
+workers_dev = false
 
 
 [[r2_buckets]]
