@@ -25,6 +25,7 @@ const SwitchColorMode = {
 		const checkbox = document.createElement('input');
 		checkbox.setAttribute('name', 'color-mode-toggle');
 		checkbox.setAttribute('role', 'switch');
+		checkbox.setAttribute('id', 'color-mode-toggle');
 		checkbox.setAttribute('type', 'checkbox');
 		checkbox.setAttribute('value', '1');
 
