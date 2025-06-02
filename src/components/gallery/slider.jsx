@@ -10,6 +10,9 @@ export const Slider = async (props) => {
         return "";
     }    
     const thumbnails = images;
+    const writeAltText = (albumName) => {
+      return `An image from the ${albumName} album!`;
+    };
     return html`
        <section role="article">
        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" />
@@ -24,7 +27,7 @@ export const Slider = async (props) => {
             <ul class="splide__list">
             ${images.map((image) => (
               <li class="splide__slide">
-                <img src={getImageWithTransforms(c, image.url, "slider")} />
+                <img src={getImageWithTransforms(c, image.url, "slider")} alt={writeAltText(img.name)} />
                 <div>From the <a href={image.link}>{image.name} album</a></div>
               </li>
             ))}
@@ -36,7 +39,7 @@ export const Slider = async (props) => {
           <ul id="thumbnails" class="thumbnails">
             ${thumbnails.map((image) => (
               <li class="thumbnail">
-                <img src={getImageWithTransforms(c, image.thumb, "slider-thumb")} />
+                <img src={getImageWithTransforms(c, image.thumb, "slider-thumb")} width="70" height="70" fetchPriority='high' />
               </li>
             ))}
           </ul>
