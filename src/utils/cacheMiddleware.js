@@ -52,7 +52,7 @@ export const cache = (options = {}) => {
 
       // Store in KV
       c.executionCtx.waitUntil(
-        c.env.CACHE_KV.put(cacheKey, content)
+        c.env.CACHE_KV.put(cacheKey, content.toString())
       );
 
       // Return the response
