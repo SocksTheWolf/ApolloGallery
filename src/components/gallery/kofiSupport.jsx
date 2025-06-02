@@ -17,7 +17,7 @@ export const KofiSupport = (props) => {
     return (
         <li id="kofi-btn" aria-busy="true" data-placement="bottom" data-tooltip={c.t("kofi_tooltip")}>
         <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
-        <script>
+        <script type='text/javascript'>
         {html`
             const kofiButton = document.getElementById("kofi-btn");
             window.addEventListener('load', function (){
