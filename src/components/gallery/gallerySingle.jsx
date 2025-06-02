@@ -28,7 +28,7 @@ export const Gallery = ({ gallery, images, c }) => (
         <p className="gallery-description">{gallery.TextField}</p>
       )}
       <footer>
-      <a href="./" class="secondary">
+      <a href="./" title={c.t("back_link")} class="secondary">
           ← {c.t("back_link")}
         </a>
       </footer>
@@ -49,6 +49,7 @@ export const Gallery = ({ gallery, images, c }) => (
                     href={getImageWithTransforms(c, image.path, "full")}
                     data-pswp-width={image.width}
                     data-pswp-height={image.height}
+                    title={image.name}
                     target="_blank"
                   >
                     <img
@@ -81,7 +82,8 @@ export async function handleGalleryRoute(c) {
     (g) => g.GalleryTableName === galleryTableName
   );
 
-  if (!gallery) return c.notFound();
+  if (!gallery) 
+    return c.notFound();
 
   const { results: images } = await getIndywidualGalleryFromD1wApproved(
     c,

@@ -1,5 +1,6 @@
 import { html } from 'hono/html'
 import { getThumbnailForGallery } from '../../utils/db';
+import truncate from 'just-truncate';
 
 // Around Google's general max length for a description tag
 const MAX_DESC_LENGTH = 150;
@@ -9,7 +10,7 @@ export const SocialMetaTags = async (props) => {
     const url = props.url;
     const title = props.title;
     const gallery_table_name = props.gallery_table_name || null;
-    const desc = (props.desc.length > MAX_DESC_LENGTH) ? props.desc.slice(0, MAX_DESC_LENGTH) + "..." : props.desc;
+    const desc = truncate(props.desc, MAX_DESC_LENGTH);
     const gallery_card_raw = await getThumbnailForGallery(ctx, gallery_table_name, "social-card");
     const social_image_thumb = (gallery_card_raw !== null) ? gallery_card_raw : "/meta-card.png";
 

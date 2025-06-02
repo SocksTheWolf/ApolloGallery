@@ -1,17 +1,31 @@
 import { html } from 'hono/html'
 import { getSliderImages } from '../../utils/db';
 import { getImageWithTransforms } from '../../utils/galleryPath';
+import clamp from 'just-clamp';
 
 export const Slider = async (props) => {
     const c = props.c;
-    const images = await getSliderImages(c, 5);
+    const maxImages = props.maxImages || 5;
+    const images = await getSliderImages(c, maxImages);
     if (images === null) {
         console.error("Could not get slider images, failed to poll");
         return "";
-    }    
+    }
     const thumbnails = images;
+
+    // Creates alt text for the image fields
     const writeAltText = (albumName) => {
       return `An image from the ${albumName} album!`;
+    };
+    // Determines the fetch priority of the images
+    // in the slider.
+    var fetchCounter = 0;
+    const highPriorityCutoff = clamp(maxImages / 2, 1, 5);
+    const getFetchPriority = () => {
+      if (fetchCounter++ < highPriorityCutoff) {
+        return "high";
+      }
+      return "low";
     };
     return html`
        <section role="article">
@@ -27,7 +41,7 @@ export const Slider = async (props) => {
             <ul class="splide__list">
             ${images.map((image) => (
               <li class="splide__slide">
-                <img src={getImageWithTransforms(c, image.url, "slider")} alt={writeAltText(image.name)} />
+                <img src={getImageWithTransforms(c, image.url, "slider")} alt={writeAltText(image.name)} fetchPriority={getFetchPriority()} />
                 <div>From the <a href={image.link}>{image.name} album</a></div>
               </li>
             ))}

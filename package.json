@@ -21,6 +21,8 @@
   "dependencies": {
     "accept-language-parser": "^1.5.0",
     "hono": "^4.7.10",
+    "just-clamp": "^4.2.0",
+    "just-truncate": "^2.2.0",
     "rimraf": "^6.0.1",
     "shuffle-array": "^1.0.1"
   },
