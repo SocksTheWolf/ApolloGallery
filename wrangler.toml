@@ -1,8 +1,13 @@
 name = "apollogallery"
 compatibility_date = "2024-11-27"
-pages_build_output_dir = "./dist"
 compatibility_flags = [ "nodejs_compat" ]
 send_metrics = false
+preview_urls = false
+workers_dev = false
+main = "dist/_worker.js"
+
+# Set up assets binding to migrate from pages to workers
+assets = { directory = "./dist/", binding = "ASSETS", html_handling = "drop-trailing-slash", not_found_handling = "404-page", run_worker_first = true }
 
 [[r2_buckets]]
 binding = "R2"
@@ -30,7 +35,7 @@ DESCRIPTION = "Cute Shiba Inu pictures daily! See his amazing adventures and che
 # Image transformations
 IMGT = "true"
 
-# Admin Panel Credentials unsoment to set here | commented to set using cf dashboard
+# Admin Panel Credentials uncomment to set here | commented to set using cf dashboard
 USERNAME = "admin"
 
 # Allow for not using the KV cache method
