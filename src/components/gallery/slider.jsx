@@ -27,7 +27,7 @@ export const Slider = async (props) => {
             <ul class="splide__list">
             ${images.map((image) => (
               <li class="splide__slide">
-                <img src={getImageWithTransforms(c, image.url, "slider")} alt={writeAltText(img.name)} />
+                <img src={getImageWithTransforms(c, image.url, "slider")} alt={writeAltText(image.name)} />
                 <div>From the <a href={image.link}>{image.name} album</a></div>
               </li>
             ))}
