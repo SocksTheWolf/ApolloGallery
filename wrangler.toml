@@ -9,6 +9,11 @@ main = "dist/_worker.js"
 # Set up assets binding to migrate from pages to workers
 assets = { directory = "./dist/", binding = "ASSETS", html_handling = "drop-trailing-slash", not_found_handling = "404-page", run_worker_first = true }
 
+# Domain for the website
+routes = [
+  { pattern = "apollo.dog", custom_domain = true }
+]
+
 [[r2_buckets]]
 binding = "R2"
 bucket_name = "apollogallery-bucket"
