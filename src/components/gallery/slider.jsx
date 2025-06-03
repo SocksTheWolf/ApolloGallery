@@ -57,7 +57,7 @@ export const Slider = async (props) => {
           <ul id="thumbnails" class="thumbnails">
             ${thumbnails.map((image) => (
               <li class="thumbnail">
-                <img alt={writeAltText(image.name, true)} width="70" height="70" fetchPriority='high' src={getImageWithTransforms(c, image.thumb, "slider-thumb")} />
+                <img width="70" height="70" fetchPriority='high' src={getImageWithTransforms(c, image.thumb, "slider-thumb")} alt={writeAltText(image.name, true)} />
               </li>
             ))}
           </ul>
