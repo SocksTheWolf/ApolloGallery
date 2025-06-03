@@ -41,7 +41,7 @@ export const Slider = async (props) => {
             <ul class="splide__list">
             ${images.map((image) => (
               <li class="splide__slide">
-                <img src={getImageWithTransforms(c, image.url, "slider")} alt={writeAltText(image.name)} fetchPriority={getFetchPriority()} />
+                <img fetchPriority={getFetchPriority()} src={getImageWithTransforms(c, image.url, "slider")} alt={writeAltText(image.name)} />
                 <div>From the <a href={image.link}>{image.name} album</a></div>
               </li>
             ))}
@@ -53,7 +53,7 @@ export const Slider = async (props) => {
           <ul id="thumbnails" class="thumbnails">
             ${thumbnails.map((image) => (
               <li class="thumbnail">
-                <img src={getImageWithTransforms(c, image.thumb, "slider-thumb")} width="70" height="70" fetchPriority='high' />
+                <img width="70" height="70" fetchPriority='high' src={getImageWithTransforms(c, image.thumb, "slider-thumb")} />
               </li>
             ))}
           </ul>
