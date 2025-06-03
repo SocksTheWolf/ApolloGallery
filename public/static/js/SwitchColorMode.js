@@ -25,8 +25,11 @@ const SwitchColorMode = {
 		const checkbox = document.createElement('input');
 		checkbox.setAttribute('name', 'color-mode-toggle');
 		checkbox.setAttribute('role', 'switch');
+		checkbox.setAttribute('id', 'color-mode-toggle');
 		checkbox.setAttribute('type', 'checkbox');
-		checkbox.setAttribute('value', '1');
+		checkbox.setAttribute('aria-checked', false);
+		checkbox.setAttribute('aria-labelledby', 'theme-switcher');
+		checkbox.setAttribute('value', '0');
 
 		// Insert the checkbox into the container
 		container.appendChild(checkbox);
@@ -42,6 +45,7 @@ const SwitchColorMode = {
 		// Listen for user changes
 		this.checkbox.addEventListener("change", () => {
 			this.scheme = this.checkbox.checked ? "dark" : "light";
+			this.setAccessibilityFlags();
 			this.schemeToLocalStorage();
 		});
 
@@ -50,8 +54,10 @@ const SwitchColorMode = {
 			window.matchMedia("(prefers-color-scheme: dark)")
 				.addEventListener("change", (e) => {
 					this.scheme = "auto";
+					this.setAccessibilityFlags();
 				});
 		}
+		this.setAccessibilityFlags();
 	},
 
 	// Get color scheme from local storage
@@ -92,6 +98,12 @@ const SwitchColorMode = {
 	// Store scheme to local storage
 	schemeToLocalStorage() {
 		window.localStorage?.setItem(this.localStorageKey, this.scheme);
+	},
+	
+	// sets accessibility flags
+	setAccessibilityFlags() {
+		this.checkbox.setAttribute('aria-checked', this.checkbox.checked);
+		this.checkbox.setAttribute('value', this.checkbox.checked ? 1 : 0);
 	},
 };
 

@@ -48,32 +48,36 @@ export const workerPublishNow = async (c) => {
   return -1;
 };
 
-export const workerRouter = async (c, keyVal, action) => {
+export const workerHelper = async (c, action) => {
   let wasSuccess = false;
   let details = "";
+  switch (action) {
+    case "slider":
+      if (await workerSliderPurge(c))
+        wasSuccess = true;
+    break;
+    case "purgeAll":
+      if (await workerPurgeAll(c))
+        wasSuccess = true;
+    break;
+    case "publishGalleries":
+      details = await workerPublishNow(c);
+      wasSuccess = details >= 0;
+    break;
+    default:
+      return c.text("Cannot be found", 404);
+    break;
+  }
+  return c.json({handled: wasSuccess, action: action, output: details});
+};
 
+export const workerRouter = async (c, keyVal, action) => {
   if (keyVal === undefined || keyVal === null || action === undefined || action === null)
     return c.text("Unauthorized", 401);
 
   const matchSuccess = await doesWorkerKeyMatch(c, keyVal);
   if (matchSuccess) {
-    switch (action) {
-      case "slider":
-        if (await workerSliderPurge(c))
-          wasSuccess = true;
-      break;
-      case "purgeAll":
-        if (await workerPurgeAll(c))
-          wasSuccess = true;
-      break;
-      case "publishGalleries":
-        details = await workerPublishNow(c);
-        wasSuccess = details >= 0;
-      break;
-      default:
-        return c.text("Unauthorized", 401);
-      break;
-    }
+    return await workerHelper(c, action);
   }
-  return c.json({handled: wasSuccess, action: action, output: details});
+  return c.json({handled: false, action: action, output: ""});
 };

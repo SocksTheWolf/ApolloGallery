@@ -2,8 +2,8 @@ import { html } from 'hono/html';
 
 export const FooterScripts = () => {
     return html`
-        <script src="/static/js/back-to-top.min.js"></script>
-        <script>addBackToTop({
+        <script type="text/javascript" src="/static/js/thirdparty/back-to-top.min.js"></script>
+        <script type="text/javascript">addBackToTop({
           diameter: 56,
           backgroundColor: 'var(--pico-primary-background)',
           textColor: 'var(--pico-color)'

@@ -21,9 +21,9 @@ export const Layout = (props) => {
         <title>${props.title}</title>
         ${<SocialMetaTags title={props.title} desc={desc} url={c.req.url} c={c} gallery_table_name={gallery_table_name} />}
         ${<PreloadAssets type={prefetchType} c={c} />}
-        <link rel="stylesheet" href="/static/gallery.css" />
+        <link rel="stylesheet" href="/static/css/gallery.css" />
         <link rel="stylesheet" href="${getPicoCSS(c)}" />
-        <link rel="stylesheet" href="/static/photoswipe.css" />
+        <link rel="stylesheet" href="/static/css/photoswipe.css" />
       </head>
       <body class="container">
         <header>

@@ -13,14 +13,13 @@ export const cache = (options = {}) => {
       // If no cache, generate response
       await next();
 
-      // Clone the response to read its body
-      const originalResponse = c.res.clone();
-
-      // Don't cache error responses
-      if (!originalResponse.ok || originalResponse.status !== 200) {
-        return originalResponse;
+      // Don't cache/clone error responses
+      if (!c.res.ok || c.res.status !== 200) {
+        return c.res;
       }
 
+      // Clone the response to read its body
+      const originalResponse = c.res.clone();
       return await originalResponse.text();
     };
 
@@ -50,9 +49,14 @@ export const cache = (options = {}) => {
 
       const content = await serveOriginalContent();
 
+      // If we don't get plain text back, then this is an error object
+      // and we should return it as is.
+      if (typeof content !== "string")
+        return content;
+      
       // Store in KV
       c.executionCtx.waitUntil(
-        c.env.CACHE_KV.put(cacheKey, content)
+        c.env.CACHE_KV.put(cacheKey, content.toString())
       );
 
       // Return the response

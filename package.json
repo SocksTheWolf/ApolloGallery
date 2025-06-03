@@ -3,26 +3,37 @@
   "type": "module",
   "scripts": {
     "dev": "run-p dev:*",
-    "dev:wrangler": "wrangler pages dev dist --live-reload",
     "dev:esbuild": "esbuild --bundle src/index.jsx --format=esm --watch --outfile=dist/_worker.js",
-    "dev:static": "cpx \"public/**/*\" dist --watch",
+    "dev:static": "npm run movedot && cpx \"public/**/*\" dist --watch",
+    "dev:minify": "run-p minify:*",
+    "dev:wrangler": "wrangler dev --live-reload",
     "cibuild": "npm run generate-types && npm run build",
     "build": "npm run clean && run-p build:*",
     "clean": "rimraf dist",
     "build:esbuild": "esbuild --bundle src/index.jsx --format=esm --outfile=dist/_worker.js",
-    "build:static": "cpx \"public/**/*\" dist",
-    "deploy": "wrangler pages deploy",
+    "build:static": "npm run movedot && cpx \"public/**/*\" dist",
+    "build:minify": "run-p minify:*",
+    "minify:js": "npx foreach -g \"./dist/static/js/**.js\" -x \"node-minify --compressor uglify-js --input #{path} --output #{path}\"",
+    "minify:css": "npx foreach -g \"./dist/static/css/**.css\" -x \"node-minify --compressor cssnano --input #{path} --output #{path}\"",
+    "movedot": "cpx \"public/.assetsignore\" dist",
+    "deploy": "wrangler deploy",
     "generate-types": "wrangler types"
   },
   "dependencies": {
     "accept-language-parser": "^1.5.0",
     "hono": "^4.7.10",
+    "just-clamp": "^4.2.0",
+    "just-truncate": "^2.2.0",
     "rimraf": "^6.0.1",
     "shuffle-array": "^1.0.1"
   },
   "devDependencies": {
     "@types/node": "~20.17.57",
+    "@node-minify/cli": "^9.0.2",
+    "@node-minify/cssnano": "^9.0.1",
+    "@node-minify/uglify-js": "^9.0.1",
     "cpx2": "^8.0.0",
+    "foreach-cli": "^1.8.1",
     "npm-run-all": "^4.1.5",
     "wrangler": "^4.15.2"
   }
