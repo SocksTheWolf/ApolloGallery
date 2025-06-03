@@ -14,8 +14,12 @@ export const Slider = async (props) => {
     const thumbnails = images;
 
     // Creates alt text for the image fields
-    const writeAltText = (albumName) => {
-      return `An image from the ${albumName} album!`;
+    const writeAltText = (albumName, thumb) => {
+      const baseText = `image from the ${albumName} album!`;
+      if (thumb)
+        return `Thumbnail of an ${baseText}`;
+      else
+        return `An ${baseText}`;
     };
     // Determines the fetch priority of the images
     // in the slider.
@@ -41,7 +45,7 @@ export const Slider = async (props) => {
             <ul class="splide__list">
             ${images.map((image) => (
               <li class="splide__slide">
-                <img fetchPriority={getFetchPriority()} src={getImageWithTransforms(c, image.url, "slider")} alt={writeAltText(image.name)} />
+                <img fetchPriority={getFetchPriority()} src={getImageWithTransforms(c, image.url, "slider")} alt={writeAltText(image.name, false)} />
                 <div>From the <a href={image.link}>{image.name} album</a></div>
               </li>
             ))}
@@ -53,7 +57,7 @@ export const Slider = async (props) => {
           <ul id="thumbnails" class="thumbnails">
             ${thumbnails.map((image) => (
               <li class="thumbnail">
-                <img width="70" height="70" fetchPriority='high' src={getImageWithTransforms(c, image.thumb, "slider-thumb")} />
+                <img alt={writeAltText(image.name, true)} width="70" height="70" fetchPriority='high' src={getImageWithTransforms(c, image.thumb, "slider-thumb")} />
               </li>
             ))}
           </ul>

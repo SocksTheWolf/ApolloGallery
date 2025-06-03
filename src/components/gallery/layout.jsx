@@ -52,8 +52,8 @@ export const Layout = (props) => {
           </small>
         </center>
         </footer>
-        ${<FooterScripts />}
       </body>
+      ${<FooterScripts />}
     </html>`
   );
 };
