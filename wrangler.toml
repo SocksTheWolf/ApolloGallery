@@ -27,6 +27,9 @@ database_id = "4c573785-5d56-4154-9dd2-4517c2e00779"
 binding = "CACHE_KV"
 id = "ec290df347654a639feecda9c0b077c4"
 
+[triggers]
+crons = ["0 0 * * *"]
+
 #----------------------------------------------------------- CONFIG
 
 [vars]

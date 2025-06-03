@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { serveStatic } from 'hono/cloudflare-pages';
 import { gallery } from "./components/gallery";
 import { getEnvVar } from "./utils/envVars";
+import { workerHelper } from "./utils/workerHelpers";
 
 const staticFiles = new Hono({ strict: true });
 const galleryApp = new Hono({ strict: true });
@@ -28,7 +29,7 @@ galleryApp.notFound(async (c) => {
 // Custom worker path system to handle dynamic pathing based off a path location variable
 // rather than hardcoded routes
 export default {
-    async fetch (req, env, ctx) {
+    fetch: async (req, env, ctx) => {
         const {pathname} = new URL(req.url);
         const galPath = getEnvVar(env, "GALLERY_PATH");
         // Handle path separation
@@ -51,4 +52,15 @@ export default {
         // If you have cloudflare's normalize url to origin, this shouldn't be an issue
         return await galleryApp.fetch(req, env, ctx);
     },
+    scheduled: async (event, env, ctx) => {
+        switch (event.cron) {
+            // Update the slider every day.
+            case "0 0 * * *":
+                await workerHelper(ctx, "slider");
+            break;
+            default:
+                console.log("failed to find worker time");
+            break;
+        }
+    }
 };
