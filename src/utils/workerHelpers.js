@@ -1,5 +1,6 @@
 import { cachePurgeHome, cachePurgeAll } from "./cachePurge";
 import { publishFutureGalleries } from "./db";
+import has from "just-has";
 
 // KV Key used for authenticating external cloudflare workers
 export const WORKER_ID_KEY = "WORKERID_KEY";
@@ -50,34 +51,34 @@ export const workerPublishNow = async (c) => {
 
 export const workerHelper = async (c, action) => {
   let wasSuccess = false;
-  let details = "";
+  const ctx = (has(c, "env")) ? c : {"env": c};
   switch (action) {
     case "slider":
-      if (await workerSliderPurge(c))
+      if (await workerSliderPurge(ctx))
         wasSuccess = true;
     break;
     case "purgeAll":
-      if (await workerPurgeAll(c))
+      if (await workerPurgeAll(ctx))
         wasSuccess = true;
     break;
     case "publishGalleries":
-      details = await workerPublishNow(c);
-      wasSuccess = details >= 0;
+      wasSuccess = await workerPublishNow(ctx) >= 0;
     break;
     default:
-      return c.text("Cannot be found", 404);
+      return false;
     break;
   }
-  return c.json({handled: wasSuccess, action: action, output: details});
+  return wasSuccess;
 };
 
 export const workerRouter = async (c, keyVal, action) => {
+  let wasSuccess = false;
   if (keyVal === undefined || keyVal === null || action === undefined || action === null)
     return c.text("Unauthorized", 401);
 
   const matchSuccess = await doesWorkerKeyMatch(c, keyVal);
   if (matchSuccess) {
-    return await workerHelper(c, action);
+    wasSuccess = await workerHelper(c, action);
   }
-  return c.json({handled: false, action: action, output: ""});
+  return c.json({handled: wasSuccess, action: action, output: ""});
 };

@@ -52,11 +52,11 @@ export default {
         // If you have cloudflare's normalize url to origin, this shouldn't be an issue
         return await galleryApp.fetch(req, env, ctx);
     },
-    scheduled: async (event, env, ctx) => {
+    scheduled: async (event, env) => {
         switch (event.cron) {
             // Update the slider every day.
             case "0 0 * * *":
-                await workerHelper(ctx, "slider");
+                await workerHelper(env, "slider");
             break;
             default:
                 console.log("failed to find worker time");
