@@ -1,4 +1,5 @@
 import { getGalleryPath, getImagePath, getImagePathRaw, getImageWithTransforms } from './galleryPath';
+import isEmpty from "just-is-empty";
 const shuffle = require('shuffle-array');
 
 export const getGalleriesFromD1 = async (c) => {
@@ -87,9 +88,26 @@ export const createGallery = async (c, formObject) => {
       `CREATE TABLE IF NOT EXISTS ${formObject.GalleryTableName} (approved BOOLEAN, width INTEGER, height INTEGER, name TEXT, hash TEXT, path TEXT PRIMARY KEY, dateCreated INTEGER, dateModified INTEGER)`
     ),
     c.env.DB.prepare(`CREATE INDEX IF NOT EXISTS idx_${formObject.GalleryTableName}_approved ON ${formObject.GalleryTableName}(approved)`),
+    c.env.DB.prepare(`CREATE INDEX IF NOT EXISTS idx_${formObject.GalleryTableName}_hash ON ${formObject.GalleryTableName}(hash)`),
     /* Fire the pragma optimize, which is now recommended after creating indexes */
     c.env.DB.prepare(`PRAGMA optimize`)
   ]);
+};
+
+export const optimizeTables = async (c) => {
+  let queries = [];
+  const galleries = await getGalleriesFromD1(c);
+  if (galleries.success) {
+    galleries.results.forEach((obj) => {
+      console.log(`Adding ${obj.GalleryTableName}...`);
+      queries.push(
+        c.env.DB.prepare(`CREATE INDEX IF NOT EXISTS idx_${obj.GalleryTableName}_approved ON ${obj.GalleryTableName}(approved)`),
+        c.env.DB.prepare(`CREATE INDEX IF NOT EXISTS idx_${obj.GalleryTableName}_hash ON ${obj.GalleryTableName}(hash)`)
+      );
+    });
+    queries.push(c.env.DB.prepare(`PRAGMA optimize`));
+    return await c.env.DB.batch(queries);
+  } 
 };
 
 export const addImageToIndywidualGallery = async (
@@ -232,6 +250,21 @@ export const setAsThumbnail = async (c, GalleryTableName, imagePath) => {
     console.error("Error setting thumbnail:", error.message);
     return false;
   }
+};
+
+export const doesImageExist = async (c, GalleryTableName, hash) => {
+  if (isEmpty(GalleryTableName) || isEmpty(hash))
+    return false;
+
+  try {
+    const response = await c.env.DB.prepare(`SELECT name FROM ${GalleryTableName} WHERE hash=?1`).bind(hash).all();
+    if (response.results.length > 0) {
+      return true;
+    }
+  } catch (error) {
+    console.error(`Error checking if image already exists ${error.message}`);
+  }
+  return false;
 };
 
 export const deleteImageFromGallery = async (

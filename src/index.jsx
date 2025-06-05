@@ -56,7 +56,7 @@ export default {
         switch (event.cron) {
             // Update the slider every day.
             case "0 0 * * *":
-                await workerHelper(env, "slider");
+                await workerHelper({"env": env}, "slider");
             break;
             default:
                 console.log("failed to find worker time");

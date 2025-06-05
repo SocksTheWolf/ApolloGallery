@@ -123,7 +123,8 @@ class FileUploader {
           return;
         }
 
-        if (activeUploads.size >= concurrencyLimit) return;
+        if (activeUploads.size >= concurrencyLimit)
+          return;
 
         if (uploadQueue.length > 0) {
           const file = uploadQueue.shift();

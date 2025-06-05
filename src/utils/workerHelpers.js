@@ -1,6 +1,5 @@
 import { cachePurgeHome, cachePurgeAll } from "./cachePurge";
 import { publishFutureGalleries } from "./db";
-import has from "just-has";
 
 // KV Key used for authenticating external cloudflare workers
 export const WORKER_ID_KEY = "WORKERID_KEY";
@@ -51,18 +50,17 @@ export const workerPublishNow = async (c) => {
 
 export const workerHelper = async (c, action) => {
   let wasSuccess = false;
-  const ctx = (has(c, "env")) ? c : {"env": c};
   switch (action) {
     case "slider":
-      if (await workerSliderPurge(ctx))
+      if (await workerSliderPurge(c))
         wasSuccess = true;
     break;
     case "purgeAll":
-      if (await workerPurgeAll(ctx))
+      if (await workerPurgeAll(c))
         wasSuccess = true;
     break;
     case "publishGalleries":
-      wasSuccess = await workerPublishNow(ctx) >= 0;
+      wasSuccess = await workerPublishNow(c) >= 0;
     break;
     default:
       return false;

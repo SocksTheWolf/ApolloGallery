@@ -14,6 +14,7 @@ import { manualPurge } from "./admin/manualPurge";
 import { cachePurgeAll } from '../utils/cachePurge';
 import { secureHeaders } from 'hono/secure-headers';
 import { setAsThumb } from "./admin/singleGalleryThumbSelect";
+import { optimizeTables } from "../utils/db";
 
 export const admin = new Hono({ strict: false });
 
@@ -34,16 +35,26 @@ admin.get("/", galleriesList);
 
 admin.get("/new-gallery", newgallery);
 
+/*
 admin.get("/deleteallimageslonglinktonotenteraccidentally", (c) => {
   return c.text(
     "This endpoint is intentionally left blank to prevent accidental deletion",
     { status: 403 }
   );
-});
+});*/
 
 admin.get("/purge", async (c) => {   
   const removedKeys = await cachePurgeAll(c);                      
   return c.html(`<h3>${c.t('all_cache_purged')} </h3><div>${removedKeys.join('<br>')}</div><a href="./">${c.t('go_home')}</a>`)
+});
+
+admin.get("/optimize", async (c) => {
+  const results = await optimizeTables(c);
+  if (results.length > 0) {
+    return c.html(`<h3>Tables Optimized</h3><br/><a href="./">${c.t('go_home')}</a>`);
+  } else {
+    return c.html(`Failure.`);
+  }
 });
 
 admin.post("/new-gallery", handlePostNewGallery);

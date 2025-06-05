@@ -47,6 +47,12 @@ export const Layout = (props) => {
         <ul>
         <li>
           <a
+            href=${makeURL(`${getGalleryPath(c)}admin/optimize`)}>
+              ${c.t("optimize_tables")}
+          </a>
+        </li>
+        <li>
+          <a
             href=${makeURL(`${getGalleryPath(c)}admin/purge`)}>
               ${c.t("purge-cache")}
           </a>

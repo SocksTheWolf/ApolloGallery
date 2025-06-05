@@ -1,4 +1,4 @@
-import { addImageToIndywidualGallery } from '../../utils/db';
+import { addImageToIndywidualGallery, doesImageExist } from '../../utils/db';
 
 export const imageUploader = async (c) => {
   const galleryName = c.req.param("galleryTableName");
@@ -20,6 +20,17 @@ export const imageUploader = async (c) => {
       'DB': {
         'success': false,
         'error': 'File too large. Maximum 100MB allowed.'
+      }
+    });
+  }
+
+  // Check if this file exists already in this gallery.
+  const isDuplicate = await doesImageExist(c, galleryName, hash);
+  if (isDuplicate) {
+    return c.json({
+      'DB': {
+        'success': false,
+        'error': c.t('file_already_uploaded')
       }
     });
   }

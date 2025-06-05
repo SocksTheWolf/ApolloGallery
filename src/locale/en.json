@@ -51,6 +51,7 @@
   "purged": "Purged cache for",
   "purge-cache": "Purge cache",
   "all_cache_purged": "All cache purged",
+  "optimize_tables": "Optimize tables",
   "go_home": "Go to home",
   "delete_error": "Error while deleting: ",
   "gallery_deleted": "Gallery successfully deleted",
@@ -73,7 +74,8 @@
   "all_files_deleted": "All files deleted",
   "current_thumb": "Current Thumbnail",
   "set_as_thumb": "Set as Thumbnail",
-  "kofi_tooltip": "Support this site and the dog!",
+  "kofi_tooltip": "Support this site!",
   "kofi_label": "Give some Dog Treats",
+  "file_already_uploaded": "File has been already uploaded",
   "date_locale": "en-US"
 }
