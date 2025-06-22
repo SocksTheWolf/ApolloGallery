@@ -1,3 +1,5 @@
+const mime = require('mime-types');
+
 export const cache = (options = {}) => {
   const {
     maxAge = 180,
@@ -29,6 +31,9 @@ export const cache = (options = {}) => {
 
     // Generate cache key
     const cacheKey = `page:${url.pathname}@${acceptLanguage}`;
+    // Determine file extension (for serving up content types)
+    const fileExtension = url.pathname.split('.').pop();
+    const mimeType = mime.lookup(fileExtension) || 'text/html';
     try {
       // Try to get cached content from KV
       const cachedContent = await c.env.CACHE_KV.get(cacheKey);
@@ -36,7 +41,7 @@ export const cache = (options = {}) => {
       if (cachedContent) {
         return new Response(cachedContent, {
           headers: {
-            'Content-Type': 'text/html',
+            'Content-Type': mimeType,
             'X-KV-Cache-Status': 'HIT',
             'X-KV-Cache-Key': cacheKey,
             'X-Selected-Language': acceptLanguage,
@@ -62,7 +67,7 @@ export const cache = (options = {}) => {
       // Return the response
       return new Response(content, {
         headers: {
-          'Content-Type': 'text/html',
+          'Content-Type': mimeType,
           'X-KV-Cache-Status': 'MISS',
           'X-Generated-Language': acceptLanguage,
           'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',

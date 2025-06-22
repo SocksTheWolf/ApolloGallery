@@ -1,5 +1,5 @@
 import { updateGalleryOnD1 } from "../../utils/db";
-import { cachePurgeHome, cachePurgeSingle } from '../../utils/cachePurge';
+import { cachePurgeSitemapAndHome, cachePurgeSingle } from '../../utils/cachePurge';
 
 export const editSingleGallery = async (c) => {
   const galleryTableName = c.req.param("galleryTableName")
@@ -18,7 +18,7 @@ export const editSingleGallery = async (c) => {
     }
 
     await cachePurgeSingle(c, galleryTableName);
-    await cachePurgeHome(c);
+    await cachePurgeSitemapAndHome(c);
     
     return c.html(
       <b>{c.t('gallery_updated')} <a href={`./${galleryTableName}`}>{c.t('refresh')}</a></b>

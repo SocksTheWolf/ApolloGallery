@@ -1,4 +1,4 @@
-import { cachePurgeHome, cachePurgeAll } from "./cachePurge";
+import { cachePurgeHome, cachePurgeSitemapAndHome, cachePurgeAll } from "./cachePurge";
 import { publishFutureGalleries } from "./db";
 
 // KV Key used for authenticating external cloudflare workers
@@ -39,7 +39,7 @@ export const workerPublishNow = async (c) => {
     const numUpdates = await publishFutureGalleries(c);
     // If we made changes, purge the homepage
     if (numUpdates > 0) {
-      await cachePurgeHome(c);
+      await cachePurgeSitemapAndHome(c);
     }
     return numUpdates;
   } catch(err) {

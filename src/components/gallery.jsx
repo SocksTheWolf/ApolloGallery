@@ -8,6 +8,7 @@ import { translationMiddleware } from "../utils/localeMiddleware";
 import { cache } from '../utils/cacheMiddleware';
 import { trimTrailingSlash } from 'hono/trailing-slash'
 import { workerRouter } from '../utils/workerHelpers';
+import { generateSitemap } from '../utils/sitemapMiddleware';
 
 export const gallery = new Hono({ strict: true });
 
@@ -50,5 +51,6 @@ gallery.route('/admin', admin);
 // Main application interface
 gallery.use('/*', cache());
 gallery.get("/", main);
+gallery.get("/sitemap.xml", generateSitemap);
 
 gallery.get("/:galleryTableName", handleGalleryRoute);

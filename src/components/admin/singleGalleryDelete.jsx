@@ -1,5 +1,5 @@
 import { deleteGalleryInBothPlaces, getIndywidualGalleryFromD1 } from "../../utils/db";
-import { cachePurgeHome, cachePurgeSingle } from '../../utils/cachePurge';
+import { cachePurgeSitemapAndHome, cachePurgeSingle } from '../../utils/cachePurge';
 
 
 export const deleteSingleGallery = async (c) => {
@@ -21,7 +21,7 @@ export const deleteSingleGallery = async (c) => {
       await cachePurgeSingle(c, galleryTableName);
     }
 
-    await cachePurgeHome(c);
+    await cachePurgeSitemapAndHome(c);
 
     return c.html(`<b>${c.t('gallery_deleted')} <a href="../admin">${c.t('return')}</a></b>`);
   } catch (error) {

@@ -1,5 +1,5 @@
 import { createGallery, checkIfExistGalleryOnD1 } from "../../utils/db";
-import { cachePurgeHome } from '../../utils/cachePurge';
+import { cachePurgeSitemapAndHome } from '../../utils/cachePurge';
 
 
 export const handlePostNewGallery = async (c) => {
@@ -21,7 +21,7 @@ export const handlePostNewGallery = async (c) => {
         throw new Error(`${c.text("gallery_save_error")}: ${JSON.stringify(singleCreated)}`);
       }
     }
-    await cachePurgeHome(c);
+    await cachePurgeSitemapAndHome(c);
     c.header('hx-redirect', `${formObject.GalleryTableName}`);
     return c.text("gallery_saved");
   } catch (error) {

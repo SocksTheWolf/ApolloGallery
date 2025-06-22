@@ -26,6 +26,8 @@
     "just-has": "^2.3.0",
     "just-is-empty": "^3.4.1",
     "just-truncate": "^2.2.0",
+    "mime-types": "^3.0.1",
+    "path": "^0.12.7",
     "rimraf": "^6.0.1",
     "shuffle-array": "^1.0.1"
   },

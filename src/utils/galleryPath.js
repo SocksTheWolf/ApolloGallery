@@ -1,5 +1,10 @@
 import { isEnvVarSet } from "./envVars";
 
+export const makeGalleryURL = (c, path="", prefix="") => {
+    const {protocol, host} = new URL(c.req.url);
+    return `${protocol}//${prefix}${host}${getGalleryPath(c)}${path}`;
+};
+
 export const getGalleryPath = (c) => {
     if (!isEnvVarSet(c.env, "GALLERY_PATH")) {
         console.error("GALLERY_PATH IS NOT SET");

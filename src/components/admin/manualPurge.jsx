@@ -1,8 +1,8 @@
-import { cachePurgeHome, cachePurgeSingle } from "../../utils/cachePurge";
+import { cachePurgeSingle, cachePurgeSitemapAndHome } from "../../utils/cachePurge";
 
 export const manualPurge = async (c) => {
   const galleryTableName = c.req.param("galleryTableName");
-  await cachePurgeHome(c);
+  await cachePurgeSitemapAndHome(c);
   await cachePurgeSingle(c, galleryTableName);
 
   return c.html(`

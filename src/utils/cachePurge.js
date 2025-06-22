@@ -4,12 +4,11 @@ import { WORKER_ID_KEY } from "./workerHelpers";
 
 const langs = getLangs();
 
-export const cachePurgeSingle = async (c, galleryTableName) => {
+const cachePurgeInternal = async (c, page) => {
   try {
     const promises = langs.map(async (lang) => {
-      const cacheKey = `page:${getGalleryPath(c)}${galleryTableName}@${lang}`;
-      console.log(cacheKey)
-      return await c.env.CACHE_KV.delete(cacheKey);
+      const cacheKeyForLang = `page:${page}@${lang}`;
+      return await c.env.CACHE_KV.delete(cacheKeyForLang);
     });
 
     await Promise.all(promises);
@@ -18,17 +17,23 @@ export const cachePurgeSingle = async (c, galleryTableName) => {
   }
 };
 
-export const cachePurgeHome = async (c) => {
-  try {
-    const promises = langs.map(async (lang) => {
-      const cacheKey = `page:${getGalleryPath(c)}@${lang}`;
-      return await c.env.CACHE_KV.delete(cacheKey);
-    });
+export const cachePurgeSingle = async (c, galleryTableName) => {
+  await cachePurgeInternal(c, `${getGalleryPath(c)}${galleryTableName}`);
+};
 
-    await Promise.all(promises);
-  } catch (error) {
-    console.error('Cache purge error:', error);
-  }
+export const cachePurgeHome = async (c) => {
+  await cachePurgeInternal(c, getGalleryPath(c));
+};
+
+export const cachePurgeSitemap = async (c) => {
+  await cachePurgeInternal(c, `${getGalleryPath(c)}sitemap.xml`);
+};
+
+export const cachePurgeSitemapAndHome = async (c) => {
+  await Promise.all([
+    cachePurgeHome(c),
+    cachePurgeSitemap(c)
+  ]);
 };
 
 // function to purge all cache keys returning from cache.list()

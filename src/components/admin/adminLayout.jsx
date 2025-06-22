@@ -1,23 +1,16 @@
 import { html, raw } from 'hono/html'
-import { getGalleryPath } from '../../utils/galleryPath';
+import { makeGalleryURL } from '../../utils/galleryPath';
 import { ThemeSwitcher } from '../utils/themeSwitcher';
 import { getPicoCSS } from '../../utils/getPicoCSS';
 import { FooterScripts } from '../utils/footerScripts';
 
 export const Layout = (props) => {
   const c = props.c;
-
-  // TODO: Auto resolve the URL and then strip any trailing characters automatically from links rendered to return this to dynamic
-  const makeURL = (path,prefix="") => {
-    const {protocol, host} = new URL(c.req.url);
-    return `${protocol}//${prefix}${host}${path}`;
-  };
-  
   const {pathname} = new URL(c.req.url);
-  const headerURL = (pathname === "/admin") ? "./" : makeURL(`${getGalleryPath(c)}admin`);
+  const headerURL = (pathname === "/admin") ? "./" : makeGalleryURL(c, `admin`);
   const renderBreadcrumb = (latest) => {
     if (latest != null && latest !== "admin_panel_breadcrumb") {
-      return `<li><a href="${makeURL(`${getGalleryPath(c)}admin`)}">${c.t("admin_panel_breadcrumb")}</a></li><li>${latest}</li>`;
+      return `<li><a href="${makeGalleryURL(c, `admin`)}">${c.t("admin_panel_breadcrumb")}</a></li><li>${latest}</li>`;
     }
     else if (latest == null) {
       return null;
@@ -47,19 +40,19 @@ export const Layout = (props) => {
         <ul>
         <li>
           <a
-            href=${makeURL(`${getGalleryPath(c)}admin/optimize`)}>
+            href=${makeGalleryURL(c, `admin/optimize`)}>
               ${c.t("optimize_tables")}
           </a>
         </li>
         <li>
           <a
-            href=${makeURL(`${getGalleryPath(c)}admin/purge`)}>
+            href=${makeGalleryURL(c, `admin/purge`)}>
               ${c.t("purge-cache")}
           </a>
         </li>
         <li>
           <a
-            href=${makeURL(`${getGalleryPath(c)}admin`, "logout@")}>
+            href=${makeGalleryURL(c, `admin`, "logout@")}>
               ${c.t("logout")}
             </a>
         </li>
