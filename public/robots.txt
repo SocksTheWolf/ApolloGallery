@@ -3,5 +3,6 @@ Disallow: /admin
 Disallow: /admin/*
 Disallow: /gallery/admin
 Disallow: /gallery/admin/*
+Disallow: /cdn-cgi/*
 
 Sitemap: https://apollo.dog/sitemap.xml
