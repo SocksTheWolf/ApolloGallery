@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "accept-language-parser": "^1.5.0",
-    "hono": "^4.7.10",
+    "hono": "^4.9.5",
     "just-clamp": "^4.2.0",
     "just-has": "^2.3.0",
     "just-is-empty": "^3.4.1",
