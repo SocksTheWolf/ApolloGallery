@@ -21,14 +21,14 @@
   },
   "dependencies": {
     "accept-language-parser": "^1.5.0",
-    "hono": "^4.10.3",
+    "hono": "^4.10.6",
     "just-clamp": "^4.2.0",
     "just-has": "^2.3.0",
     "just-is-empty": "^3.4.1",
     "just-truncate": "^2.2.0",
-    "mime-types": "^3.0.1",
+    "mime-types": "^3.0.2",
     "path": "^0.12.7",
-    "rimraf": "^6.0.1",
+    "rimraf": "^6.1.2",
     "shuffle-array": "^1.0.1"
   },
   "devDependencies": {
@@ -39,6 +39,14 @@
     "cpx2": "^8.0.0",
     "foreach-cli": "^1.8.1",
     "npm-run-all": "^4.1.5",
-    "wrangler": "^4.33.1"
+    "wrangler": "^4.50.0"
+  },
+  "overrides": {
+    "cpx2": {
+      "glob": "11.1.0"
+    },
+    "@node-minify/cli": {
+      "glob": "11.1.0"
+    }
   }
 }
