@@ -48,7 +48,7 @@ export const Layout = (props) => {
         <center>
           <small>
             &copy; ${new Date().getFullYear()} ${c.env.COPYRIGHT} -  
-            <a href="admin">Admin Panel</a>
+            <a href="admin" rel="noindex noopener nofollow">Admin Panel</a>
           </small>
         </center>
         </footer>
