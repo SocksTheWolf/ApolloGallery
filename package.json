@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@node-minify/cli": "^9.0.2",
-    "@node-minify/cssnano": "^9.0.1",
+    "@node-minify/cssnano": "^10.4.0",
     "@node-minify/uglify-js": "^9.0.1",
     "@types/node": "22.16",
     "cpx2": "^8.0.0",
