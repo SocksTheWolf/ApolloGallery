@@ -11,7 +11,8 @@ assets = { directory = "./dist/", binding = "ASSETS", html_handling = "drop-trai
 
 # Domain for the website
 routes = [
-  { pattern = "apollo.dog", custom_domain = true }
+  { pattern = "apollo.dog", custom_domain = true },
+  { pattern = "www.apollo.dog", custom_domain = true }
 ]
 
 [[r2_buckets]]
