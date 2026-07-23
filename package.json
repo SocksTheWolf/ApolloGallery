@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "accept-language-parser": "^1.5.0",
-    "hono": "^4.12.30",
+    "hono": "^4.12.31",
     "just-clamp": "^4.2.0",
     "just-has": "^2.3.0",
     "just-is-empty": "^3.4.1",
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@node-minify/cli": "^9.0.2",
-    "@node-minify/cssnano": "^9.0.1",
+    "@node-minify/cssnano": "^10.5.0",
     "@node-minify/uglify-js": "^9.0.1",
     "@types/node": "22.16",
     "cpx2": "^9.0.0",
