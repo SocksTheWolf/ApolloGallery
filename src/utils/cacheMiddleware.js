@@ -1,4 +1,4 @@
-const mime = require('mime-types');
+import mime from 'mime/lite';
 
 export const cache = (options = {}) => {
   const {
@@ -31,9 +31,8 @@ export const cache = (options = {}) => {
 
     // Generate cache key
     const cacheKey = `page:${url.pathname}@${acceptLanguage}`;
-    // Determine file extension (for serving up content types)
     const fileExtension = url.pathname.split('.').pop();
-    const mimeType = mime.lookup(fileExtension) || 'text/html';
+    const mimeType = mime.getType(fileExtension) || 'text/html';
     try {
       // Try to get cached content from KV
       const cachedContent = await c.env.CACHE_KV.get(cacheKey);
