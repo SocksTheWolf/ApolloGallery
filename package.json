@@ -47,6 +47,9 @@
     },
     "@node-minify/cssnano": {
       "postcss": "^8.5.18"
+    },
+    "wrangler": {
+      "undici": "latest"
     }
   }
 }
