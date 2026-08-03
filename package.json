@@ -44,6 +44,9 @@
   "overrides": {
     "cpx2": {
       "glob": "^11.1.0"
+    },
+    "@node-minify/cssnano": {
+      "postcss": "^8.5.18"
     }
   }
 }
