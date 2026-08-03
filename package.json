@@ -32,10 +32,10 @@
     "shuffle-array": "^1.0.1"
   },
   "devDependencies": {
-    "@node-minify/cli": "^9.0.2",
+    "@node-minify/cli": "^10.5.0",
     "@node-minify/cssnano": "^10.5.0",
-    "@node-minify/uglify-js": "^9.0.1",
-    "@types/node": "22.16",
+    "@node-minify/uglify-js": "^10.5.0",
+    "@types/node": "^24.13.3",
     "cpx2": "^9.0.0",
     "foreach-cli": "^1.8.1",
     "npm-run-all2": "^9.0.2",
@@ -43,9 +43,6 @@
   },
   "overrides": {
     "cpx2": {
-      "glob": "^11.1.0"
-    },
-    "@node-minify/cli": {
       "glob": "^11.1.0"
     }
   }
