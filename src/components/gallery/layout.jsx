@@ -1,9 +1,9 @@
 import { html } from 'hono/html';
-import { SocialMetaTags } from '../utils/metaTags';
-import { ThemeSwitcher } from '../utils/themeSwitcher';
-import { PreloadAssets } from '../utils/preloader';
 import { getPicoCSS } from '../../utils/getPicoCSS';
 import { FooterScripts } from '../utils/footerScripts';
+import { SocialMetaTags } from '../utils/metaTags';
+import { PreloadAssets } from '../utils/preloader';
+import { ThemeSwitcher } from '../utils/themeSwitcher';
 import { KofiSupport } from './kofiSupport';
 
 export const Layout = (props) => {

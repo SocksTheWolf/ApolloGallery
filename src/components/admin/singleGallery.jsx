@@ -1,7 +1,7 @@
-import { Layout } from "./adminLayout";
 import { getGalleriesFromD1, getIndywidualGalleryFromD1 } from "../../utils/db";
-import { GalleryForm } from "./galleryForm";
 import { getImagePath, getImagePathRaw } from "../../utils/galleryPath";
+import { Layout } from "./adminLayout";
+import { GalleryForm } from "./galleryForm";
 
 const Singlegallery = (props) => {
   const c = props.c; // Ensure the context is passed correctly

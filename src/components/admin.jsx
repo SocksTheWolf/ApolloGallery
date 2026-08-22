@@ -1,20 +1,19 @@
 import { Hono } from "hono";
 import { basicAuth } from "hono/basic-auth";
-import { galleriesList } from "./admin/galleries";
-import { handleSingleGallery } from "./admin/singleGallery";
-import { newgallery } from "./admin/newGallery";
-import { removeAllFilesFromR2 } from "../utils/clearR2Bucket"; //tool endpoint to clear r2 bucket
-import { handlePostNewGallery } from "./admin/newGalleryPost";
-import { editSingleGallery } from "./admin/singleGalleryEditPost";
-import { imageUploader } from "./admin/singleGalleryUploaderPost";
-import { deleteSingleGallery } from "./admin/singleGalleryDelete";
-import { deleteImage } from "./admin/deleteImage";
-import { toggleApproval } from "./admin/toggleImageApproval";
-import { manualPurge } from "./admin/manualPurge";
-import { cachePurgeAll } from '../utils/cachePurge';
 import { secureHeaders } from 'hono/secure-headers';
-import { setAsThumb } from "./admin/singleGalleryThumbSelect";
+import { cachePurgeAll } from '../utils/cachePurge';
 import { optimizeTables } from "../utils/db";
+import { deleteImage } from "./admin/deleteImage";
+import { galleriesList } from "./admin/galleries";
+import { manualPurge } from "./admin/manualPurge";
+import { newgallery } from "./admin/newGallery";
+import { handlePostNewGallery } from "./admin/newGalleryPost";
+import { handleSingleGallery } from "./admin/singleGallery";
+import { deleteSingleGallery } from "./admin/singleGalleryDelete";
+import { editSingleGallery } from "./admin/singleGalleryEditPost";
+import { setAsThumb } from "./admin/singleGalleryThumbSelect";
+import { imageUploader } from "./admin/singleGalleryUploaderPost";
+import { toggleApproval } from "./admin/toggleImageApproval";
 
 export const admin = new Hono({ strict: false });
 
@@ -43,8 +42,8 @@ admin.get("/deleteallimageslonglinktonotenteraccidentally", (c) => {
   );
 });*/
 
-admin.get("/purge", async (c) => {   
-  const removedKeys = await cachePurgeAll(c);                      
+admin.get("/purge", async (c) => {
+  const removedKeys = await cachePurgeAll(c);
   return c.html(`<h3>${c.t('all_cache_purged')} </h3><div>${removedKeys.join('<br>')}</div><a href="./">${c.t('go_home')}</a>`)
 });
 

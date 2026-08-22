@@ -1,4 +1,4 @@
-import { cachePurgeHome, cachePurgeSitemapAndHome, cachePurgeAll } from "./cachePurge";
+import { cachePurgeAll, cachePurgeHome, cachePurgeSitemapAndHome } from "./cachePurge";
 import { publishFutureGalleries } from "./db";
 
 // KV Key used for authenticating external cloudflare workers

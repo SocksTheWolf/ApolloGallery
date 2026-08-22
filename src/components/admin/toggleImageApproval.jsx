@@ -1,5 +1,5 @@
-import { toggleImageApproval } from "../../utils/db";
 import { cachePurgeSingle } from "../../utils/cachePurge";
+import { toggleImageApproval } from "../../utils/db";
 
 export const toggleApproval = async (c) => {
   const { imagePath, galleryTableName } = c.req.query();
@@ -12,7 +12,7 @@ export const toggleApproval = async (c) => {
       await cachePurgeSingle(c, galleryTableName);
 
     return c.html(`
-      <button 
+      <button
         class="btn btn-secondary btn-sm"
         hx-post="../admin/api/toggleApproval?imagePath=${encodeURIComponent(imagePath)}&galleryTableName=${galleryTableName}"
         hx-target="this"

@@ -6,14 +6,14 @@ export const manualPurge = async (c) => {
   await cachePurgeSingle(c, galleryTableName);
 
   return c.html(`
-      <button
-         class="btn btn-link"
-         hx-post=${galleryTableName + "/purge"}
-         hx-target="this"
-         hx-swap="outerHTML"
-         >
-        <i class="bi bi-arrow-clockwise"></i>
-        ${c.t("purged")} ${galleryTableName}
-       </button>
-      `);
+    <button
+      class="btn btn-link"
+      hx-post=${galleryTableName + "/purge"}
+      hx-target="this"
+      hx-swap="outerHTML"
+      >
+      <i class="bi bi-arrow-clockwise"></i>
+      ${c.t("purged")} ${galleryTableName}
+    </button>
+  `);
 };

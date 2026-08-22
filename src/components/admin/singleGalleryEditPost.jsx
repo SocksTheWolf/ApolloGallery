@@ -19,7 +19,7 @@ export const editSingleGallery = async (c) => {
 
     await cachePurgeSingle(c, galleryTableName);
     await cachePurgeSitemapAndHome(c);
-    
+
     return c.html(
       <b>{c.t('gallery_updated')} <a href={`./${galleryTableName}`}>{c.t('refresh')}</a></b>
     );

@@ -1,65 +1,65 @@
 import { isEnvVarSet } from "./envVars";
 
 export const makeGalleryURL = (c, path="", prefix="") => {
-    const {protocol, host} = new URL(c.req.url);
-    return `${protocol}//${prefix}${host}${getGalleryPath(c)}${path}`;
+  const {protocol, host} = new URL(c.req.url);
+  return `${protocol}//${prefix}${host}${getGalleryPath(c)}${path}`;
 };
 
 export const getGalleryPath = (c) => {
-    if (!isEnvVarSet(c.env, "GALLERY_PATH")) {
-        console.error("GALLERY_PATH IS NOT SET");
-        return "/";
-    }
+  if (!isEnvVarSet(c.env, "GALLERY_PATH")) {
+    console.error("GALLERY_PATH IS NOT SET");
+    return "/";
+  }
 
-    // Make sure we handle any potentially invalid settings.
-    const pathSetting = (c.env.GALLERY_PATH[0] === '/') ? c.env.GALLERY_PATH.substring(1) : c.env.GALLERY_PATH;
-    
-    if (pathSetting === "/" || pathSetting === "") {
-        return "/"
-    }
-    return `/${pathSetting}/`;
+  // Make sure we handle any potentially invalid settings.
+  const pathSetting = (c.env.GALLERY_PATH[0] === '/') ? c.env.GALLERY_PATH.substring(1) : c.env.GALLERY_PATH;
+
+  if (pathSetting === "/" || pathSetting === "") {
+    return "/"
+  }
+  return `/${pathSetting}/`;
 };
 
 export const isRawImagePath = (img) => (img.length > 4 && img.substring(0, 4) === "img/");
 export const getImagePathRaw = (img) => (isRawImagePath(img)) ? img : `img/${img}`;
 
 export const getImagePath = (c, img) => {
-    if (img === getImagePathRaw(img)) {
-        return `${getGalleryPath(c)}${img}`;
-    }
-    return `${getGalleryPath(c)}${getImagePathRaw(img)}`;
+  if (img === getImagePathRaw(img)) {
+    return `${getGalleryPath(c)}${img}`;
+  }
+  return `${getGalleryPath(c)}${getImagePathRaw(img)}`;
 };
 
 export const getImageWithTransforms = (c, img, location="main", format="auto") => {
-    // Covers already have the most of the image path applied to them (they store the raws)
-    const baseImgLocation = getImagePath(c, img);
-    if (c.env.IMGT === "false" || location === "original") {
-        return baseImgLocation;
-    }
-    let cloudFlareBase = `/cdn-cgi/image/f=${format},metadata=copyright`;
-    switch (location)
-    {
-        // thumbnails for sliders
-        case "slider-thumb":
-            cloudFlareBase += ",q=60,w=70,h=70";
-        break;
-        // Thumbnail for images in a gallery
-        case "gallery-thumb":
-        // Used for the image gallery cover images
-        case "cover":
-            cloudFlareBase += ",q=70,w=433,h=200,fit=scale-down";
-        break;
-        case "social-card":
-            // According to best practices, 600x600 is a good minimum size https://developers.facebook.com/docs/sharing/best-practices
-            cloudFlareBase += ",q=75,w=600,h=600,fit=scale-down";
-        break;
-        // Used for the global slider
-        case "slider":
-        // Full sized images
-        case "main":
-        case "full":
-            cloudFlareBase += ",q=85";
-        break;
-    }
-    return cloudFlareBase + baseImgLocation;
+  // Covers already have the most of the image path applied to them (they store the raws)
+  const baseImgLocation = getImagePath(c, img);
+  if (c.env.IMGT === "false" || location === "original") {
+    return baseImgLocation;
+  }
+  let cloudFlareBase = `/cdn-cgi/image/f=${format},metadata=copyright`;
+  switch (location)
+  {
+    // thumbnails for sliders
+    case "slider-thumb":
+      cloudFlareBase += ",q=60,w=70,h=70";
+    break;
+    // Thumbnail for images in a gallery
+    case "gallery-thumb":
+    // Used for the image gallery cover images
+    case "cover":
+      cloudFlareBase += ",q=70,w=433,h=200,fit=scale-down";
+    break;
+    case "social-card":
+    // According to best practices, 600x600 is a good minimum size https://developers.facebook.com/docs/sharing/best-practices
+      cloudFlareBase += ",q=75,w=600,h=600,fit=scale-down";
+    break;
+    // Used for the global slider
+    case "slider":
+    // Full sized images
+    case "main":
+    case "full":
+      cloudFlareBase += ",q=85";
+    break;
+  }
+  return cloudFlareBase + baseImgLocation;
 };

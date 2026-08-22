@@ -1,5 +1,5 @@
-import { deleteImageFromGallery } from "../../utils/db";
 import { cachePurgeSingle } from "../../utils/cachePurge";
+import { deleteImageFromGallery } from "../../utils/db";
 
 export const deleteImage = async (c) => {
   const { imagePath, galleryTableName } = c.req.query();

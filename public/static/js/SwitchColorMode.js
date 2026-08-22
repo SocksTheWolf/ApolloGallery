@@ -99,7 +99,7 @@ const SwitchColorMode = {
 	schemeToLocalStorage() {
 		window.localStorage?.setItem(this.localStorageKey, this.scheme);
 	},
-	
+
 	// sets accessibility flags
 	setAccessibilityFlags() {
 		this.checkbox.setAttribute('aria-checked', this.checkbox.checked);

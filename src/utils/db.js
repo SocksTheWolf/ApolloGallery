@@ -1,5 +1,5 @@
-import { getGalleryPath, getImagePath, getImagePathRaw, getImageWithTransforms } from './galleryPath';
 import isEmpty from "just-is-empty";
+import { getGalleryPath, getImagePath, getImagePathRaw, getImageWithTransforms } from './galleryPath';
 const shuffle = require('shuffle-array');
 
 export const getGalleriesFromD1 = async (c) => {
@@ -107,7 +107,7 @@ export const optimizeTables = async (c) => {
     });
     queries.push(c.env.DB.prepare(`PRAGMA optimize`));
     return await c.env.DB.batch(queries);
-  } 
+  }
 };
 
 export const addImageToIndywidualGallery = async (
@@ -244,7 +244,7 @@ export const setAsThumbnail = async (c, GalleryTableName, imagePath) => {
     const {success} = await c.env.DB.prepare(
       `UPDATE Galleries SET CoverImage=?1 WHERE GalleryTableName=?2`
     ).bind(getImagePathRaw(imagePath), GalleryTableName).all();
-    
+
     return success;
   } catch (error) {
     console.error("Error setting thumbnail:", error.message);
@@ -291,12 +291,12 @@ export const deleteImageFromGallery = async (
 export const getThumbnailForGallery = async(c, GalleryTableName, location="gallery-thumb") => {
   if (GalleryTableName === null || GalleryTableName === "")
     return null;
-  
+
   try {
     const {results} = await c.env.DB.prepare(
       `SELECT CoverImage FROM Galleries WHERE GalleryTableName=?1`
     ).bind(GalleryTableName).run();
-    
+
     if (results === null || results.length == 0 ||
         results[0].CoverImage === "" || results[0].CoverImage === null)
       return null;
@@ -363,11 +363,11 @@ export const publishFutureGalleries = async(c) => {
     // Selects all rows within 5 min of running right now.
     // This way, another worker's cron job can call the endpoint to auto publish.
     const {results:future_galleries} = await c.env.DB.prepare(
-      `SELECT GalleryTableName, 
-      CAST ((JulianDay(PublicationDate) - JulianDay('now')) * 24 * 60 As Integer) AS MinWindow 
-      FROM Galleries WHERE 
-      GalleryIsPublic = "FALSE" 
-      AND PublicationDate IS NOT "" 
+      `SELECT GalleryTableName,
+      CAST ((JulianDay(PublicationDate) - JulianDay('now')) * 24 * 60 As Integer) AS MinWindow
+      FROM Galleries WHERE
+      GalleryIsPublic = "FALSE"
+      AND PublicationDate IS NOT ""
       AND MinWindow BETWEEN -5 AND 5`).run();
 
     // No galleries to update
@@ -387,7 +387,7 @@ export const publishFutureGalleries = async(c) => {
     if (result) {
       return result.meta.changes;
     }
-    
+
   } catch(err) {
     console.error("publishing future galleries returned error: " + err.message);
     return -1;

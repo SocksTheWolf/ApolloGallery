@@ -1,5 +1,5 @@
+import { cachePurgeSingle, cachePurgeSitemapAndHome } from '../../utils/cachePurge';
 import { deleteGalleryInBothPlaces, getIndywidualGalleryFromD1 } from "../../utils/db";
-import { cachePurgeSitemapAndHome, cachePurgeSingle } from '../../utils/cachePurge';
 
 
 export const deleteSingleGallery = async (c) => {
@@ -23,12 +23,10 @@ export const deleteSingleGallery = async (c) => {
 
     await cachePurgeSitemapAndHome(c);
 
-    return c.html(`<b>${c.t('gallery_deleted')} <a href="../admin">${c.t('return')}</a></b>`);
+    return c.html(<b>{c.t('gallery_deleted')} <a href="../admin">{c.t('return')}</a></b>);
   } catch (error) {
-    return c.html(
-      <div className="alert alert-danger">
-        {error.message}
-      </div>
-    );
+    return c.html(<div className="alert alert-danger">
+      {error.message}
+    </div>);
   }
 }

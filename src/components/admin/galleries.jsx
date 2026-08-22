@@ -1,5 +1,5 @@
-import { Layout } from "./adminLayout";
 import { getGalleriesFromD1 } from "../../utils/db";
+import { Layout } from "./adminLayout";
 
 const GalleriesLayout = ({ galleries, c }) => {
   return (

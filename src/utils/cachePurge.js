@@ -1,5 +1,5 @@
-import { getLangs } from "./localeMiddleware";
 import { getGalleryPath } from "./galleryPath";
+import { getLangs } from "./localeMiddleware";
 import { WORKER_ID_KEY } from "./workerHelpers";
 
 const langs = getLangs();

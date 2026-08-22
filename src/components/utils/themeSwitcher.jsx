@@ -1,8 +1,7 @@
 export const ThemeSwitcher = (props) => {
   const c = props.c;
-  return (
-    <label id="theme-switcher" data-placement="left" data-tooltip={c.t("light_or_dark_mode")} aria-label={c.t("light_or_dark_mode")} for="color-mode-toggle">
+  return (<label id="theme-switcher" data-placement="left" data-tooltip={c.t("light_or_dark_mode")}
+    aria-label={c.t("light_or_dark_mode")} for="color-mode-toggle">
       <script type="module" src="/static/js/SwitchColorMode.js"></script>
-    </label>
-  );
+  </label>);
 };

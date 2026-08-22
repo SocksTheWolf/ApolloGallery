@@ -57,7 +57,7 @@ export const cache = (options = {}) => {
       // and we should return it as is.
       if (typeof content !== "string")
         return content;
-      
+
       // Store in KV
       c.executionCtx.waitUntil(
         c.env.CACHE_KV.put(cacheKey, content.toString())

@@ -1,5 +1,5 @@
-import { createGallery, checkIfExistGalleryOnD1 } from "../../utils/db";
 import { cachePurgeSitemapAndHome } from '../../utils/cachePurge';
+import { checkIfExistGalleryOnD1, createGallery } from "../../utils/db";
 
 
 export const handlePostNewGallery = async (c) => {

@@ -1,10 +1,10 @@
-import { Layout } from "./layout";
-import { getImageWithTransforms } from "../../utils/galleryPath";
+import { html } from "hono/html";
 import {
   getGalleriesFromD1,
   getIndywidualGalleryFromD1wApproved,
 } from "../../utils/db";
-import { html } from "hono/html";
+import { getImageWithTransforms } from "../../utils/galleryPath";
+import { Layout } from "./layout";
 
 export const Gallery = ({ gallery, images, c }) => (
   <Layout title={gallery.GalleryName} c={c} prefetch="single" desc={gallery.TextField} gallery_table_name={gallery.GalleryTableName}>
@@ -34,7 +34,7 @@ export const Gallery = ({ gallery, images, c }) => (
       </footer>
       </article>
       <article>
-      <div id="mansory-wraper">
+      <div id="mansory-wrapper">
         {images.length === 0 ? (
           <div>
             <p>{c.t("no_images_message")}</p>
@@ -82,7 +82,7 @@ export async function handleGalleryRoute(c) {
     (g) => g.GalleryTableName === galleryTableName
   );
 
-  if (!gallery) 
+  if (!gallery)
     return c.notFound();
 
   const { results: images } = await getIndywidualGalleryFromD1wApproved(

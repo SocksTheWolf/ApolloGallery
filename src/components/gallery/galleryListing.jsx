@@ -1,7 +1,7 @@
+import { getGalleriesFromD1wGalleryIsPublic } from "../../utils/db";
+import { getGalleryPath, getImageWithTransforms } from "../../utils/galleryPath";
 import { Layout } from "./layout";
 import { Slider } from "./slider";
-import { getGalleriesFromD1wGalleryIsPublic } from "../../utils/db";
-import { getImageWithTransforms, getGalleryPath } from "../../utils/galleryPath";
 
 export const main = async (c) => {
   const galleriesResponse = await getGalleriesFromD1wGalleryIsPublic(c);
@@ -45,7 +45,7 @@ export const main = async (c) => {
               key={gallery.GalleryTableName}
             >
               {gallery.CoverImage !== "" ? (
-                <img 
+                <img
                   src={getImageWithTransforms(c, gallery.CoverImage, "cover")}
                   alt={gallery.GalleryName}
                   width="433px"

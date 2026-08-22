@@ -1,8 +1,8 @@
-import { html, raw } from 'hono/html'
+import { html, raw } from 'hono/html';
 import { makeGalleryURL } from '../../utils/galleryPath';
-import { ThemeSwitcher } from '../utils/themeSwitcher';
 import { getPicoCSS } from '../../utils/getPicoCSS';
 import { FooterScripts } from '../utils/footerScripts';
+import { ThemeSwitcher } from '../utils/themeSwitcher';
 
 export const Layout = (props) => {
   const c = props.c;
