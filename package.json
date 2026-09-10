@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "accept-language-parser": "^1.5.0",
-    "hono": "^4.13.5",
+    "hono": "^4.13.7",
     "just-clamp": "^4.2.0",
     "just-has": "^2.3.0",
     "just-is-empty": "^3.4.1",
@@ -39,7 +39,7 @@
     "cpx2": "^9.0.0",
     "foreach-cli": "^1.8.1",
     "npm-run-all2": "^9.0.2",
-    "wrangler": "^4.127.1"
+    "wrangler": "^4.130.0"
   },
   "overrides": {
     "cpx2": {
@@ -53,6 +53,9 @@
     },
     "@actions/http-client": {
       "undici": "^7.29.0"
+    },
+    "miniflare": {
+      "sharp": "^0.35.4"
     }
   }
 }
