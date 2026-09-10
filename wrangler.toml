@@ -31,6 +31,9 @@ id = "ec290df347654a639feecda9c0b077c4"
 [triggers]
 crons = ["0 0 * * *"]
 
+[secrets]
+required=["PASSWORD"]
+
 #----------------------------------------------------------- CONFIG
 
 [vars]
