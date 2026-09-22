@@ -36,7 +36,7 @@
     "@node-minify/cssnano": "^10.5.0",
     "@node-minify/uglify-js": "^10.5.0",
     "@types/node": "^24.13.3",
-    "cpx2": "^9.0.0",
+    "cpx2": "^9.0.3",
     "foreach-cli": "^1.8.1",
     "npm-run-all2": "^9.0.2",
     "wrangler": "^4.136.1"
