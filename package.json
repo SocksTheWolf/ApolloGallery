@@ -39,7 +39,7 @@
     "cpx2": "^9.0.0",
     "foreach-cli": "^1.8.1",
     "npm-run-all2": "^9.0.2",
-    "wrangler": "^4.136.1"
+    "wrangler": "^4.145.0"
   },
   "overrides": {
     "cpx2": {
