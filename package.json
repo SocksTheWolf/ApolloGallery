@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "accept-language-parser": "^1.5.0",
-    "hono": "^4.13.12",
+    "hono": "^4.13.13",
     "just-clamp": "^4.2.0",
     "just-has": "^2.3.0",
     "just-is-empty": "^3.4.1",
@@ -39,7 +39,7 @@
     "cpx2": "^9.0.0",
     "foreach-cli": "^1.8.1",
     "npm-run-all2": "^9.0.2",
-    "wrangler": "^4.146.0"
+    "wrangler": "^4.148.0"
   },
   "overrides": {
     "cpx2": {
@@ -49,10 +49,13 @@
       "postcss": "^8.5.18"
     },
     "@actions/github": {
-      "undici": "^7.29.0"
+      "undici": "^7.29.1"
     },
     "@actions/http-client": {
-      "undici": "^7.29.0"
+      "undici": "^7.29.1"
+    },
+    "miniflare": {
+      "sharp": "0.35.5"
     }
   }
 }
