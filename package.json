@@ -39,7 +39,7 @@
     "cpx2": "^9.0.3",
     "foreach-cli": "^1.8.1",
     "npm-run-all2": "^9.0.2",
-    "wrangler": "^4.152.0"
+    "wrangler": "^4.154.0"
   },
   "overrides": {
     "cpx2": {
@@ -52,6 +52,9 @@
       "undici": "^7.30.1"
     },
     "@actions/http-client": {
+      "undici": "^7.30.1"
+    },
+    "miniflare": {
       "undici": "^7.30.1"
     }
   }
