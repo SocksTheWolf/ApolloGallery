@@ -40,7 +40,7 @@
     "@types/node": "^24.19.2",
     "cpx2": "^9.0.3",
     "foreach-cli": "^1.8.1",
-    "npm-run-all2": "^9.0.2",
+    "npm-run-all2": "^9.0.4",
     "wrangler": "^4.160.0"
   },
   "overrides": {
