@@ -2,17 +2,19 @@
   "name": "pineapplegallery",
   "type": "module",
   "scripts": {
+    "base:static": "npm run movedot && cpx \"public/**/*\" dist",
+    "base:esbuild": "esbuild --bundle src/index.jsx --format=esm --outfile=dist/_worker.js",
     "dev": "run-p dev:*",
-    "dev:esbuild": "esbuild --bundle src/index.jsx --format=esm --watch --outfile=dist/_worker.js",
-    "dev:static": "npm run movedot && cpx \"public/**/*\" dist --watch",
-    "dev:minify": "run-p minify:*",
+    "dev:esbuild": "npm run base:esbuild -- --watch",
+    "dev:static": "npm run base:static -- --watch",
+    "dev:minify": "npm run build:minify",
     "dev:wrangler": "wrangler dev --live-reload",
     "cibuild": "npm run generate-types && npm run build",
     "build": "npm run clean && run-p build:*",
     "clean": "rimraf dist",
-    "build:esbuild": "esbuild --bundle src/index.jsx --format=esm --outfile=dist/_worker.js",
-    "build:static": "npm run movedot && cpx \"public/**/*\" dist",
-    "build:minify": "run-p minify:*",
+    "build:esbuild": "npm run base:esbuild",
+    "build:static": "npm run base:static",
+    "build:minify": "npm run minify:js && npm run minify:css",
     "minify:js": "npx foreach -g \"./dist/static/js/**.js\" -x \"node-minify --compressor uglify-js --input #{path} --output #{path}\"",
     "minify:css": "npx foreach -g \"./dist/static/css/**.css\" -x \"node-minify --compressor cssnano --input #{path} --output #{path}\"",
     "movedot": "cpx \"public/.assetsignore\" dist",
@@ -35,7 +37,7 @@
     "@node-minify/cli": "^10.5.0",
     "@node-minify/cssnano": "^10.5.0",
     "@node-minify/uglify-js": "^10.5.0",
-    "@types/node": "^24.19.1",
+    "@types/node": "^24.19.2",
     "cpx2": "^9.0.3",
     "foreach-cli": "^1.8.1",
     "npm-run-all2": "^9.0.2",
@@ -43,7 +45,8 @@
   },
   "overrides": {
     "cpx2": {
-      "glob": "^11.1.0"
+      "glob": "^14.0.3",
+      "minimatch": "^11.0.3"
     },
     "@node-minify/cssnano": {
       "postcss": "^8.5.18"
